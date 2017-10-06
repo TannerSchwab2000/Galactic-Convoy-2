@@ -22,6 +22,7 @@ var health = 100;
 var currentPlanet = 0;
 var airFriction = 0.97; //0=Max
 var boostSpeed = 1.5;//1.5
+var boostDirection = 2;
 var warpFullSpeed = 8;
 var warpSpeed = 2;
 var healCost;
@@ -45,6 +46,7 @@ var oneOrTwo = 1;
 var shipPosA;
 var shipPosB;
 var planetNumber = 100;
+
 
 
 
@@ -404,6 +406,19 @@ function keyPressed(){
   }else if(keyCode==87){
     if(ship.warping==false){
       ship.boosting = true;
+      boostDirection = 2;
+      ship.boostForce = boostSpeed;
+    }
+  }else if(keyCode==69){
+    if(ship.warping==false){
+      ship.boosting = true;
+      boostDirection = 1;
+      ship.boostForce = boostSpeed;
+    }
+  }else if(keyCode==81){
+    if(ship.warping==false){
+      ship.boosting = true;
+      boostDirection = 3;
       ship.boostForce = boostSpeed;
     }
   }else if(keyCode==83){
@@ -422,7 +437,7 @@ function keyPressed(){
     }else if(document.getElementById("laser5").paused==true){
       document.getElementById("laser5").play();
     }
-  }else if(keyCode==81){
+  }else if(keyCode==77){
     marker.x = ship.pos.x;
     marker.y = ship.pos.y;
   }
@@ -441,6 +456,18 @@ function keyReleased(){
     ship.braking = false;
     turnSpeed = 0.1;
   }else if(keyCode==87){
+    ship.boosting = false;
+    ship.boostForce = 0;
+    document.getElementById("rocket").pause();
+    document.getElementById("rocket").currentTime = 0;
+
+  }else if(keyCode==81){
+    ship.boosting = false;
+    ship.boostForce = 0;
+    document.getElementById("rocket").pause();
+    document.getElementById("rocket").currentTime = 0;
+
+  }else if(keyCode==69){
     ship.boosting = false;
     ship.boostForce = 0;
     document.getElementById("rocket").pause();

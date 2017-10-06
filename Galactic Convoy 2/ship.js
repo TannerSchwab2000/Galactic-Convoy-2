@@ -16,6 +16,13 @@ function Ship(){
 			if(fuel > 0){
 				document.getElementById("rocket").play();
 				var force = p5.Vector.fromAngle(this.heading);
+				console.log(boostDirection);
+				if(boostDirection==1){
+					force.rotate(HALF_PI);
+				}else if(boostDirection==3){
+					force.rotate(PI);
+					force.rotate(HALF_PI);
+				}
      			force.mult(boostSpeed);
      			this.vel.add(force);
      			fuel-=0.03;
