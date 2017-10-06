@@ -497,19 +497,24 @@ function townScreen(){
   fill(100);
   rect(windowWidth/2-300,windowHeight/2-400,600,450);
   fill(125);
-  rect(windowWidth/2-125,windowHeight/2-370,250,40);//Repair Button
+  rect(windowWidth/2-125,windowHeight/2-390,250,40);//Repair Button
   fill(textShade);
   textSize(30);
-  text("Repair" ,windowWidth/2-50,windowHeight/2-340);
+  text("Repair" ,windowWidth/2-50,windowHeight/2-360);
   fill(125);
-  rect(windowWidth/2-125,windowHeight/2-320,250,40);//Refuel Button
+  rect(windowWidth/2-125,windowHeight/2-340,250,40);//Refuel Button
   fill(textShade);
   textSize(30);
-  text("Refuel" ,windowWidth/2-50,windowHeight/2-290);
+  text("Refuel" ,windowWidth/2-50,windowHeight/2-310);
   fill(125);
   textSize(35);
   fill(255);
   text("Coal x10" ,windowWidth/2-260,windowHeight/2-220);
+  fill(125);
+  rect(windowWidth/2-125,windowHeight/2-290,250,40);//Refuel Button
+  fill(textShade);
+  textSize(30);
+  text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
   
   textSize(30);
   text("Iron x10" ,windowWidth/2+60,windowHeight/2-220);
@@ -562,7 +567,7 @@ function mousePressed(){
   console.log(mouseX,mouseY);
   if(onPlanet == true && planets[currentPlanet].civilized == true){
     if(credits > 0){
-      if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-370,windowWidth/2+125,windowHeight/2-330)){//Repair Button
+      if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-390,windowWidth/2+125,windowHeight/2-350)){//Repair Button
           if(health<91){
             if(document.getElementById("button").paused==true){
               document.getElementById("button").play();  
@@ -574,7 +579,7 @@ function mousePressed(){
             credits--;
             health = health + 10;
           }
-      }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-320,windowWidth/2+125,windowHeight/2-280)){//Refuel Button
+      }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-340,windowWidth/2+125,windowHeight/2-300)){//Refuel Button
           if(fuel<81){
             if(document.getElementById("button").paused==true){
               document.getElementById("button").play();  

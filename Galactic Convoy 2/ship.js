@@ -14,11 +14,11 @@ function Ship(){
 
 		if(this.boosting == true){
 			if(fuel > 0){
-			document.getElementById("rocket").play();
-			var force = p5.Vector.fromAngle(this.heading);
-     		force.mult(boostSpeed);
-     		this.vel.add(force);
-     		fuel-=0.03;
+				document.getElementById("rocket").play();
+				var force = p5.Vector.fromAngle(this.heading);
+     			force.mult(boostSpeed);
+     			this.vel.add(force);
+     			fuel-=0.03;
      		}
 		}
 		if(this.braking == true){
@@ -56,7 +56,10 @@ function Ship(){
 		this.pos.add(this.vel);
 		this.vel.mult(airFriction);
 
-
+		if(onPlanet==true){
+			this.pos.x = constrain(this.pos.x,0,1400);
+			this.pos.y = constrain(this.pos.y,0,930);
+		}
 	}
 
 
@@ -132,7 +135,9 @@ function Ship(){
 		vertex(-40.0,-12.0);
 		vertex(-48.0,-12.0);
 		vertex(-48.0,30)
-		translate(this.pos.x,this.pos.y);
+		var cx = constrain(this.pos.x,0,1400)
+		var cy = constrain(this.pos.y,0,930)
+		translate(cx,cy);
 		rotate(this.heading+1.56);
 		endShape();
 		pop();
