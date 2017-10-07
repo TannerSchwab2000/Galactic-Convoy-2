@@ -23,10 +23,12 @@ var currentPlanet = 0;
 var airFriction = 0.97; //0=Max
 var boostSpeed = 1.5;//1.5
 var boostDirection = 2;
+var forwardBoosting = false;
 var warpFullSpeed = 8;
 var warpSpeed = 2;
 var healCost;
 var refuelCost;
+var menu = 1;
 var fuel = 100;
 var coal=0;
 var iron=0;
@@ -406,6 +408,7 @@ function keyPressed(){
   }else if(keyCode==87){
     if(ship.warping==false){
       ship.boosting = true;
+      forwardBoosting = true;
       boostDirection = 2;
       ship.boostForce = boostSpeed;
     }
@@ -423,7 +426,6 @@ function keyPressed(){
     }
   }else if(keyCode==83){
     ship.braking = true;
-    turnSpeed = 0.04;
   }else if(keyCode==186){
     missles.push(new Missle());
     if(document.getElementById("laser").paused==true){
@@ -454,24 +456,33 @@ function keyReleased(){
     ship.turnDirection = 0;
   }else if(keyCode==83){
     ship.braking = false;
-    turnSpeed = 0.1;
   }else if(keyCode==87){
     ship.boosting = false;
+    forwardBoosting = false;
     ship.boostForce = 0;
     document.getElementById("rocket").pause();
     document.getElementById("rocket").currentTime = 0;
 
   }else if(keyCode==81){
-    ship.boosting = false;
-    ship.boostForce = 0;
-    document.getElementById("rocket").pause();
-    document.getElementById("rocket").currentTime = 0;
+    if(forwardBoosting==false){
+      ship.boosting = false;
+      ship.boostForce = 0;
+      document.getElementById("rocket").pause();
+      document.getElementById("rocket").currentTime = 0;  
+    }else{
+      boostDirection = 2;
+    }
+    
 
   }else if(keyCode==69){
-    ship.boosting = false;
-    ship.boostForce = 0;
-    document.getElementById("rocket").pause();
-    document.getElementById("rocket").currentTime = 0;
+    if(forwardBoosting==false){
+      ship.boosting = false;
+      ship.boostForce = 0;
+      document.getElementById("rocket").pause();
+      document.getElementById("rocket").currentTime = 0;  
+    }else{
+      boostDirection = 2;
+    }
 
   }else if(keyCode==32){
     if(onPlanet == true){
@@ -516,68 +527,76 @@ function Explode(x,y){
 }
 
 function townScreen(){
-  healCost = 100-health;
-  healCost = round(healCost/10);
-  refuelCost = 100-fuel;
-  refuelCost = round(refuelCost/20);
-  refuelCost = refuelCost *planets[currentPlanet].fuelCost;
-  fill(100);
-  rect(windowWidth/2-300,windowHeight/2-400,600,450);
-  fill(125);
-  rect(windowWidth/2-125,windowHeight/2-390,250,40);//Repair Button
-  fill(textShade);
-  textSize(30);
-  text("Repair" ,windowWidth/2-50,windowHeight/2-360);
-  fill(125);
-  rect(windowWidth/2-125,windowHeight/2-340,250,40);//Refuel Button
-  fill(textShade);
-  textSize(30);
-  text("Refuel" ,windowWidth/2-50,windowHeight/2-310);
-  fill(125);
-  textSize(35);
-  fill(255);
-  text("Coal x10" ,windowWidth/2-260,windowHeight/2-220);
-  fill(125);
-  rect(windowWidth/2-125,windowHeight/2-290,250,40);//Refuel Button
-  fill(textShade);
-  textSize(30);
-  text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
+  if(menu==1){
+    healCost = 100-health;
+    healCost = round(healCost/10);
+    refuelCost = 100-fuel;
+    refuelCost = round(refuelCost/20);
+    refuelCost = refuelCost *planets[currentPlanet].fuelCost;
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(125);
+    rect(windowWidth/2-125,windowHeight/2-390,250,40);//Repair Button
+    fill(textShade);
+    textSize(30);
+    text("Repair" ,windowWidth/2-50,windowHeight/2-360);
+    fill(125);
+    rect(windowWidth/2-125,windowHeight/2-340,250,40);//Refuel Button
+    fill(textShade);
+    textSize(30);
+    text("Refuel" ,windowWidth/2-50,windowHeight/2-310);
+    fill(125);
+    textSize(35);
+    fill(255);
+    text("Coal x10" ,windowWidth/2-260,windowHeight/2-220);
+    fill(125);
+    rect(windowWidth/2-125,windowHeight/2-290,250,40);//Refuel Button
+    fill(textShade);
+    textSize(30);
+    text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
+    
+    textSize(30);
+    text("Iron x10" ,windowWidth/2+60,windowHeight/2-220);
+    text("Titanium x10" ,windowWidth/2-260,windowHeight/2-80);
+    fill(125);
+
+
+    var coalValue = round(5-planets[currentPlanet].coal/100);
+    planets[currentPlanet].coalValue = coalValue;
+    var ironValue = round(8-planets[currentPlanet].iron/75);
+    planets[currentPlanet].ironValue = ironValue;
+    var titaniumValue = round(10-planets[currentPlanet].titanium/50);
+    planets[currentPlanet].titaniumValue = titaniumValue;
+
+    rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy Coal
+    rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell Coal
+    rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy Iron
+    rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell Iron
+    rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy Titanium
+    rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell Titanium
+    fill(255);
+    textSize(11);
+    text(planets[currentPlanet].coal+" in stock",(windowWidth/2-260) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].iron+" in stock",(windowWidth/2+60) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].titanium+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
+
+    textSize(26);
+    fill(255);
+    text("buy - "+(coalValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
+    text("sell - "+coalValue, windowWidth/2-235,windowHeight/2-136);
+    text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
+    text("sell - "+ironValue, windowWidth/2+85,windowHeight/2-136);
+    text("buy - "+(titaniumValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
+    text("sell - "+titaniumValue, windowWidth/2-235,windowHeight/2+4);
+    fill(125);
+    textSize(30);  
+  }else{
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(80);
+    rect(windowWidth/2-265,windowHeight/2-390,530,380);
+  }
   
-  textSize(30);
-  text("Iron x10" ,windowWidth/2+60,windowHeight/2-220);
-  text("Titanium x10" ,windowWidth/2-260,windowHeight/2-80);
-  fill(125);
-
-
-  var coalValue = round(5-planets[currentPlanet].coal/100);
-  planets[currentPlanet].coalValue = coalValue;
-  var ironValue = round(8-planets[currentPlanet].iron/75);
-  planets[currentPlanet].ironValue = ironValue;
-  var titaniumValue = round(10-planets[currentPlanet].titanium/50);
-  planets[currentPlanet].titaniumValue = titaniumValue;
-
-  rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy Coal
-  rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell Coal
-  rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy Iron
-  rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell Iron
-  rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy Titanium
-  rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell Titanium
-  fill(255);
-  textSize(11);
-  text(planets[currentPlanet].coal+" in stock",(windowWidth/2-260) + 150,(windowHeight/2-220));
-  text(planets[currentPlanet].iron+" in stock",(windowWidth/2+60) + 150,(windowHeight/2-220));
-  text(planets[currentPlanet].titanium+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
-
-  textSize(26);
-  fill(255);
-  text("buy - "+(coalValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
-  text("sell - "+coalValue, windowWidth/2-235,windowHeight/2-136);
-  text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
-  text("sell - "+ironValue, windowWidth/2+85,windowHeight/2-136);
-  text("buy - "+(titaniumValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
-  text("sell - "+titaniumValue, windowWidth/2-235,windowHeight/2+4);
-  fill(125);
-  textSize(30);
 
 }
 
@@ -593,9 +612,41 @@ function mouseIsContainedIn(x1,y1,x2,y2){
 function mousePressed(){
   console.log(mouseX,mouseY);
   if(onPlanet == true && planets[currentPlanet].civilized == true){
-    if(credits > 0){
-      if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-390,windowWidth/2+125,windowHeight/2-350)){//Repair Button
-          if(health<91){
+    if(menu==1){
+      if(credits > 0){
+        if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-390,windowWidth/2+125,windowHeight/2-350)){//Repair Button
+            if(health<91){
+              if(document.getElementById("button").paused==true){
+                document.getElementById("button").play();  
+              }else if(document.getElementById("button2").paused==true){
+                document.getElementById("button2").play(); 
+              }else{
+                document.getElementById("button3").play(); 
+              }
+              credits--;
+              health = health + 10;
+            }
+        }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-340,windowWidth/2+125,windowHeight/2-300)){//Refuel Button
+            if(fuel<81){
+              if(document.getElementById("button").paused==true){
+                document.getElementById("button").play();  
+              }else if(document.getElementById("button2").paused==true){
+                document.getElementById("button2").play(); 
+              }else{
+                document.getElementById("button3").play(); 
+              }   
+              credits--;
+              fuel = fuel + 20;
+            }
+        }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-290,windowWidth/2+125,windowHeight/2-250)){//Refuel Button
+            menu = 2;
+        }
+
+
+      }
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-210,windowWidth/2-55,windowHeight/2-170)){//Buy Coal
+        if(credits>=planets[currentPlanet].coalValue + planets[currentPlanet].profitMargin){
+          if(planets[currentPlanet].coal>=10){
             if(document.getElementById("button").paused==true){
               document.getElementById("button").play();  
             }else if(document.getElementById("button2").paused==true){
@@ -603,26 +654,49 @@ function mousePressed(){
             }else{
               document.getElementById("button3").play(); 
             }
-            credits--;
-            health = health + 10;
+            credits -= (planets[currentPlanet].coalValue+planets[currentPlanet].profitMargin);
+            coal+=10;
+            planets[currentPlanet].coal-=10;  
           }
-      }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-340,windowWidth/2+125,windowHeight/2-300)){//Refuel Button
-          if(fuel<81){
+          
+        }
+      }
+
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-165,windowWidth/2-55,windowHeight/2-125)){//Sell Coal
+        if(coal>=10){
+          if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
+          credits+=planets[currentPlanet].coalValue;
+          coal-=10;
+          planets[currentPlanet].coal+=10;  
+        }
+      }
+     
+      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy Iron
+        if(credits>=planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin){
+          if(planets[currentPlanet].iron>=10){
             if(document.getElementById("button").paused==true){
               document.getElementById("button").play();  
             }else if(document.getElementById("button2").paused==true){
               document.getElementById("button2").play(); 
             }else{
               document.getElementById("button3").play(); 
-            }   
-            credits--;
-            fuel = fuel + 20;
+            }
+            credits -= (planets[currentPlanet].ironValue+planets[currentPlanet].profitMargin);
+            iron+=10;
+            planets[currentPlanet].iron-=10;  
           }
+          
+        }
       }
-    }
-    if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-210,windowWidth/2-55,windowHeight/2-170)){//Buy Coal
-      if(credits>=planets[currentPlanet].coalValue + planets[currentPlanet].profitMargin){
-        if(planets[currentPlanet].coal>=10){
+
+      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-165,windowWidth/2+260,windowHeight/2-125)){//Sell Iron
+        if(iron>=10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -630,32 +704,32 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-          credits -= (planets[currentPlanet].coalValue+planets[currentPlanet].profitMargin);
-          coal+=10;
-          planets[currentPlanet].coal-=10;  
+          credits+=planets[currentPlanet].ironValue;
+          iron-=10;
+          planets[currentPlanet].iron+=10;  
         }
-        
       }
-    }
 
-    if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-165,windowWidth/2-55,windowHeight/2-125)){//Sell Coal
-      if(coal>=10){
-        if(document.getElementById("button").paused==true){
-          document.getElementById("button").play();  
-        }else if(document.getElementById("button2").paused==true){
-          document.getElementById("button2").play(); 
-        }else{
-          document.getElementById("button3").play(); 
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy Titanium
+        if(credits>=planets[currentPlanet].titaniumValue + planets[currentPlanet].profitMargin){
+          if(planets[currentPlanet].titanium>=10){
+            if(document.getElementById("button").paused==true){
+              document.getElementById("button").play();  
+            }else if(document.getElementById("button2").paused==true){
+              document.getElementById("button2").play(); 
+            }else{
+              document.getElementById("button3").play(); 
+            }
+            credits -= (planets[currentPlanet].titaniumValue+planets[currentPlanet].profitMargin);
+            titanium+=10;
+            planets[currentPlanet].titanium-=10;  
+          }
+          
         }
-        credits+=planets[currentPlanet].coalValue;
-        coal-=10;
-        planets[currentPlanet].coal+=10;  
       }
-    }
-   
-    if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy Iron
-      if(credits>=planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin){
-        if(planets[currentPlanet].iron>=10){
+
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-25,windowWidth/2-55,windowHeight/2+15)){//Sell Titanium
+        if(titanium>=10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -663,63 +737,17 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-          credits -= (planets[currentPlanet].ironValue+planets[currentPlanet].profitMargin);
-          iron+=10;
-          planets[currentPlanet].iron-=10;  
+          credits+=planets[currentPlanet].titaniumValue;
+          titanium-=10;
+          planets[currentPlanet].titanium+=10;  
         }
-        
       }
+
+  
+    }else{
+      console.log("Menu 2");
     }
-
-    if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-165,windowWidth/2+260,windowHeight/2-125)){//Sell Iron
-      if(iron>=10){
-        if(document.getElementById("button").paused==true){
-          document.getElementById("button").play();  
-        }else if(document.getElementById("button2").paused==true){
-          document.getElementById("button2").play(); 
-        }else{
-          document.getElementById("button3").play(); 
-        }
-        credits+=planets[currentPlanet].ironValue;
-        iron-=10;
-        planets[currentPlanet].iron+=10;  
-      }
-    }
-
-    if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy Titanium
-      if(credits>=planets[currentPlanet].titaniumValue + planets[currentPlanet].profitMargin){
-        if(planets[currentPlanet].titanium>=10){
-          if(document.getElementById("button").paused==true){
-            document.getElementById("button").play();  
-          }else if(document.getElementById("button2").paused==true){
-            document.getElementById("button2").play(); 
-          }else{
-            document.getElementById("button3").play(); 
-          }
-          credits -= (planets[currentPlanet].titaniumValue+planets[currentPlanet].profitMargin);
-          titanium+=10;
-          planets[currentPlanet].titanium-=10;  
-        }
-        
-      }
-    }
-
-    if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-25,windowWidth/2-55,windowHeight/2+15)){//Sell Titanium
-      if(titanium>=10){
-        if(document.getElementById("button").paused==true){
-          document.getElementById("button").play();  
-        }else if(document.getElementById("button2").paused==true){
-          document.getElementById("button2").play(); 
-        }else{
-          document.getElementById("button3").play(); 
-        }
-        credits+=planets[currentPlanet].titaniumValue;
-        titanium-=10;
-        planets[currentPlanet].titanium+=10;  
-      }
-    }
-
-
+    
   }
 }
 
