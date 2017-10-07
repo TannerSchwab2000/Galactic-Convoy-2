@@ -55,7 +55,6 @@ function Planet(x,y,r,planetNumber){
 	this.coalValue;
 	this.ironValue;
 	this.titaniumValue;
-	this.menu = 1;
 	
 
 

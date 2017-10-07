@@ -595,6 +595,12 @@ function townScreen(){
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(80);
     rect(windowWidth/2-265,windowHeight/2-390,530,380);
+    fill(139,0,139);
+    ellipse(windowWidth/2,windowHeight/2-80,300,130);
+    fill(128,0,128);
+    ellipse(windowWidth/2,windowHeight/2-140,230,100);
+    fill(255,220,177);
+    ellipse(windowWidth/2,windowHeight/2-190,170,250);
   }
   
 
