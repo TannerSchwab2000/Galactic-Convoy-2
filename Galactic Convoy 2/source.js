@@ -594,13 +594,45 @@ function townScreen(){
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(80);
-    rect(windowWidth/2-265,windowHeight/2-390,530,380);
+    rect(windowWidth/2-265,windowHeight/2-390,530,330);
     fill(139,0,139);
-    ellipse(windowWidth/2,windowHeight/2-80,300,130);
+    ellipse(windowWidth/2,windowHeight/2-130,300,130);
     fill(128,0,128);
-    ellipse(windowWidth/2,windowHeight/2-140,230,100);
-    fill(255,220,177);
-    ellipse(windowWidth/2,windowHeight/2-190,170,250);
+    ellipse(windowWidth/2,windowHeight/2-190,230,100);
+    fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+    ellipse(windowWidth/2,windowHeight/2-240,170,250);
+    if(planets[currentPlanet].mayorEyes==1){
+      fill(255);
+      ellipse(windowWidth/2,windowHeight/2-270,20,10); 
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-270,10,5); 
+    }else{
+      fill(255);
+      ellipse(windowWidth/2-20,windowHeight/2-270,20,10);
+      ellipse(windowWidth/2+20,windowHeight/2-270,20,10);
+      fill(0);
+      ellipse(windowWidth/2-20,windowHeight/2-270,10,5);
+      ellipse(windowWidth/2+20,windowHeight/2-270,10,5);
+    }
+
+    if(planets[currentPlanet].mayorHair==1){
+      ellipse(windowWidth/2,windowHeight/2-350,120,90); 
+    }
+    fill(255,0,0);
+    ellipse(windowWidth/2,windowHeight/2-220,20,10); 
+    stroke(0);
+    line(windowWidth/2-10,windowHeight/2-220,windowWidth/2+10,windowHeight/2-220);
+    noFill();
+    arc(windowWidth/2,windowHeight/2-180, 50, 50, 0, PI);
+
+    noStroke();
+    fill(120);
+    rect(windowWidth/2-150,windowHeight/2-55,300,30);
+    rect(windowWidth/2-150,windowHeight/2-20,300,30);
+    rect(windowWidth/2-150,windowHeight/2+15,300,30);
+    stroke(0);
+    fill(0);
+    text("Goodbye",windowWidth/2-55,windowHeight/2+38);
   }
   
 
