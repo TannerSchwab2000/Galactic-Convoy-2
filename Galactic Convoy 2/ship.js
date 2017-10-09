@@ -47,12 +47,12 @@ function Ship(){
 			pieceDistance = abs(this.pos.x - pieces[i].pos.x)+abs(this.pos.y - pieces[i].pos.y);
 			if(pieceDistance<ship.r){
 
-				if(pieces[i].resourceType == "coal"){
-					coal++;
-				}else if(pieces[i].resourceType == "iron"){
+				if(pieces[i].resourceType == "iron"){
 					iron++;
-				}else if(pieces[i].resourceType == "titanium"){
-					titanium++;
+				}else if(pieces[i].resourceType == "uranium"){
+					uranium++;
+				}else if(pieces[i].resourceType == "gold"){
+					gold++;
 				}
 
 			pieces.splice(i,1);
@@ -274,9 +274,9 @@ function cargoShip(x,y,target,homeworld){
 	this.Xdistance = abs(ship.pos.x-this.pos.x);
 	this.Ydistance = abs(ship.pos.y-this.pos.y);
 	this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
-	this.coal = 0;
 	this.iron = 0;
-	this.titanium = 0;
+	this.uranium = 0;
+	this.gold = 0;
 	this.originalTarget = target;
 
 	this.update = function(){

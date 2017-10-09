@@ -48,21 +48,20 @@ function Planet(x,y,r,planetNumber){
 	this.civilized = false;
 	this.cargoShips = [];
 	this.fuelCost;
-	this.coalSpawn = false;
 	this.ironSpawn = false;
-	this.titaniumSpawn = false;
+	this.uraniumSpawn = false;
+	this.goldSpawn = false;
 	this.resources = [];
-	this.coal = round(random(0,500));
 	this.iron = round(random(0,500));
-	this.titanium = round(random(0,500));
+	this.uranium = round(random(0,500));
+	this.gold = round(random(0,500));
 	this.credits = round(random(10,1000));
 	this.profitMargin = round(random(1,4));
-	this.coalValue;
 	this.ironValue;
-	this.titaniumValue;
+	this.uraniumValue;
+	this.goldValue;
 	
-
-
+	
 
 	this.planetName = "planet";
 	rand = round(random(1,35));
@@ -138,6 +137,19 @@ function Planet(x,y,r,planetNumber){
 		this.planetName = "borga";
 	}
 
+
+	this.welcomePhrase = "";
+
+	rand = round(random(1,3));
+	if(rand==1){
+		this.welcomePhrase = "Hey, how's it goin'?";
+	}else if(rand==2){
+		this.welcomePhrase = "Hello";
+	}else if(rand==3){
+		this.welcomePhrase = "Welcome to " + this.planetName;
+	}
+
+
 	var yorn = round(random(1,2));
 	if (yorn==1){
 		this.craters = true;
@@ -154,34 +166,34 @@ function Planet(x,y,r,planetNumber){
 	if(this.civilized == false){
 		rand = round(random(1,2));
 		if(rand == 1){
-			this.coalSpawn = true;
-		}
-		rand = round(random(1,2));
-		if(rand == 1){
 			this.ironSpawn = true;
 		}
 		rand = round(random(1,2));
 		if(rand == 1){
-			this.titaniumSpawn = true;
+			this.uraniumSpawn = true;
+		}
+		rand = round(random(1,2));
+		if(rand == 1){
+			this.goldSpawn = true;
 		}
 
 
-		if(this.coalSpawn == true){
-			coalNumber = round(random(3,5));
-			for(var i=0;i<coalNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"coal"));
-			}
-		}
 		if(this.ironSpawn == true){
-			var ironNumber = round(random(2,4));
+			ironNumber = round(random(3,5));
 			for(var i=0;i<ironNumber;i++){
 				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"iron"));
 			}
 		}
-		if(this.titaniumSpawn == true){
-			var titaniumNumber = round(random(1,3));
-			for(var i=0;i<titaniumNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"titanium"));
+		if(this.uraniumSpawn == true){
+			var uraniumNumber = round(random(2,4));
+			for(var i=0;i<uraniumNumber;i++){
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"uranium"));
+			}
+		}
+		if(this.goldSpawn == true){
+			var goldNumber = round(random(1,3));
+			for(var i=0;i<goldNumber;i++){
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"gold"));
 			}
 		}
 
@@ -266,12 +278,12 @@ function Resource(x,y,type){
 		ellipse(x,y,100,100);
 		ellipse(x-20,y,80,80);
 		ellipse(x+30,y+10,90,90);
-		if(type=="coal"){
-			fill(0);
-		}else if(type=="iron"){
-			fill(135,32,32);
-		}else if(type=="titanium"){
-			fill(180);
+		if(type=="iron"){
+			fill(67,75,77);
+		}else if(type=="uranium"){
+			fill(0,255,0);
+		}else if(type=="gold"){
+			fill(255,215,0);
 		}
 
 		ellipse(x-10,y,9,9);

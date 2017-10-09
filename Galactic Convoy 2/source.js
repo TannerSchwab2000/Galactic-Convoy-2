@@ -30,9 +30,9 @@ var healCost;
 var refuelCost;
 var menu = 1;
 var fuel = 100;
-var coal=0;
 var iron=0;
-var titanium=0;
+var uranium=0;
+var gold=0;
 var pieces;
 var renderDistance = 80000;
 var cleanupCount = 0;
@@ -200,23 +200,23 @@ function draw(){
   rect(280,windowHeight-60,50,50);
   rect(335,windowHeight-60,50,50);
 
-    fill(0);
+    fill(67,75,77);
     ellipse(250,windowHeight-35,40,40);
     textSize(23);
     fill(255);
-    text(coal.toString(), 250,windowHeight-20);
+    text(iron.toString(), 250,windowHeight-20);
 
-    fill(135,32,32);
+    fill(0,255,0);
     ellipse(305,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(iron.toString(),305,windowHeight-20);
+    text(uranium.toString(),305,windowHeight-20);
 
-    fill(180);
+    fill(255,215,0);
     ellipse(360,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(titanium.toString(),360,windowHeight-20);
+    text(gold.toString(),360,windowHeight-20);
 
   
   var roundCredits = round(credits);
@@ -366,23 +366,23 @@ function draw(){
   rect(280,windowHeight-60,50,50);
   rect(335,windowHeight-60,50,50);
 
-    fill(0);
+    fill(67,75,77);
     ellipse(250,windowHeight-35,40,40);
     textSize(23);
     fill(255);
-    text(coal.toString(), 250,windowHeight-20);
+    text(iron.toString(), 250,windowHeight-20);
 
-    fill(135,32,32);
+    fill(0,255,0);
     ellipse(305,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(iron.toString(),305,windowHeight-20);
+    text(uranium.toString(),305,windowHeight-20);
 
-    fill(180);
+    fill(255,215,0);
     ellipse(360,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(titanium.toString(),360,windowHeight-20);
+    text(gold.toString(),360,windowHeight-20);
 
   if(planets[currentPlanet].civilized == true){
     townScreen();
@@ -507,7 +507,7 @@ function keyReleased(){
           ship.pos.y = windowHeight/2; 
           airFriction = 0.95;
           boostSpeed = 0.5;
-          console.log(planets[currentPlanet].coalSpawn);
+          console.log(planets[currentPlanet].ironSpawn);
           
         }
       }
@@ -548,7 +548,7 @@ function townScreen(){
     fill(125);
     textSize(35);
     fill(255);
-    text("Coal x10" ,windowWidth/2-260,windowHeight/2-220);
+    text("Iron x10" ,windowWidth/2-260,windowHeight/2-220);
     fill(125);
     rect(windowWidth/2-125,windowHeight/2-290,250,40);//Refuel Button
     fill(textShade);
@@ -556,38 +556,38 @@ function townScreen(){
     text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
     
     textSize(30);
-    text("Iron x10" ,windowWidth/2+60,windowHeight/2-220);
-    text("Titanium x10" ,windowWidth/2-260,windowHeight/2-80);
+    text("Uranium x10" ,windowWidth/2+60,windowHeight/2-220);
+    text("Gold x10" ,windowWidth/2-260,windowHeight/2-80);
     fill(125);
 
 
-    var coalValue = round(5-planets[currentPlanet].coal/100);
-    planets[currentPlanet].coalValue = coalValue;
-    var ironValue = round(8-planets[currentPlanet].iron/75);
+    var ironValue = round(5-planets[currentPlanet].iron/100);
     planets[currentPlanet].ironValue = ironValue;
-    var titaniumValue = round(10-planets[currentPlanet].titanium/50);
-    planets[currentPlanet].titaniumValue = titaniumValue;
+    var uraniumValue = round(8-planets[currentPlanet].uranium/75);
+    planets[currentPlanet].uraniumValue = uraniumValue;
+    var goldValue = round(10-planets[currentPlanet].gold/50);
+    planets[currentPlanet].goldValue = goldValue;
 
-    rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy Coal
-    rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell Coal
-    rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy Iron
-    rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell Iron
-    rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy Titanium
-    rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell Titanium
+    rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy iron
+    rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell iron
+    rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy uranium
+    rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell uranium
+    rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy gold
+    rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell gold
     fill(255);
     textSize(11);
-    text(planets[currentPlanet].coal+" in stock",(windowWidth/2-260) + 150,(windowHeight/2-220));
-    text(planets[currentPlanet].iron+" in stock",(windowWidth/2+60) + 150,(windowHeight/2-220));
-    text(planets[currentPlanet].titanium+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
+    text(planets[currentPlanet].iron+" in stock",(windowWidth/2-260) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].uranium+" in stock",(windowWidth/2+60) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].gold+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
 
     textSize(26);
     fill(255);
-    text("buy - "+(coalValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
-    text("sell - "+coalValue, windowWidth/2-235,windowHeight/2-136);
-    text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
-    text("sell - "+ironValue, windowWidth/2+85,windowHeight/2-136);
-    text("buy - "+(titaniumValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
-    text("sell - "+titaniumValue, windowWidth/2-235,windowHeight/2+4);
+    text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
+    text("sell - "+ironValue, windowWidth/2-235,windowHeight/2-136);
+    text("buy - "+(uraniumValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
+    text("sell - "+uraniumValue, windowWidth/2+85,windowHeight/2-136);
+    text("buy - "+(goldValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
+    text("sell - "+goldValue, windowWidth/2-235,windowHeight/2+4);
     fill(125);
     textSize(30);  
   }else{
@@ -601,6 +601,7 @@ function townScreen(){
     ellipse(windowWidth/2,windowHeight/2-190,230,100);
     fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
     ellipse(windowWidth/2,windowHeight/2-240,170,250);
+
     if(planets[currentPlanet].mayorEyes==1){
       fill(255);
       ellipse(windowWidth/2,windowHeight/2-270,20,10); 
@@ -632,7 +633,12 @@ function townScreen(){
     rect(windowWidth/2-150,windowHeight/2+15,300,30);
     stroke(0);
     fill(0);
+    text("Quests",windowWidth/2-55,windowHeight/2+3);
     text("Goodbye",windowWidth/2-55,windowHeight/2+38);
+
+    stroke(0);
+    fill(0);
+    text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
   }
   
 
@@ -676,46 +682,13 @@ function mousePressed(){
               credits--;
               fuel = fuel + 20;
             }
-        }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-290,windowWidth/2+125,windowHeight/2-250)){//Refuel Button
+        }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-290,windowWidth/2+125,windowHeight/2-250)){//Talk to Mayor Button
             menu = 2;
         }
 
 
       }
-      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-210,windowWidth/2-55,windowHeight/2-170)){//Buy Coal
-        if(credits>=planets[currentPlanet].coalValue + planets[currentPlanet].profitMargin){
-          if(planets[currentPlanet].coal>=10){
-            if(document.getElementById("button").paused==true){
-              document.getElementById("button").play();  
-            }else if(document.getElementById("button2").paused==true){
-              document.getElementById("button2").play(); 
-            }else{
-              document.getElementById("button3").play(); 
-            }
-            credits -= (planets[currentPlanet].coalValue+planets[currentPlanet].profitMargin);
-            coal+=10;
-            planets[currentPlanet].coal-=10;  
-          }
-          
-        }
-      }
-
-      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-165,windowWidth/2-55,windowHeight/2-125)){//Sell Coal
-        if(coal>=10){
-          if(document.getElementById("button").paused==true){
-            document.getElementById("button").play();  
-          }else if(document.getElementById("button2").paused==true){
-            document.getElementById("button2").play(); 
-          }else{
-            document.getElementById("button3").play(); 
-          }
-          credits+=planets[currentPlanet].coalValue;
-          coal-=10;
-          planets[currentPlanet].coal+=10;  
-        }
-      }
-     
-      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy Iron
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-210,windowWidth/2-55,windowHeight/2-170)){//Buy iron
         if(credits>=planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin){
           if(planets[currentPlanet].iron>=10){
             if(document.getElementById("button").paused==true){
@@ -733,7 +706,7 @@ function mousePressed(){
         }
       }
 
-      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-165,windowWidth/2+260,windowHeight/2-125)){//Sell Iron
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-165,windowWidth/2-55,windowHeight/2-125)){//Sell iron
         if(iron>=10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
@@ -747,10 +720,10 @@ function mousePressed(){
           planets[currentPlanet].iron+=10;  
         }
       }
-
-      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy Titanium
-        if(credits>=planets[currentPlanet].titaniumValue + planets[currentPlanet].profitMargin){
-          if(planets[currentPlanet].titanium>=10){
+     
+      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy uranium
+        if(credits>=planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin){
+          if(planets[currentPlanet].uranium>=10){
             if(document.getElementById("button").paused==true){
               document.getElementById("button").play();  
             }else if(document.getElementById("button2").paused==true){
@@ -758,16 +731,16 @@ function mousePressed(){
             }else{
               document.getElementById("button3").play(); 
             }
-            credits -= (planets[currentPlanet].titaniumValue+planets[currentPlanet].profitMargin);
-            titanium+=10;
-            planets[currentPlanet].titanium-=10;  
+            credits -= (planets[currentPlanet].uraniumValue+planets[currentPlanet].profitMargin);
+            uranium+=10;
+            planets[currentPlanet].uranium-=10;  
           }
           
         }
       }
 
-      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-25,windowWidth/2-55,windowHeight/2+15)){//Sell Titanium
-        if(titanium>=10){
+      if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-165,windowWidth/2+260,windowHeight/2-125)){//Sell uranium
+        if(uranium>=10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -775,15 +748,50 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-          credits+=planets[currentPlanet].titaniumValue;
-          titanium-=10;
-          planets[currentPlanet].titanium+=10;  
+          credits+=planets[currentPlanet].uraniumValue;
+          uranium-=10;
+          planets[currentPlanet].uranium+=10;  
+        }
+      }
+
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy gold
+        if(credits>=planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin){
+          if(planets[currentPlanet].gold>=10){
+            if(document.getElementById("button").paused==true){
+              document.getElementById("button").play();  
+            }else if(document.getElementById("button2").paused==true){
+              document.getElementById("button2").play(); 
+            }else{
+              document.getElementById("button3").play(); 
+            }
+            credits -= (planets[currentPlanet].goldValue+planets[currentPlanet].profitMargin);
+            gold+=10;
+            planets[currentPlanet].gold-=10;  
+          }
+          
+        }
+      }
+
+      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-25,windowWidth/2-55,windowHeight/2+15)){//Sell gold
+        if(gold>=10){
+          if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
+          credits+=planets[currentPlanet].goldValue;
+          gold-=10;
+          planets[currentPlanet].gold+=10;  
         }
       }
 
   
     }else{
-      console.log("Menu 2");
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+300,windowHeight/2+45)){//Goodbye Button
+        menu=1;
+      }
     }
     
   }
@@ -804,12 +812,12 @@ function Piece (x,y,type){
   }
 
   this.render = function(){
-    if(type=="coal"){
-      fill(0);
-    }else if(type=="iron"){
-      fill(135,32,32);
-    }else if(type=="titanium"){
-      fill(180);
+    if(type=="iron"){
+      fill(67,75,77);
+    }else if(type=="uranium"){
+      fill(0,255,0);
+    }else if(type=="gold"){
+      fill(255,215,0);
     }
     ellipse(this.pos.x,this.pos.y,15,15)
   }
