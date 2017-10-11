@@ -619,6 +619,13 @@ function townScreen(){
     if(planets[currentPlanet].mayorHair==1){
       ellipse(windowWidth/2,windowHeight/2-350,120,90); 
     }
+
+    if(planets[currentPlanet].mayorNose==1){
+      fill(planets[currentPlanet].mayorColorR-20,planets[currentPlanet].mayorColorG-20,planets[currentPlanet].mayorColorB-20);
+      ellipse(windowWidth/2,windowHeight/2-240,20,10); 
+      ellipse(windowWidth/2,windowHeight/2-250,10,20); 
+    }
+
     fill(255,0,0);
     ellipse(windowWidth/2,windowHeight/2-220,20,10); 
     stroke(0);
@@ -633,6 +640,7 @@ function townScreen(){
     rect(windowWidth/2-150,windowHeight/2+15,300,30);
     stroke(0);
     fill(0);
+    text("Dock",windowWidth/2-55,windowHeight/2-32);
     text("Quests",windowWidth/2-55,windowHeight/2+3);
     text("Goodbye",windowWidth/2-55,windowHeight/2+38);
 
@@ -789,8 +797,13 @@ function mousePressed(){
 
   
     }else{
-      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+300,windowHeight/2+45)){//Goodbye Button
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)){//Goodbye Button
         menu=1;
+      }
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
+        console.log("clicked");
+        ship.pos = createVector(windowWidth/2,windowHeight/2+220);
+        ship.vel = createVector(0,0);
       }
     }
     
