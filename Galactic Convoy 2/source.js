@@ -34,7 +34,7 @@ var iron=0;
 var uranium=0;
 var gold=0;
 var pieces;
-var renderDistance = 80000;
+var renderDistance = 70000;
 var cleanupCount = 0;
 var cleanupFrequency = 100;
 var marker;
@@ -411,18 +411,27 @@ function keyPressed(){
       forwardBoosting = true;
       boostDirection = 2;
       ship.boostForce = boostSpeed;
+      if(menu==3){
+        menu=2;
+      }
     }
   }else if(keyCode==69){
     if(ship.warping==false){
       ship.boosting = true;
       boostDirection = 1;
       ship.boostForce = boostSpeed;
+      if(menu==3){
+        menu=2;
+      }
     }
   }else if(keyCode==81){
     if(ship.warping==false){
       ship.boosting = true;
       boostDirection = 3;
       ship.boostForce = boostSpeed;
+      if(menu==3){
+        menu=2;
+      }
     }
   }else if(keyCode==83){
     ship.braking = true;
@@ -486,6 +495,7 @@ function keyReleased(){
 
   }else if(keyCode==32){
     if(onPlanet == true){
+      menu=1;
       onPlanet = false;
       textShade = 255;
       ship.pos.x = Xcoord;
@@ -590,7 +600,7 @@ function townScreen(){
     text("sell - "+goldValue, windowWidth/2-235,windowHeight/2+4);
     fill(125);
     textSize(30);  
-  }else{
+  }else if(menu==2){
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(80);
@@ -647,6 +657,28 @@ function townScreen(){
     stroke(0);
     fill(0);
     text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+  }else if(menu==3){
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(90);
+    rect(windowWidth/2-40,windowHeight/2-375,80,80);
+    rect(windowWidth/2-40,windowHeight/2-60,80,80);
+    stroke(0);
+    fill(0);
+    text("Laser",windowWidth/2-40,windowHeight/2-275);
+    text("Engine",windowWidth/2-40,windowHeight/2+40);
+
+    if(ship.laser==1){
+      fill(130);
+      noStroke();
+      rect(windowWidth/2-15,windowHeight/2-365,30,10);
+      fill(100,100,255);
+      rect(windowWidth/2-10,windowHeight/2-355,20,45);
+      fill(190,190,255);
+      rect(windowWidth/2-5,windowHeight/2-355,10,45);
+      fill(130);
+      rect(windowWidth/2-15,windowHeight/2-310,30,10);
+    }
   }
   
 
@@ -797,13 +829,14 @@ function mousePressed(){
 
   
     }else{
-      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)){//Goodbye Button
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)&&menu==2){//Goodbye Button
         menu=1;
       }
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
         console.log("clicked");
-        ship.pos = createVector(windowWidth/2,windowHeight/2+220);
+        ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
+        menu=3;
       }
     }
     

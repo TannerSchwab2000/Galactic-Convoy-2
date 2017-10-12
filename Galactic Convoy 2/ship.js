@@ -8,6 +8,7 @@ function Ship(){
 	this.heading = 0;
 	this.warping = false;
 	this.braking = false;
+	this.laser = 1;
 
 
 	this.update = function(){
