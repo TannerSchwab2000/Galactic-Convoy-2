@@ -334,6 +334,10 @@ function draw(){
     textShade = 255;
   }
 
+  if(planets[currentPlanet].civilized == true){
+    townScreen();
+  }
+
   for(var i=0;i<missles.length;i++){
     missles[i].render();
     missles[i].update();
@@ -384,9 +388,7 @@ function draw(){
     fill(255);
     text(gold.toString(),360,windowHeight-20);
 
-  if(planets[currentPlanet].civilized == true){
-    townScreen();
-  }
+  
 
   if(dead == false){
   ship.update();
@@ -865,7 +867,7 @@ function Piece (x,y,type){
     }else if(type=="gold"){
       fill(255,215,0);
     }
-    ellipse(this.pos.x,this.pos.y,15,15)
+    ellipse(this.pos.x,this.pos.y,15,15);
   }
 } 
 

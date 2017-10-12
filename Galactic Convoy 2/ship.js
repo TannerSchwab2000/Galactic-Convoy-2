@@ -256,6 +256,7 @@ function Missle(){
 			this.Ydistance = abs(ship.pos.y-this.pos.y);
 		}
 		fill(255);
+		noStroke();
 		push();
 		if(onPlanet == false){
 			translate(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance);
