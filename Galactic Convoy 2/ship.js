@@ -9,6 +9,7 @@ function Ship(){
 	this.warping = false;
 	this.braking = false;
 	this.laser = 1;
+	this.engine = 1;
 
 
 	this.update = function(){

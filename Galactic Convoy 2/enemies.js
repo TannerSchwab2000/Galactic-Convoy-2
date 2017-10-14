@@ -1,4 +1,4 @@
-function Enemy(x,y){
+function Enemy(x,y,n){
 	this.pos = createVector(x,y);
 	this.vel = createVector();
 	this.heading;
@@ -40,6 +40,7 @@ function Enemy(x,y){
 				enemyMissles.push(new enemyMissle(this.pos.x,this.pos.y,this.heading));
 			}
 		}
+
 	}
 
 	this.render = function(){

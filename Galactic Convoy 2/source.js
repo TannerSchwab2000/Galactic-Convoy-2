@@ -681,6 +681,41 @@ function townScreen(){
       fill(130);
       rect(windowWidth/2-15,windowHeight/2-310,30,10);
     }
+    if(ship.engine==1){
+      push();
+      beginShape();
+      fill(110);
+      noStroke();
+      vertex(-20,0);
+      vertex(20,0);
+      vertex(20,-20);
+      vertex(25,-30);
+      vertex(15,-40);
+      vertex(0,-30);
+      vertex(-15,-40);
+      vertex(-25,-30);
+      vertex(-20,-20);
+      translate(windowWidth/2+4,windowHeight/2);
+      endShape();
+      pop();
+      push();
+      beginShape();
+      fill(120);
+      noStroke();
+      vertex(-20,0);
+      vertex(20,0);
+      vertex(20,-20);
+      vertex(25,-30);
+      vertex(15,-40);
+      vertex(0,-30);
+      vertex(-15,-40);
+      vertex(-25,-30);
+      vertex(-20,-20);
+      translate(windowWidth/2,windowHeight/2);
+      endShape();
+      pop();
+    }
+  
   }
   
 
