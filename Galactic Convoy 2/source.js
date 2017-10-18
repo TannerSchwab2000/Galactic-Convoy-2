@@ -650,8 +650,9 @@ function townScreen(){
     rect(windowWidth/2-150,windowHeight/2-55,300,30);
     rect(windowWidth/2-150,windowHeight/2-20,300,30);
     rect(windowWidth/2-150,windowHeight/2+15,300,30);
-    stroke(0);
-    fill(0);
+    noStroke();
+    fill(255);
+    strokeWeight(1);
     text("Dock",windowWidth/2-55,windowHeight/2-32);
     text("Quests",windowWidth/2-55,windowHeight/2+3);
     text("Goodbye",windowWidth/2-55,windowHeight/2+38);
@@ -659,27 +660,33 @@ function townScreen(){
     stroke(0);
     fill(0);
     text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+    noStroke();
   }else if(menu==3){
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(90);
+    rect(windowWidth/2-140,windowHeight/2-375,80,80);
     rect(windowWidth/2-40,windowHeight/2-375,80,80);
-    rect(windowWidth/2-40,windowHeight/2-60,80,80);
-    stroke(0);
-    fill(0);
-    text("Laser",windowWidth/2-40,windowHeight/2-275);
-    text("Engine",windowWidth/2-40,windowHeight/2+40);
+    rect(windowWidth/2+60,windowHeight/2-375,80,80);
+    fill(125);
+    rect(windowWidth/2-80,windowHeight/2-30,160,50);
+    noStroke();
+    fill(255);
+    text("Laser",windowWidth/2-130,windowHeight/2-275);
+    text("Engine",windowWidth/2-38,windowHeight/2-275);
+    text("Shield",windowWidth/2+67,windowHeight/2-275);
+    text("Back",windowWidth/2-30,windowHeight/2);
 
     if(ship.laser==1){
       fill(130);
       noStroke();
-      rect(windowWidth/2-15,windowHeight/2-365,30,10);
+      rect(windowWidth/2-115,windowHeight/2-365,30,10);
       fill(100,100,255);
-      rect(windowWidth/2-10,windowHeight/2-355,20,45);
+      rect(windowWidth/2-110,windowHeight/2-355,20,45);
       fill(190,190,255);
-      rect(windowWidth/2-5,windowHeight/2-355,10,45);
+      rect(windowWidth/2-105,windowHeight/2-355,10,45);
       fill(130);
-      rect(windowWidth/2-15,windowHeight/2-310,30,10);
+      rect(windowWidth/2-115,windowHeight/2-310,30,10);
     }
     if(ship.engine==1){
       push();
@@ -695,7 +702,7 @@ function townScreen(){
       vertex(-15,-40);
       vertex(-25,-30);
       vertex(-20,-20);
-      translate(windowWidth/2+4,windowHeight/2);
+      translate(windowWidth/2+4,windowHeight/2-315);
       endShape();
       pop();
       push();
@@ -711,11 +718,11 @@ function townScreen(){
       vertex(-15,-40);
       vertex(-25,-30);
       vertex(-20,-20);
-      translate(windowWidth/2,windowHeight/2);
+      translate(windowWidth/2,windowHeight/2-315);
       endShape();
       pop();
     }
-  
+  noStroke();
   }
   
 
@@ -865,8 +872,8 @@ function mousePressed(){
       }
 
   
-    }else{
-      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)&&menu==2){//Goodbye Button
+    }else if(menu==2){
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)){//Goodbye Button
         menu=1;
       }
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
@@ -875,8 +882,11 @@ function mousePressed(){
         ship.vel = createVector(0,0);
         menu=3;
       }
+    }else if(menu==3){
+      if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
+        menu=2;
+      }
     }
-    
   }
 }
 
