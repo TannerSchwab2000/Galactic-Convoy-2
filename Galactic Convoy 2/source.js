@@ -630,7 +630,21 @@ function townScreen(){
 
     if(planets[currentPlanet].mayorHair==1){
       ellipse(windowWidth/2,windowHeight/2-350,120,90); 
+    }else if(planets[currentPlanet].mayorHair==2){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      ellipse(windowWidth/2-67,windowHeight/2-280,40,100); 
+      ellipse(windowWidth/2+67,windowHeight/2-280,40,100); 
+    }else if(planets[currentPlanet].mayorHair==3){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+      ellipse(windowWidth/2,windowHeight/2-345,80,30); 
     }
+
+    if(planets[currentPlanet].mayorFacialHair==1){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+    }
+
 
     if(planets[currentPlanet].mayorNose==1){
       fill(planets[currentPlanet].mayorColorR-20,planets[currentPlanet].mayorColorG-20,planets[currentPlanet].mayorColorB-20);
