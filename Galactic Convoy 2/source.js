@@ -684,12 +684,14 @@ function townScreen(){
     rect(windowWidth/2+60,windowHeight/2-375,80,80);
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
+    rect(windowWidth/2-80,windowHeight/2-90,160,50);
     noStroke();
     fill(255);
     text("Laser",windowWidth/2-130,windowHeight/2-275);
     text("Engine",windowWidth/2-38,windowHeight/2-275);
     text("Shield",windowWidth/2+67,windowHeight/2-275);
     text("Back",windowWidth/2-30,windowHeight/2);
+    text("Buy Parts",windowWidth/2-47,windowHeight/2-55);
 
     if(ship.laser==1){
       fill(130);
@@ -737,6 +739,15 @@ function townScreen(){
       pop();
     }
   noStroke();
+  }else if(menu==4){
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(110);
+    rect(windowWidth/2-125,windowHeight/2-390,250,320);
+    fill(125);
+    rect(windowWidth/2-80,windowHeight/2-30,160,50);
+    fill(255);
+    text("Back",windowWidth/2-30,windowHeight/2);
   }
   
 
@@ -899,6 +910,15 @@ function mousePressed(){
     }else if(menu==3){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=2;
+      }
+      if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-90,windowWidth/2+80,windowHeight/2-30)){//Buy Parts Button
+        menu=4;
+        ship.pos = createVector(windowWidth/2-200,windowHeight/2-190);
+      }
+    }else if(menu==4){
+      if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
+        menu=3;
+        ship.pos = createVector(windowWidth/2,windowHeight/2-190);
       }
     }
   }
