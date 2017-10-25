@@ -744,6 +744,22 @@ function townScreen(){
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(110);
     rect(windowWidth/2-125,windowHeight/2-390,250,320);
+    for(var a=0;a<planets[currentPlanet].parts.length;a++){
+      if(planets[currentPlanet].parts[a].t==1){
+        fill(120);
+        rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
+        fill(115);
+        rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        stroke(0,255,0);
+        strokeWeight(5);
+        noFill();
+        ellipse(windowWidth/2-85,windowHeight/2-355+60*a,35,35);
+        strokeWeight(1);
+        noStroke();  
+        fill(255);
+        text("Shield",windowWidth/2-50,windowHeight/2-348+60*a);
+      }   
+    }
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
     fill(255);
@@ -919,6 +935,7 @@ function mousePressed(){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=3;
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
+        ship.vel = createVector(0,0);
       }
     }
   }

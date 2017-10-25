@@ -62,8 +62,12 @@ function Planet(x,y,r,planetNumber){
 	this.ironValue;
 	this.uraniumValue;
 	this.goldValue;
+	this.parts = [];
 	
-	
+	rand = round(random(1,5));
+	for(var a=0;a<rand;a++){
+		this.parts.push(new Part());
+	}
 
 	this.planetName = "planet";
 	rand = round(random(1,35));
@@ -267,6 +271,11 @@ function Planet(x,y,r,planetNumber){
 		
 
 	}
+
+}
+
+function Part(){
+	this.t = round(random(1,1));
 
 }
 
