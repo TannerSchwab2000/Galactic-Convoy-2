@@ -750,6 +750,8 @@ function townScreen(){
         rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
         fill(115);
         rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        fill(135);
+        rect(windowWidth/2+50,windowHeight/2-370+60*a,50,30);
         stroke(0,255,0);
         strokeWeight(5);
         noFill();
@@ -757,13 +759,18 @@ function townScreen(){
         strokeWeight(1);
         noStroke();  
         fill(255);
-        text("Shield",windowWidth/2-50,windowHeight/2-348+60*a);
+        textSize(18);
+        text("Shield - 20",windowWidth/2-50,windowHeight/2-348+60*a);
+        textSize(16);
+        text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
+        textSize(23);
       }   
     }
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
     fill(255);
     text("Back",windowWidth/2-30,windowHeight/2);
+    text("Credits:"+credits,windowWidth/2-50,windowHeight/2-45);
   }
   
 
