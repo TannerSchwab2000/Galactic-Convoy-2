@@ -187,19 +187,19 @@ function Planet(x,y,r,planetNumber){
 		if(this.ironSpawn == true){
 			ironNumber = round(random(3,5));
 			for(var i=0;i<ironNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"iron"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"iron"));
 			}
 		}
 		if(this.uraniumSpawn == true){
 			var uraniumNumber = round(random(2,4));
 			for(var i=0;i<uraniumNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"uranium"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"uranium"));
 			}
 		}
 		if(this.goldSpawn == true){
 			var goldNumber = round(random(1,3));
 			for(var i=0;i<goldNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-100,windowHeight),"gold"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"gold"));
 			}
 		}
 
@@ -275,7 +275,7 @@ function Planet(x,y,r,planetNumber){
 }
 
 function Part(){
-	this.t = round(random(1,1));
+	this.t = round(random(1,2));
 
 }
 

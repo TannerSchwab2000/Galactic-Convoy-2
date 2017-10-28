@@ -113,6 +113,7 @@ function enemyMissle(x,y,h){
 				if(health>0){
 					health-=10;
 					this.pos = createVector(9999999,9999999);
+					document.getElementById("hit").play();
 				}else{
 					Explode(windowWidth/2,windowHeight/2);
 					dead = true;

@@ -256,8 +256,8 @@ function writeText(message,x,y,color){
       vertex(0,0);
       vertex(0,20);
       vertex(0,0);
-      vertex(12,0);
-      vertex(12,12);
+      vertex(14,0);
+      vertex(14,12);
       vertex(0,12);
       vertex(12,12);
       vertex(18,20);

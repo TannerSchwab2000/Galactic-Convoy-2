@@ -771,7 +771,38 @@ function townScreen(){
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
-      }   
+      }  
+      if(planets[currentPlanet].parts[a].t==2){
+        fill(120);
+        rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
+        fill(115);
+        rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        fill(135);
+        rect(windowWidth/2+50,windowHeight/2-370+60*a,50,30);
+        push();
+        beginShape();
+        fill(140);
+        noStroke();
+        vertex(-14,0);
+        vertex(14,0);
+        vertex(14,-14);
+        vertex(19,-24);
+        vertex(9,-34);
+        vertex(0,-24);
+        vertex(-9,-34);
+        vertex(-19,-24);
+        vertex(-14,-14);
+        translate(windowWidth/2-85,windowHeight/2-337+60*a);
+        endShape();
+        pop();
+        noStroke();  
+        fill(255);
+        textSize(14);
+        text("V8 Engine - 30",windowWidth/2-50,windowHeight/2-348+60*a);
+        textSize(16);
+        text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
+        textSize(23);
+      }  
     }
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
@@ -962,8 +993,7 @@ function mousePressed(){
             }
           }
         }  
-      }
-      
+      } 
     }
   }
 }
