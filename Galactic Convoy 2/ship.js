@@ -3,7 +3,8 @@ function Ship(){
 	this.vel = createVector(0,0);
 	this.boosting = false;
 	this.boostForce = 0;
-	this.shield = false;
+	this.shield = 0;
+	this.shieldMax = 0;
 	this.r = 60
 	this.heading = 0;
 	this.warping = false;
@@ -13,6 +14,10 @@ function Ship(){
 
 
 	this.update = function(){
+
+		if(this.shield<this.shieldMax){
+			this.shield+=0.25;
+		}
 
 		if(this.boosting == true){
 			if(fuel > 0){
@@ -75,8 +80,8 @@ function Ship(){
 
 	this.render = function(){
 		push();
-		fill(255);
-		stroke(255);
+		fill(255-ship.shield,255,255-ship.shield);
+		stroke(255-ship.shield,255,255-ship.shield);
 		beginShape();
 		vertex(48.0,30);
 		vertex(48.0,-12.0);
@@ -125,8 +130,8 @@ function Ship(){
 
 	this.planetRender = function(){
 		push();
-		fill(255);
-		stroke(255);
+		fill(255-ship.shield,255,255-ship.shield);
+		stroke(255-ship.shield,255,255-ship.shield);
 		beginShape();
 		vertex(48.0,30);
 		vertex(48.0,-12.0);

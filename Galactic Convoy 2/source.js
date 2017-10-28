@@ -693,6 +693,13 @@ function townScreen(){
     text("Back",windowWidth/2-30,windowHeight/2);
     text("Buy Parts",windowWidth/2-47,windowHeight/2-55);
 
+    if(ship.shieldMax==255){
+      stroke(0,255,0);
+      strokeWeight(7);
+      noFill();
+      ellipse(windowWidth/2+100,windowHeight/2-335,60,60);
+      strokeWeight(1);
+    }
     if(ship.laser==1){
       fill(130);
       noStroke();
@@ -944,6 +951,19 @@ function mousePressed(){
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
       }
+      for(var a=0;a<planets[currentPlanet].parts.length;a++){
+        if(mouseIsContainedIn(windowWidth/2+50,windowHeight/2-370+60*a,windowWidth/2+100,windowHeight/2-340+60*a)){//Buy Button
+          if(planets[currentPlanet].parts[a].t==1){
+            if(credits>=20){
+              credits-=20;
+              planets[currentPlanet].parts.splice(a,1);
+              ship.shieldMax=255;
+              ship.shield=255;
+            }
+          }
+        }  
+      }
+      
     }
   }
 }

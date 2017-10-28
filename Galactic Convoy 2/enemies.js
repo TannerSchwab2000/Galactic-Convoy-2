@@ -99,15 +99,28 @@ function enemyMissle(x,y,h){
 		var fullDistance = abs(this.Ydistance) + abs(this.Xdistance);
 
 		if(fullDistance <ship.r){
-			if(health>0){
-				health-=5;
+			if(ship.shield>0){
+				ship.shield -= 40;
 				this.pos = createVector(9999999,9999999);
+				if(document.getElementById("shield2").paused==true){
+			      document.getElementById("shield2").play();
+			    }else if(document.getElementById("shield2A").paused==true){
+			      document.getElementById("shield2A").play();
+			    }else if(document.getElementById("shield2B").paused==true){
+			      document.getElementById("shield2B").play();
+			    }
 			}else{
-			Explode(windowWidth/2,windowHeight/2);
-			dead = true;
-			ship.r=0;
-			ship.vel = createVector(0,0);
+				if(health>0){
+					health-=10;
+					this.pos = createVector(9999999,9999999);
+				}else{
+					Explode(windowWidth/2,windowHeight/2);
+					dead = true;
+					ship.r=0;
+					ship.vel = createVector(0,0);
+				}
 			}
+			
 		}
 
 		for(var i=0;i<friendlies.length;i++){
