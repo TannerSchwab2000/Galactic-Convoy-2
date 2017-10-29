@@ -63,6 +63,8 @@ function Planet(x,y,r,planetNumber){
 	this.uraniumValue;
 	this.goldValue;
 	this.parts = [];
+	this.trees = round(random(-1,2));
+	this.lake = round(random(0,1));
 	
 	rand = round(random(1,5));
 	for(var a=0;a<rand;a++){
@@ -156,12 +158,7 @@ function Planet(x,y,r,planetNumber){
 	}
 
 
-	var yorn = round(random(1,2));
-	if (yorn==1){
-		this.craters = true;
-	}else{
-		this.craters = false;
-	}
+
 	var yorn = round(random(1,2));
 	if (yorn==1){
 		this.civilized = true;
@@ -187,19 +184,19 @@ function Planet(x,y,r,planetNumber){
 		if(this.ironSpawn == true){
 			ironNumber = round(random(3,5));
 			for(var i=0;i<ironNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"iron"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"iron"));
 			}
 		}
 		if(this.uraniumSpawn == true){
 			var uraniumNumber = round(random(2,4));
 			for(var i=0;i<uraniumNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"uranium"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"uranium"));
 			}
 		}
 		if(this.goldSpawn == true){
 			var goldNumber = round(random(1,3));
 			for(var i=0;i<goldNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight),"gold"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"gold"));
 			}
 		}
 

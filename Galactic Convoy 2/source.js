@@ -24,8 +24,6 @@ var airFriction = 0.97; //0=Max
 var boostSpeed = 1.5;//1.5
 var boostDirection = 2;
 var forwardBoosting = false;
-var warpFullSpeed = 8;
-var warpSpeed = 2;
 var healCost;
 var refuelCost;
 var menu = 1;
@@ -136,19 +134,8 @@ function draw(){
     }
 
 
-    if (trails == false){
-      background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
-    }else{
-      if(trailCount<trailTime){
-        trailCount++; 
-        warpSpeed = 0.5 +((warpFullSpeed/(trailTime+550)) *trailCount);
-      }
-      else{
-        warpCountDown = 0;
-        trails = false;
-        warpSpeed = warpFullSpeed;
-      }
-    }
+
+    background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
 
     for(var i=0;i<backgroundStars.length;i++){
       backgroundStars[i].update();
@@ -239,8 +226,8 @@ function draw(){
     fill(255,255,0);
     rect(10,windowHeight-30,fuel*2,20);
     if(dead == false){
-    ship.update();
-    ship.render();
+      ship.update();
+      ship.render();
     }
   }else{
   background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
@@ -253,15 +240,80 @@ function draw(){
 
 
 
-  if(planets[currentPlanet].craters == true){
-      fill(backgroundColor[0]-100,backgroundColor[1]-100,backgroundColor[2]-100)
-      ellipse(100,windowHeight-80,50,20);
-      ellipse(300,windowHeight-40,75,30);
-      ellipse(600,windowHeight-50,70,30);
-      ellipse(800,windowHeight-70,70,32);
-      ellipse(1100,windowHeight-60,60,22);
-      ellipse(1500,windowHeight-60,65,32);
+
+
+  if(planets[currentPlanet].trees == 1){
+    
+    fill(130,60,10);
+    rect(windowWidth/2-50,windowHeight-300,30,200);
+    fill(backgroundColor[0]+50,backgroundColor[1]+50,backgroundColor[2]+50)
+    ellipse(windowWidth/2,windowHeight-300,130,120);
+    ellipse(windowWidth/2-60,windowHeight-280,80,70);
+    ellipse(windowWidth/2-30,windowHeight-320,95,110);
+    fill(120,50,0);
+    rect(windowWidth/2-50+550,windowHeight-300,30,200);
+    fill(backgroundColor[0]+40,backgroundColor[1]+40,backgroundColor[2]+40)
+    ellipse(windowWidth/2-60+550,windowHeight-260,130,120);
+    ellipse(windowWidth/2+550,windowHeight-240,100,90);
+    ellipse(windowWidth/2-30+550,windowHeight-280,95,110);
+    fill(130,60,10);
+    rect(windowWidth/2-50-550,windowHeight-300,30,200);
+    fill(backgroundColor[0]+50,backgroundColor[1]+50,backgroundColor[2]+50)
+    ellipse(windowWidth/2-60-550,windowHeight-280,130,120);
+    ellipse(windowWidth/2-530,windowHeight-300,100,90);
+    ellipse(windowWidth/2-30-550,windowHeight-320,90,100);
+    fill(130,60,10);
+    rect(windowWidth/2-50-275,windowHeight-300,30,200);
+    fill(backgroundColor[0]+30,backgroundColor[1]+30,backgroundColor[2]+30)
+    ellipse(windowWidth/2-60-275,windowHeight-260,130,120);
+    ellipse(windowWidth/2-275,windowHeight-240,100,90);
+    ellipse(windowWidth/2-30-275,windowHeight-280,95,110);
+    fill(120,50,0);
+    rect(windowWidth/2-50+275,windowHeight-300,30,200);
+    fill(backgroundColor[0]+60,backgroundColor[1]+60,backgroundColor[2]+60)
+    ellipse(windowWidth/2-60+275,windowHeight-280,130,120);
+    ellipse(windowWidth/2+255,windowHeight-300,100,90);
+    ellipse(windowWidth/2-30+275,windowHeight-320,90,100);
+    
+      
+
+  }else if(planets[currentPlanet].trees == 2){
+    
+    fill(130,60,10);
+    rect(windowWidth/2-50,windowHeight-300,30,200);
+    fill(backgroundColor[0]+50,backgroundColor[1]+50,backgroundColor[2]+50)
+    ellipse(windowWidth/2-35,windowHeight-300+30,120,120);
+    ellipse(windowWidth/2-35,windowHeight-350+30,90,100);
+    ellipse(windowWidth/2-35,windowHeight-410+30,60,80);
+    fill(120,50,0);
+    rect(windowWidth/2-50+550,windowHeight-300,30,200);
+    fill(backgroundColor[0]+40,backgroundColor[1]+40,backgroundColor[2]+40)
+    ellipse(windowWidth/2-35+550,windowHeight-300,120,120);
+    ellipse(windowWidth/2-35+550,windowHeight-350,90,100);
+    ellipse(windowWidth/2-35+550,windowHeight-410,60,80);
+    fill(130,60,10);
+    rect(windowWidth/2-50-550,windowHeight-300,30,200);
+    fill(backgroundColor[0]+50,backgroundColor[1]+50,backgroundColor[2]+50)
+    ellipse(windowWidth/2-35-550,windowHeight-300,120,120);
+    ellipse(windowWidth/2-35-550,windowHeight-350,90,100);
+    ellipse(windowWidth/2-35-550,windowHeight-410,60,80);
+    fill(130,60,10);
+    rect(windowWidth/2-50-275,windowHeight-300,30,200);
+    fill(backgroundColor[0]+30,backgroundColor[1]+30,backgroundColor[2]+30)
+    ellipse(windowWidth/2-35-275,windowHeight-300+10,120,120);
+    ellipse(windowWidth/2-35-275,windowHeight-350+10,90,100);
+    ellipse(windowWidth/2-35-275,windowHeight-410+10,60,80);
+    fill(120,50,0);
+    rect(windowWidth/2-50+275,windowHeight-300,30,200);
+    fill(backgroundColor[0]+60,backgroundColor[1]+60,backgroundColor[2]+60)
+    ellipse(windowWidth/2-35+275,windowHeight-300+30,120,120);
+    ellipse(windowWidth/2-35+275,windowHeight-350+30,90,100);
+    ellipse(windowWidth/2-35+275,windowHeight-410+30,60,80);
+    
+      
+
   }
+
   if(planets[currentPlanet].civilized == true){
 
     fill(backgroundColor[0]-100,backgroundColor[1]-100,backgroundColor[2]-100)
@@ -331,6 +383,13 @@ function draw(){
 
 
   }
+
+  if(planets[currentPlanet].lake == 1){
+      fill(100,100,255);
+      ellipse(windowWidth-400,windowHeight-50,200,60);
+      ellipse(windowWidth-300,windowHeight-40,250,80);
+  }
+
   var roundCredits = round(credits);
 
   if((planets[currentPlanet].colorR + planets[currentPlanet].colorG + planets[currentPlanet].colorB)/3 > 120){
@@ -413,32 +472,26 @@ function keyPressed(){
     ship.turning = true;
     ship.turnDirection = -turnSpeed;
   }else if(keyCode==87){
-    if(ship.warping==false){
-      ship.boosting = true;
-      forwardBoosting = true;
-      boostDirection = 2;
-      ship.boostForce = boostSpeed;
-      if(menu==3){
-        menu=2;
-      }
+    ship.boosting = true;
+    forwardBoosting = true;
+    boostDirection = 2;
+    ship.boostForce = boostSpeed;
+    if(menu==3){
+      menu=2;
     }
   }else if(keyCode==69){
-    if(ship.warping==false){
-      ship.boosting = true;
-      boostDirection = 1;
-      ship.boostForce = boostSpeed;
-      if(menu==3){
-        menu=2;
-      }
+    ship.boosting = true;
+    boostDirection = 1;
+    ship.boostForce = boostSpeed;
+    if(menu==3){
+      menu=2;
     }
   }else if(keyCode==81){
-    if(ship.warping==false){
-      ship.boosting = true;
-      boostDirection = 3;
-      ship.boostForce = boostSpeed;
-      if(menu==3){
-        menu=2;
-      }
+    ship.boosting = true;
+    boostDirection = 3;
+    ship.boostForce = boostSpeed;
+    if(menu==3){
+      menu=2;
     }
   }else if(keyCode==83){
     ship.braking = true;
