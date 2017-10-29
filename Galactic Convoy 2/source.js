@@ -388,6 +388,10 @@ function draw(){
       fill(100,100,255);
       ellipse(windowWidth-400,windowHeight-50,200,60);
       ellipse(windowWidth-300,windowHeight-40,250,80);
+  }else if(planets[currentPlanet].lake == 2){
+      fill(100,100,255);
+      ellipse(windowWidth-900,windowHeight-40,200,60);
+      ellipse(windowWidth-800,windowHeight-30,250,80);
   }
 
   var roundCredits = round(credits);
@@ -652,8 +656,8 @@ function townScreen(){
     rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell gold
     fill(255);
     textSize(11);
-    text(planets[currentPlanet].iron+" in stock",(windowWidth/2-260) + 150,(windowHeight/2-220));
-    text(planets[currentPlanet].uranium+" in stock",(windowWidth/2+60) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].iron+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-220));
+    text(planets[currentPlanet].uranium+" in stock",(windowWidth/2+75) + 150,(windowHeight/2-220));
     text(planets[currentPlanet].gold+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
 
     textSize(26);

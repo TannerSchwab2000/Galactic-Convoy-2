@@ -1,6 +1,7 @@
 function Star(x,y,r){
 	this.pos = createVector(x,y);
 	this.vel = createVector(0,0);
+	this.starColor = round(random(0,10));
 	
 
 	this.update = function(){
@@ -25,7 +26,13 @@ function Star(x,y,r){
 	
 
 	this.render = function(){
-		fill(255);
+		if(this.starColor<8){
+			fill(255);
+		}else if(this.starColor==8){
+			fill(255,165,0);
+		}else if(this.starColor==9||10){
+			fill(100,100,255);
+		}
 		noStroke();
 		ellipse(this.pos.x,this.pos.y,r/5,r/5);
 	}
@@ -64,7 +71,7 @@ function Planet(x,y,r,planetNumber){
 	this.goldValue;
 	this.parts = [];
 	this.trees = round(random(-1,2));
-	this.lake = round(random(0,1));
+	this.lake = round(random(0,2));
 	
 	rand = round(random(1,5));
 	for(var a=0;a<rand;a++){
