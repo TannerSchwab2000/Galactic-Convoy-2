@@ -5,7 +5,7 @@ var missles;
 var enemyMissles;
 var dead = false;
 var enemySpeed = 1;
-var credits = 50;
+var credits = 10;
 var gameScore = 0;
 var kills = 0;
 var escorts = 0;
@@ -443,7 +443,13 @@ function keyPressed(){
   }else if(keyCode==83){
     ship.braking = true;
   }else if(keyCode==186){
-    missles.push(new Missle());
+    if(ship.laser==1){
+      missles.push(new Missle());
+    }else if(ship.laser==2){
+      missles.push(new Missle(1)); 
+      missles.push(new Missle(2)); 
+    }
+    
     if(document.getElementById("laser").paused==true){
       document.getElementById("laser").play();
     }else if(document.getElementById("laser2").paused==true){
@@ -696,6 +702,10 @@ function townScreen(){
       textSize(16);
       text("Basic Laser",windowWidth/2-150,windowHeight/2-275); 
       textSize(23);
+    }if(ship.laser==2){
+      textSize(15);
+      text("Double Laser",windowWidth/2-150,windowHeight/2-275); 
+      textSize(23);
     }
     if(ship.engine==1){
       textSize(16);
@@ -735,6 +745,27 @@ function townScreen(){
       rect(windowWidth/2-105,windowHeight/2-355,10,45);
       fill(130);
       rect(windowWidth/2-115,windowHeight/2-310,30,10);
+
+    }else if(ship.laser==2){
+      fill(130);
+      noStroke();
+      rect(windowWidth/2-130,windowHeight/2-365,30,10);
+      fill(100,100,255);
+      rect(windowWidth/2-125,windowHeight/2-355,20,45);
+      fill(190,190,255);
+      rect(windowWidth/2-120,windowHeight/2-355,10,45);
+      fill(130);
+      rect(windowWidth/2-130,windowHeight/2-310,30,10);
+
+      fill(130);
+      rect(windowWidth/2-100,windowHeight/2-365,30,10);
+      fill(100,100,255);
+      rect(windowWidth/2-95,windowHeight/2-355,20,45);
+      fill(190,190,255);
+      rect(windowWidth/2-90,windowHeight/2-355,10,45);
+      fill(130);
+      rect(windowWidth/2-100,windowHeight/2-310,30,10);
+
     }
     if(ship.engine==1){
       push();
@@ -1083,6 +1114,12 @@ function mousePressed(){
               credits-=30;
               planets[currentPlanet].parts.splice(a,1);
               ship.engine=2;
+            }
+          }else if(planets[currentPlanet].parts[a].t==3){
+            if(credits>=20){
+              credits-=20;
+              planets[currentPlanet].parts.splice(a,1);
+              ship.laser=2;
             }
           }
         }  

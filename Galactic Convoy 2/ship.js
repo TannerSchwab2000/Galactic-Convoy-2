@@ -180,16 +180,42 @@ function Ship(){
 
 }
 
-function Missle(){
-	this.pos = createVector(ship.pos.x ,ship.pos.y);
-	this.vel = createVector(ship.vel.x,ship.vel.y);
-	this.heading = ship.heading;
-	this.boosting = true;
-	this.Xdistance = abs(ship.pos.x-this.pos.x);
-	this.Ydistance = abs(ship.pos.y-this.pos.y);
-	var adjustment = p5.Vector.fromAngle(this.heading);
-	this.pos.add(adjustment.mult(50));
-
+function Missle(n){
+	if(ship.laser==1){
+		this.pos = createVector(ship.pos.x ,ship.pos.y);
+		this.vel = createVector(ship.vel.x,ship.vel.y);
+		this.heading = ship.heading;
+		this.boosting = true;
+		this.Xdistance = abs(ship.pos.x-this.pos.x);
+		this.Ydistance = abs(ship.pos.y-this.pos.y);
+		var adjustment = p5.Vector.fromAngle(this.heading);
+		this.pos.add(adjustment.mult(50));
+	}else if(ship.laser==2){
+		if(n==1){
+			this.pos = createVector(ship.pos.x ,ship.pos.y);
+			this.vel = createVector(ship.vel.x,ship.vel.y);
+			this.heading = ship.heading;
+			this.boosting = true;
+			this.Xdistance = abs(ship.pos.x-this.pos.x);
+			this.Ydistance = abs(ship.pos.y-this.pos.y);
+			var adjustment = p5.Vector.fromAngle(this.heading-HALF_PI);
+			this.pos.add(adjustment.mult(45));
+			var adjustment = p5.Vector.fromAngle(this.heading);
+			this.pos.add(adjustment.mult(40));	
+		}else{
+			this.pos = createVector(ship.pos.x ,ship.pos.y);
+			this.vel = createVector(ship.vel.x,ship.vel.y);
+			this.heading = ship.heading;
+			this.boosting = true;
+			this.Xdistance = abs(ship.pos.x-this.pos.x);
+			this.Ydistance = abs(ship.pos.y-this.pos.y);
+			var adjustment = p5.Vector.fromAngle(this.heading+HALF_PI);
+			this.pos.add(adjustment.mult(45));
+			var adjustment = p5.Vector.fromAngle(this.heading);
+			this.pos.add(adjustment.mult(40));
+		}
+		
+	}
 	var force = p5.Vector.fromAngle(this.heading);
 	force.mult(30);
     this.vel.add(force);
