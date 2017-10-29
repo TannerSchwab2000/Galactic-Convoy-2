@@ -37,7 +37,7 @@ function Enemy(x,y,n){
 			this.heading = Math.atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
 			rand = round(random(1,25));
 			if(rand == 1){
-				enemyMissles.push(new enemyMissle(this.pos.x,this.pos.y,this.heading));
+				enemyMissles.push(new enemyMissle(this.pos.x,this.pos.y,this.heading,this.vel));
 			}
 		}
 
@@ -77,7 +77,7 @@ function Enemy(x,y,n){
 	}
 }
 
-function enemyMissle(x,y,h){
+function enemyMissle(x,y,h,v){
 	this.pos = createVector(x,y);
 	this.vel = createVector();
 	this.heading = h;
@@ -91,6 +91,7 @@ function enemyMissle(x,y,h){
 	var force = p5.Vector.fromAngle(this.heading);
 	force.mult(15);
     this.vel.add(force);
+    this.vel.add(v);
 
 	this.update = function(){
 

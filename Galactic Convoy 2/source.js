@@ -121,84 +121,89 @@ function draw(){
     pieces.splice(0,1);
   }
 
+
   if(onPlanet == false){
-  stroke(255);
-  if(credits<0.1){
-    credits = 0;
-  }
 
-
-  if (trails == false){
-    background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
-  }else{
-    if(trailCount<trailTime){
-      trailCount++; 
-      warpSpeed = 0.5 +((warpFullSpeed/(trailTime+550)) *trailCount);
+    if(ship.engine==1){
+      boostSpeed = 1.1;  
+    }else{
+      boostSpeed = 1.5;  
     }
-    else{
-      warpCountDown = 0;
-      trails = false;
-      warpSpeed = warpFullSpeed;
+
+    stroke(255);
+    if(credits<0.1){
+      credits = 0;
     }
-  }
+
+
+    if (trails == false){
+      background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
+    }else{
+      if(trailCount<trailTime){
+        trailCount++; 
+        warpSpeed = 0.5 +((warpFullSpeed/(trailTime+550)) *trailCount);
+      }
+      else{
+        warpCountDown = 0;
+        trails = false;
+        warpSpeed = warpFullSpeed;
+      }
+    }
+
+    for(var i=0;i<backgroundStars.length;i++){
+      backgroundStars[i].update();
+      backgroundStars[i].render();
+    }
+    for(var i=0;i<planets.length;i++){
+      planets[i].render();
+      planets[i].update();
+    }
+    for(var i=0;i<stars.length;i++){
+      stars[i].update();
+      stars[i].render();
+    }
+    for(var i=0;i<friendlies.length;i++){
+      friendlies[i].render();
+      friendlies[i].update();
+    }
+    for(var i=0;i<missles.length;i++){
+      missles[i].render();
+      missles[i].update();
+    }
+     for(var i=0;i<enemyMissles.length;i++){
+      enemyMissles[i].render();
+      enemyMissles[i].update();
+    }
+    for(var i=0;i<enemies.length;i++){
+      enemies[i].render();
+      enemies[i].update();
+    }
+
+
+    stroke(0,255,0);
+    fill(0,255,0);
+    var cx = constrain(marker.x - ship.pos.x+ windowWidth/2,0,windowWidth); 
+    var cy = constrain(marker.y - ship.pos.y + windowHeight/2,0,windowHeight); 
+    ellipse(cx,cy,50,50);
+    noStroke();
+
+    roundX = round(ship.pos.x);
+    roundY = round(ship.pos.y);
+    writeText("x:"+roundX.toString()+" y:"+roundY.toString(),10,10);
+    writeText(round(shipSpeed*0.0208).toString() + " megameters per second",10,60);
+    if((ship.pos.x>renderDistance||ship.pos.x<renderDistance*-1)||(ship.pos.y>renderDistance||ship.pos.y<renderDistance*-1)){
+      writeText("out of bounds",10,110);
+    }
 
 
 
 
-  for(var i=0;i<backgroundStars.length;i++){
-    backgroundStars[i].update();
-    backgroundStars[i].render();
-  }
-  for(var i=0;i<planets.length;i++){
-    planets[i].render();
-    planets[i].update();
-  }
-  for(var i=0;i<stars.length;i++){
-    stars[i].update();
-    stars[i].render();
-  }
-  for(var i=0;i<friendlies.length;i++){
-    friendlies[i].render();
-    friendlies[i].update();
-  }
-  for(var i=0;i<missles.length;i++){
-    missles[i].render();
-    missles[i].update();
-  }
-   for(var i=0;i<enemyMissles.length;i++){
-    enemyMissles[i].render();
-    enemyMissles[i].update();
-  }
-  for(var i=0;i<enemies.length;i++){
-    enemies[i].render();
-    enemies[i].update();
-  }
-
-
-  stroke(0,255,0);
-  fill(0,255,0);
-  var cx = constrain(marker.x - ship.pos.x+ windowWidth/2,0,windowWidth); 
-  var cy = constrain(marker.y - ship.pos.y + windowHeight/2,0,windowHeight); 
-  ellipse(cx,cy,50,50);
-  noStroke();
-
-  roundX = round(ship.pos.x);
-  roundY = round(ship.pos.y);
-  writeText("x:"+roundX.toString()+" y:"+roundY.toString(),10,10);
-  writeText(round(shipSpeed*0.0208).toString() + " megameters per second",10,60);
-  if((ship.pos.x>renderDistance||ship.pos.x<renderDistance*-1)||(ship.pos.y>renderDistance||ship.pos.y<renderDistance*-1)){
-    writeText("out of bounds",10,110);
-  }
-
-
-
-
-  fill(50);
-  rect(220,windowHeight-65,170,60);
-  fill(100);
-  rect(225,windowHeight-60,50,50);
-  rect(280,windowHeight-60,50,50);
-  rect(335,windowHeight-60,50,50);
+    fill(50);
+    rect(220,windowHeight-65,170,60);
+    fill(100);
+    rect(225,windowHeight-60,50,50);
+    rect(280,windowHeight-60,50,50);
+    rect(335,windowHeight-60,50,50);
 
     fill(67,75,77);
     ellipse(250,windowHeight-35,40,40);
@@ -219,25 +224,25 @@ function draw(){
     text(gold.toString(),360,windowHeight-20);
 
   
-  var roundCredits = round(credits);
-  writeText("credits:" + roundCredits.toString(),10,840);
-  fill(50,50,50);
-  rect(5,windowHeight-65,210,30);
-  fill(0,180,0);
-  rect(10,windowHeight-60,200,20);
-  fill(0,255,0);
-  rect(10,windowHeight-60,health*2,20);
-  fill(50,50,50);
-  rect(5,windowHeight-35,210,30);
-  fill(180,180,0);
-  rect(10,windowHeight-30,200,20);
-  fill(255,255,0);
-  rect(10,windowHeight-30,fuel*2,20);
-  if(dead == false){
-  ship.update();
-  ship.render();
-  }
-}else{
+    var roundCredits = round(credits);
+    writeText("credits:" + roundCredits.toString(),10,840);
+    fill(50,50,50);
+    rect(5,windowHeight-65,210,30);
+    fill(0,180,0);
+    rect(10,windowHeight-60,200,20);
+    fill(0,255,0);
+    rect(10,windowHeight-60,health*2,20);
+    fill(50,50,50);
+    rect(5,windowHeight-35,210,30);
+    fill(180,180,0);
+    rect(10,windowHeight-30,200,20);
+    fill(255,255,0);
+    rect(10,windowHeight-30,fuel*2,20);
+    if(dead == false){
+    ship.update();
+    ship.render();
+    }
+  }else{
   background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
 
 
@@ -696,6 +701,10 @@ function townScreen(){
       textSize(16);
       text("Basic Engine",windowWidth/2-50,windowHeight/2-275);
       textSize(23);
+    }else if(ship.engine==2){
+      textSize(14);
+      text("Powerful Engine",windowWidth/2-50,windowHeight/2-275);
+      textSize(23);
     }
     if(ship.shieldMax==255){
       textSize(16);
@@ -1006,6 +1015,12 @@ function mousePressed(){
               planets[currentPlanet].parts.splice(a,1);
               ship.shieldMax=255;
               ship.shield=255;
+            }
+          }else if(planets[currentPlanet].parts[a].t==2){
+            if(credits>=30){
+              credits-=30;
+              planets[currentPlanet].parts.splice(a,1);
+              ship.engine=2;
             }
           }
         }  
