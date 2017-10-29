@@ -5,10 +5,26 @@ function Enemy(x,y,n){
 	this.Xdistance;
 	this.Ydistance;
 	this.stage = 3;
+	this.spreadDirection = round(random(1,3));
 
 	this.update = function(){
 		this.vel.mult(0.95);
 		this.pos.add(this.vel);
+
+		for(var a=0;a<enemies.length;a++){
+			var d = abs(this.pos.x-enemies[a].pos.x)+abs(this.pos.y-enemies[a].pos.y);
+			if(d<300 && a!=n){
+				if(this.spreadDirection==1){
+					var adjustment = p5.Vector.fromAngle(this.heading-HALF_PI);
+					this.pos.add(adjustment.mult(1));	
+				}else if(this.spreadDirection==3){
+					var adjustment = p5.Vector.fromAngle(this.heading+HALF_PI);
+					this.pos.add(adjustment.mult(1));	
+				}
+				
+			}
+		}
+
 		if(ship.pos.x > this.pos.x){
 			this.Xdistance = abs(ship.pos.x-this.pos.x);
 			this.Xdistance = this.Xdistance*-1;

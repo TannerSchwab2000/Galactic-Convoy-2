@@ -85,7 +85,7 @@ function setup(){
     for(var m=0;m<3;m++){
       var offsetX = random(-300,300);
       var offsetY = random(-300,300);
-      enemies.push(new Enemy(squadX+offsetX,squadY+offsetY));
+      enemies.push(new Enemy(squadX+offsetX,squadY+offsetY,m));
     }
   }
  
@@ -632,7 +632,7 @@ function townScreen(){
     text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
     
     textSize(30);
-    text("Uranium x10" ,windowWidth/2+60,windowHeight/2-220);
+    text("Uranium x10" ,windowWidth/2+55,windowHeight/2-220);
     text("Gold x10" ,windowWidth/2-260,windowHeight/2-80);
     fill(125);
 
@@ -1025,6 +1025,7 @@ function mousePressed(){
             }
         }else if(mouseIsContainedIn(windowWidth/2-125,windowHeight/2-290,windowWidth/2+125,windowHeight/2-250)){//Talk to Mayor Button
             menu = 2;
+            document.getElementById("button").play();  
         }
 
 
@@ -1132,26 +1133,61 @@ function mousePressed(){
     }else if(menu==2){
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2+15,windowWidth/2+150,windowHeight/2+45)){//Goodbye Button
         menu=1;
+        if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
       }
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
         console.log("clicked");
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
         menu=3;
+        if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
       }
     }else if(menu==3){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=2;
+        if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
       }
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-90,windowWidth/2+80,windowHeight/2-30)){//Buy Parts Button
         menu=4;
         ship.pos = createVector(windowWidth/2-200,windowHeight/2-190);
+        if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
       }
     }else if(menu==4){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=3;
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
+        if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
+          }
       }
       for(var a=0;a<planets[currentPlanet].parts.length;a++){
         if(mouseIsContainedIn(windowWidth/2+50,windowHeight/2-370+60*a,windowWidth/2+100,windowHeight/2-340+60*a)){//Buy Button
@@ -1174,6 +1210,13 @@ function mousePressed(){
               planets[currentPlanet].parts.splice(a,1);
               ship.laser=2;
             }
+          }
+          if(document.getElementById("button").paused==true){
+            document.getElementById("button").play();  
+          }else if(document.getElementById("button2").paused==true){
+            document.getElementById("button2").play(); 
+          }else{
+            document.getElementById("button3").play(); 
           }
         }  
       } 
