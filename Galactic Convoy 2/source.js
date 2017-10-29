@@ -687,9 +687,25 @@ function townScreen(){
     rect(windowWidth/2-80,windowHeight/2-90,160,50);
     noStroke();
     fill(255);
-    text("Laser",windowWidth/2-130,windowHeight/2-275);
-    text("Engine",windowWidth/2-38,windowHeight/2-275);
-    text("Shield",windowWidth/2+67,windowHeight/2-275);
+    if(ship.laser==1){
+      textSize(16);
+      text("Basic Laser",windowWidth/2-150,windowHeight/2-275); 
+      textSize(23);
+    }
+    if(ship.engine==1){
+      textSize(16);
+      text("Basic Engine",windowWidth/2-50,windowHeight/2-275);
+      textSize(23);
+    }
+    if(ship.shieldMax==255){
+      textSize(16);
+      text("Energy Shield",windowWidth/2+58,windowHeight/2-275);
+      textSize(23);
+    }else{
+      textSize(16);
+      text("No Shield",windowWidth/2+63,windowHeight/2-275);
+      textSize(23);
+    }
     text("Back",windowWidth/2-30,windowHeight/2);
     text("Buy Parts",windowWidth/2-47,windowHeight/2-55);
 
@@ -767,7 +783,7 @@ function townScreen(){
         noStroke();  
         fill(255);
         textSize(18);
-        text("Shield - 20",windowWidth/2-50,windowHeight/2-348+60*a);
+        text("Shield - 20",windowWidth/2-60,windowHeight/2-348+60*a);
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
@@ -797,8 +813,8 @@ function townScreen(){
         pop();
         noStroke();  
         fill(255);
-        textSize(14);
-        text("V8 Engine - 30",windowWidth/2-50,windowHeight/2-348+60*a);
+        textSize(11);
+        text("Powerful Engine - 30",windowWidth/2-60,windowHeight/2-348+60*a);
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
