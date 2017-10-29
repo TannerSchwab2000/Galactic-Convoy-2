@@ -5,7 +5,7 @@ var missles;
 var enemyMissles;
 var dead = false;
 var enemySpeed = 1;
-var credits = 10;
+var credits = 50;
 var gameScore = 0;
 var kills = 0;
 var escorts = 0;
@@ -769,6 +769,39 @@ function townScreen(){
       translate(windowWidth/2,windowHeight/2-315);
       endShape();
       pop();
+    }else if(ship.engine==2){
+      push();
+      beginShape();
+      fill(110);
+      noStroke();
+      vertex(-25,0);
+      vertex(25,0);
+      vertex(25,-25);
+      vertex(30,-35);
+      vertex(20,-45);
+      vertex(0,-35);
+      vertex(-20,-45);
+      vertex(-30,-35);
+      vertex(-25,-25);
+      translate(windowWidth/2+6,windowHeight/2-315);
+      endShape();
+      pop();
+      push();
+      beginShape();
+      fill(120);
+      noStroke();
+      vertex(-25,0);
+      vertex(25,0);
+      vertex(25,-25);
+      vertex(30,-35);
+      vertex(20,-45);
+      vertex(0,-35);
+      vertex(-20,-45);
+      vertex(-30,-35);
+      vertex(-25,-25);
+      translate(windowWidth/2,windowHeight/2-315);
+      endShape();
+      pop();
     }
   noStroke();
   }else if(menu==4){
@@ -828,6 +861,35 @@ function townScreen(){
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
       }  
+      if(planets[currentPlanet].parts[a].t==3){
+        fill(120);
+        rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
+        fill(115);
+        rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        fill(135);
+        rect(windowWidth/2+50,windowHeight/2-370+60*a,50,30);
+
+        noStroke();
+        fill(100,100,255);
+        rect(windowWidth/2-97,windowHeight/2-372+60*a,12,30);
+        fill(190,190,255);
+        rect(windowWidth/2-94,windowHeight/2-367+60*a,7,25);
+        fill(100,100,255);
+        rect(windowWidth/2-84,windowHeight/2-372+60*a,12,30);
+        fill(190,190,255);
+        rect(windowWidth/2-81,windowHeight/2-367+60*a,7,25);
+        fill(130);
+        rect(windowWidth/2-98,windowHeight/2-372+60*a,28,8);
+        fill(130);
+        rect(windowWidth/2-98,windowHeight/2-347+60*a,28,8);
+        noStroke();  
+        fill(255);
+        textSize(11);
+        text("Double Laser - 20",windowWidth/2-60,windowHeight/2-348+60*a);
+        textSize(16);
+        text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
+        textSize(23);
+      } 
     }
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);

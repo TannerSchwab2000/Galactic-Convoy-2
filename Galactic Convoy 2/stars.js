@@ -275,7 +275,7 @@ function Planet(x,y,r,planetNumber){
 }
 
 function Part(){
-	this.t = round(random(1,2));
+	this.t = round(random(1,3));
 
 }
 
