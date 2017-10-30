@@ -50,9 +50,10 @@ function Planet(x,y,r,planetNumber){
 	this.mayorColorG = random(0,200);
 	this.mayorColorB = random(0,200);
 	this.mayorEyes = round(random(1,2));
-	this.mayorHair = round(random(0,3));
+	this.mayorHair = round(random(0,4));
 	this.mayorNose = round(random(0,1));
-	this.mayorFacialHair = round(random(0,1));
+	this.mayorCrown = round(random(0,1));
+	this.mayorFacialHair = round(random(0,2));
 	this.r = r;
 	this.civilized = false;
 	this.cargoShips = [];
@@ -72,6 +73,10 @@ function Planet(x,y,r,planetNumber){
 	this.parts = [];
 	this.trees = round(random(-1,2));
 	this.lake = round(random(0,2));
+
+	if(this.mayorHair==1){
+		this.mayorCrown=0;
+	}
 	
 	rand = round(random(1,5));
 	for(var a=0;a<rand;a++){

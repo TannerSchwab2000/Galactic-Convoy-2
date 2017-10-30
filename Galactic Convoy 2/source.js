@@ -45,7 +45,7 @@ var speedometerCount = 0;
 var oneOrTwo = 1;
 var shipPosA;
 var shipPosB;
-var planetNumber = 100;
+var planetNumber = 110;
 
 
 
@@ -708,9 +708,23 @@ function townScreen(){
       ellipse(windowWidth/2,windowHeight/2-345,80,30); 
     }
 
+    if(planets[currentPlanet].mayorCrown==1){
+      fill(255,255,0);
+      rect(windowWidth/2-60,windowHeight/2-355,120,35);
+      rect(windowWidth/2-60,windowHeight/2-375,20,20);
+      rect(windowWidth/2-10,windowHeight/2-375,20,20);
+      rect(windowWidth/2+40,windowHeight/2-375,20,20);
+    }
+
     if(planets[currentPlanet].mayorFacialHair==1){
       fill(0);
       ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+    }else if(planets[currentPlanet].mayorFacialHair==2){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
     }
 
 
