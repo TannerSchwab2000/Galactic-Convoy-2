@@ -28,9 +28,7 @@ function Star(x,y,r){
 	this.render = function(){
 		if(this.starColor<8){
 			fill(255);
-		}else if(this.starColor==8){
-			fill(255,165,0);
-		}else if(this.starColor==9||10){
+		}else if(this.starColor==10){
 			fill(100,100,255);
 		}
 		noStroke();
@@ -84,7 +82,7 @@ function Planet(x,y,r,planetNumber){
 	}
 
 	this.planetName = "planet";
-	rand = round(random(1,35));
+	rand = round(random(1,40));
 	if(rand==1){
 		this.planetName = "gamma capuli 9";
 	}else if(rand==2){
@@ -155,6 +153,16 @@ function Planet(x,y,r,planetNumber){
 		this.planetName = "phaeton";
 	}else if(rand==35){
 		this.planetName = "borga";
+	}else if(rand==36){
+		this.planetName = "other earth";
+	}else if(rand==37){
+		this.planetName = "zanzadar 7";
+	}else if(rand==38){
+		this.planetName = "skerth obi";
+	}else if(rand==39){
+		this.planetName = "xenu";
+	}else if(rand==40){
+		this.planetName = "xenu prime";
 	}
 
 
@@ -171,8 +179,8 @@ function Planet(x,y,r,planetNumber){
 
 
 
-	var yorn = round(random(1,2));
-	if (yorn==1){
+	var yorn = round(random(1,100));
+	if (yorn<61){
 		this.civilized = true;
 	}else{
 		this.civilized = false;
