@@ -43,7 +43,7 @@ function Enemy(x,y,n){
 
 		var fullDistance = abs(this.Ydistance) + abs(this.Xdistance);
 
-		if(fullDistance<2000 && fullDistance>900){
+		if(fullDistance<2000 && fullDistance>700){
 			this.heading = Math.atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
 			var force = p5.Vector.fromAngle(this.heading);
 			force.mult(5);

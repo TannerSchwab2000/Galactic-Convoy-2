@@ -51,7 +51,7 @@ function Planet(x,y,r,planetNumber){
 	this.mayorHair = round(random(0,4));
 	this.mayorNose = round(random(0,1));
 	this.mayorCrown = round(random(0,1));
-	this.mayorFacialHair = round(random(0,2));
+	this.mayorFacialHair = round(random(0,3));
 	this.r = r;
 	this.civilized = false;
 	this.cargoShips = [];

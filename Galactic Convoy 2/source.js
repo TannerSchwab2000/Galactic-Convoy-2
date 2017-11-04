@@ -725,6 +725,18 @@ function townScreen(){
       ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2,windowHeight/2-205,35,20); 
+    }else if(planets[currentPlanet].mayorFacialHair==3){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2-20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2-30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2-50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2+30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2+50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
     }
 
 
@@ -1053,6 +1065,18 @@ function townScreen(){
       ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2,windowHeight/2-205,35,20); 
+    }else if(planets[currentPlanet].mayorFacialHair==3){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2-20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2-30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2-50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2+30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2+50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
     }
 
 
@@ -1145,6 +1169,18 @@ function townScreen(){
       ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
       ellipse(windowWidth/2,windowHeight/2-205,35,20); 
+    }else if(planets[currentPlanet].mayorFacialHair==3){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2-20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2-30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2-50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+20,windowHeight/2-210,15,15); 
+      ellipse(windowWidth/2+30,windowHeight/2-220,25,25);
+      ellipse(windowWidth/2+50,windowHeight/2-230,30,30);
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
     }
 
 
@@ -1169,14 +1205,16 @@ function townScreen(){
     noStroke();
     fill(255);
     strokeWeight(1);
-    text("Text",windowWidth/2-55,windowHeight/2-32);
-     
+    text("Accept",windowWidth/2-50,windowHeight/2-32);
+    text("Decline",windowWidth/2-55,windowHeight/2+3);
 
 
     stroke(0);
     fill(0);
     if(currentQuest.t==1){
-      text("I need you to kill this space pirate.",windowWidth/2-130,windowHeight/2-80);
+      text("I need you to kill this space pirate.",windowWidth/2-160,windowHeight/2-80);
+    }else if(currentQuest.t==2){
+      text("I need you to deliver this message to " + planets[currentQuest.focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
     }
     noStroke();
   }
@@ -1430,7 +1468,15 @@ function mousePressed(){
             currentQuest = new Quest(1,currentPlanet);
             currentQuest.focus = round(random(0,enemies.length));
             console.log(currentQuest);
+          }else if(planets[currentPlanet].quests[a]==2){
+            menu=6;
+            currentQuest = new Quest(2,currentPlanet);
+            currentQuest.focus = round(random(0,planets.length));
+            while(planets[currentQuest.focus].civilized==false){
+              currentQuest.focus = round(random(0,planets.length));
+            }
           }
+
         }
       }
     }
