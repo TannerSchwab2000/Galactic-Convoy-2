@@ -23,7 +23,6 @@ function Ship(){
 			if(fuel > 0){
 				document.getElementById("rocket").play();
 				var force = p5.Vector.fromAngle(this.heading);
-				console.log(boostDirection);
 				if(boostDirection==1){
 					force.rotate(HALF_PI);
 				}else if(boostDirection==3){
@@ -245,7 +244,6 @@ function Missle(n){
 				}else{
 					score++;
 					this.pos.y=-100;
-					console.log(enemies[i].stage);
 					enemies[i].stage--;
 					if(document.getElementById("shield2").paused==true){
 		    				document.getElementById("shield2").play();	

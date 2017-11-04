@@ -46,6 +46,7 @@ var oneOrTwo = 1;
 var shipPosA;
 var shipPosB;
 var planetNumber = 110;
+var currentQuest;
 
 
 
@@ -587,7 +588,6 @@ function keyReleased(){
           ship.pos.y = windowHeight/2; 
           airFriction = 0.95;
           boostSpeed = 0.5;
-          console.log(planets[currentPlanet].ironSpawn);
           
         }
       }
@@ -998,6 +998,187 @@ function townScreen(){
     fill(255);
     text("Back",windowWidth/2-30,windowHeight/2);
     text("Credits:"+credits,windowWidth/2-50,windowHeight/2-45);
+  }else if(menu==5){
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(80);
+    rect(windowWidth/2-265,windowHeight/2-390,530,330);
+    fill(139,0,139);
+    ellipse(windowWidth/2,windowHeight/2-130,300,130);
+    fill(128,0,128);
+    ellipse(windowWidth/2,windowHeight/2-190,230,100);
+    fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+    ellipse(windowWidth/2,windowHeight/2-240,170,250);
+
+    if(planets[currentPlanet].mayorEyes==1){
+      fill(255);
+      ellipse(windowWidth/2,windowHeight/2-270,20,10); 
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-270,10,5); 
+    }else{
+      fill(255);
+      ellipse(windowWidth/2-20,windowHeight/2-270,20,10);
+      ellipse(windowWidth/2+20,windowHeight/2-270,20,10);
+      fill(0);
+      ellipse(windowWidth/2-20,windowHeight/2-270,10,5);
+      ellipse(windowWidth/2+20,windowHeight/2-270,10,5);
+    }
+
+    if(planets[currentPlanet].mayorHair==1){
+      ellipse(windowWidth/2,windowHeight/2-350,120,90); 
+    }else if(planets[currentPlanet].mayorHair==2){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      ellipse(windowWidth/2-67,windowHeight/2-280,40,100); 
+      ellipse(windowWidth/2+67,windowHeight/2-280,40,100); 
+    }else if(planets[currentPlanet].mayorHair==3){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+      ellipse(windowWidth/2,windowHeight/2-345,80,30); 
+    }
+
+    if(planets[currentPlanet].mayorCrown==1){
+      fill(255,255,0);
+      rect(windowWidth/2-60,windowHeight/2-355,120,35);
+      rect(windowWidth/2-60,windowHeight/2-375,20,20);
+      rect(windowWidth/2-10,windowHeight/2-375,20,20);
+      rect(windowWidth/2+40,windowHeight/2-375,20,20);
+    }
+
+    if(planets[currentPlanet].mayorFacialHair==1){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+    }else if(planets[currentPlanet].mayorFacialHair==2){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
+    }
+
+
+    if(planets[currentPlanet].mayorNose==1){
+      fill(planets[currentPlanet].mayorColorR-20,planets[currentPlanet].mayorColorG-20,planets[currentPlanet].mayorColorB-20);
+      ellipse(windowWidth/2,windowHeight/2-240,20,10); 
+      ellipse(windowWidth/2,windowHeight/2-250,10,20); 
+    }
+
+    fill(255,0,0);
+    ellipse(windowWidth/2,windowHeight/2-220,20,10); 
+    stroke(0);
+    line(windowWidth/2-10,windowHeight/2-220,windowWidth/2+10,windowHeight/2-220);
+    noFill();
+    arc(windowWidth/2,windowHeight/2-180, 50, 50, 0, PI);
+
+    noStroke();
+    fill(120);
+    rect(windowWidth/2-150,windowHeight/2-55,300,30);
+    rect(windowWidth/2-150,windowHeight/2-20,300,30);
+    rect(windowWidth/2-150,windowHeight/2+15,300,30);
+    noStroke();
+    fill(255);
+    strokeWeight(1);
+    for(var a=0;a<planets[currentPlanet].quests.length;a++){
+      if(planets[currentPlanet].quests[a]==1){
+        text("Bounty",windowWidth/2-55,windowHeight/2-32 +a*35);
+      }else if(planets[currentPlanet].quests[a]==2){
+        text("Delivery",windowWidth/2-55,windowHeight/2-32 +a*35);
+      }
+    }
+
+
+    stroke(0);
+    fill(0);
+    text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+    noStroke();
+  }else if(menu==6){
+    fill(100);
+    rect(windowWidth/2-300,windowHeight/2-400,600,450);
+    fill(80);
+    rect(windowWidth/2-265,windowHeight/2-390,530,330);
+    fill(139,0,139);
+    ellipse(windowWidth/2,windowHeight/2-130,300,130);
+    fill(128,0,128);
+    ellipse(windowWidth/2,windowHeight/2-190,230,100);
+    fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+    ellipse(windowWidth/2,windowHeight/2-240,170,250);
+
+    if(planets[currentPlanet].mayorEyes==1){
+      fill(255);
+      ellipse(windowWidth/2,windowHeight/2-270,20,10); 
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-270,10,5); 
+    }else{
+      fill(255);
+      ellipse(windowWidth/2-20,windowHeight/2-270,20,10);
+      ellipse(windowWidth/2+20,windowHeight/2-270,20,10);
+      fill(0);
+      ellipse(windowWidth/2-20,windowHeight/2-270,10,5);
+      ellipse(windowWidth/2+20,windowHeight/2-270,10,5);
+    }
+
+    if(planets[currentPlanet].mayorHair==1){
+      ellipse(windowWidth/2,windowHeight/2-350,120,90); 
+    }else if(planets[currentPlanet].mayorHair==2){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      ellipse(windowWidth/2-67,windowHeight/2-280,40,100); 
+      ellipse(windowWidth/2+67,windowHeight/2-280,40,100); 
+    }else if(planets[currentPlanet].mayorHair==3){
+      ellipse(windowWidth/2,windowHeight/2-330,120,70); 
+      fill(planets[currentPlanet].mayorColorR,planets[currentPlanet].mayorColorG,planets[currentPlanet].mayorColorB);
+      ellipse(windowWidth/2,windowHeight/2-345,80,30); 
+    }
+
+    if(planets[currentPlanet].mayorCrown==1){
+      fill(255,255,0);
+      rect(windowWidth/2-60,windowHeight/2-355,120,35);
+      rect(windowWidth/2-60,windowHeight/2-375,20,20);
+      rect(windowWidth/2-10,windowHeight/2-375,20,20);
+      rect(windowWidth/2+40,windowHeight/2-375,20,20);
+    }
+
+    if(planets[currentPlanet].mayorFacialHair==1){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+    }else if(planets[currentPlanet].mayorFacialHair==2){
+      fill(0);
+      ellipse(windowWidth/2,windowHeight/2-230,35,7); 
+      ellipse(windowWidth/2-15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2+15,windowHeight/2-220,7,22); 
+      ellipse(windowWidth/2,windowHeight/2-205,35,20); 
+    }
+
+
+    if(planets[currentPlanet].mayorNose==1){
+      fill(planets[currentPlanet].mayorColorR-20,planets[currentPlanet].mayorColorG-20,planets[currentPlanet].mayorColorB-20);
+      ellipse(windowWidth/2,windowHeight/2-240,20,10); 
+      ellipse(windowWidth/2,windowHeight/2-250,10,20); 
+    }
+
+    fill(255,0,0);
+    ellipse(windowWidth/2,windowHeight/2-220,20,10); 
+    stroke(0);
+    line(windowWidth/2-10,windowHeight/2-220,windowWidth/2+10,windowHeight/2-220);
+    noFill();
+    arc(windowWidth/2,windowHeight/2-180, 50, 50, 0, PI);
+
+    noStroke();
+    fill(120);
+    rect(windowWidth/2-150,windowHeight/2-55,300,30);
+    rect(windowWidth/2-150,windowHeight/2-20,300,30);
+    rect(windowWidth/2-150,windowHeight/2+15,300,30);
+    noStroke();
+    fill(255);
+    strokeWeight(1);
+    text("Text",windowWidth/2-55,windowHeight/2-32);
+     
+
+
+    stroke(0);
+    fill(0);
+    if(currentQuest.t==1){
+      text("I need you to kill this space pirate.",windowWidth/2-130,windowHeight/2-80);
+    }
+    noStroke();
   }
   
 
@@ -1045,6 +1226,7 @@ function mousePressed(){
             menu = 2;
             document.getElementById("button").play();  
         }
+
 
 
       }
@@ -1160,7 +1342,6 @@ function mousePressed(){
           }
       }
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
-        console.log("clicked");
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
         menu=3;
@@ -1171,7 +1352,10 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-      }
+      }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Quests Button
+            menu = 5;
+            document.getElementById("button").play();  
+        }
     }else if(menu==3){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=2;
@@ -1238,8 +1422,25 @@ function mousePressed(){
           }
         }  
       } 
+    }else if(menu==5){
+      for(var a=0;a<planets[currentPlanet].quests.length;a++){
+        if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55+a*35,windowWidth/2-150+300,windowHeight/2-25+a*35)){
+          if(planets[currentPlanet].quests[a]==1){
+            menu=6;
+            currentQuest = new Quest(1,currentPlanet);
+            currentQuest.focus = round(random(0,enemies.length));
+            console.log(currentQuest);
+          }
+        }
+      }
     }
   }
+}
+
+function Quest(t,p){
+  this.t = t;
+  this.p = p;
+  this.focus;
 }
 
 function Piece (x,y,type){

@@ -12,16 +12,17 @@ function Enemy(x,y,n){
 		this.pos.add(this.vel);
 
 		for(var a=0;a<enemies.length;a++){
-			var d = abs(this.pos.x-enemies[a].pos.x)+abs(this.pos.y-enemies[a].pos.y);
-			if(d<300 && a!=n){
-				if(this.spreadDirection==1){
-					var adjustment = p5.Vector.fromAngle(this.heading-HALF_PI);
-					this.pos.add(adjustment.mult(1));	
-				}else if(this.spreadDirection==3){
-					var adjustment = p5.Vector.fromAngle(this.heading+HALF_PI);
-					this.pos.add(adjustment.mult(1));	
-				}
-				
+			if(a!=n){
+				var d=abs(this.pos.x-enemies[a].pos.x)+abs(this.pos.y-enemies[a].pos.y);
+				if(d<300){
+					if(this.spreadDirection==1){
+						var adjustment = p5.Vector.fromAngle(this.heading-HALF_PI);
+						this.pos.add(adjustment.mult(1));	
+					}else if(this.spreadDirection==3){
+						var adjustment = p5.Vector.fromAngle(this.heading+HALF_PI);
+						this.pos.add(adjustment.mult(1));	
+					}
+				}	
 			}
 		}
 

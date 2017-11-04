@@ -71,6 +71,7 @@ function Planet(x,y,r,planetNumber){
 	this.parts = [];
 	this.trees = round(random(-1,2));
 	this.lake = round(random(0,2));
+	this.quests = [];
 
 	if(this.mayorHair==1){
 		this.mayorCrown=0;
@@ -177,7 +178,11 @@ function Planet(x,y,r,planetNumber){
 		this.welcomePhrase = "Welcome to " + this.planetName;
 	}
 
-
+	var rand = round(random(1,3));
+	for(var a=0;a<rand;a++){
+		var rand2 = round(random(1,2));
+		this.quests.push(rand2);
+	}
 
 	var yorn = round(random(1,100));
 	if (yorn<61){
