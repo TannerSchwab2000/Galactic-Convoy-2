@@ -181,7 +181,13 @@ function Planet(x,y,r,planetNumber){
 	var rand = round(random(1,3));
 	for(var a=0;a<rand;a++){
 		var rand2 = round(random(1,2));
-		this.quests.push(rand2);
+		this.quests.push(new Quest(rand2,planetNumber));
+		if(rand2==1){
+			this.quests[a].focus = round(random(0,enemies.length));
+		}else if(rand2==2){
+			this.quests[a].focus = round(random(0,planets.length));
+			var focus = this.quests[a].focus;
+		}
 	}
 
 	var yorn = round(random(1,100));

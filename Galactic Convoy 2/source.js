@@ -27,6 +27,7 @@ var forwardBoosting = false;
 var healCost;
 var refuelCost;
 var menu = 1;
+var questType;
 var fuel = 100;
 var iron=0;
 var uranium=0;
@@ -70,6 +71,8 @@ function setup(){
   shipPosA = createVector();
   shipPosB = createVector();
 
+  currentQuest = new Quest(0,0);
+
 
   for(var i=0;i<100;i++){
     backgroundStars.push(new Star(round(random(0,windowWidth)),round(random(0,windowHeight)),random(0.2,6)));
@@ -77,17 +80,17 @@ function setup(){
   for(var i=0;i<40;i++){
     stars.push(new Star(round(random(0,windowWidth)),round(random(0,windowHeight)),random(7,20)));
   }
-  for(var i=0;i<planetNumber;i++){
-    planets.push(new Planet(round(random(-renderDistance,windowWidth+renderDistance)),round(random(-renderDistance,windowHeight+renderDistance)),random(300,600),i));
-  }
   for(var i=0;i<50;i++){
     var squadX = random(-renderDistance,renderDistance);
     var squadY = random(-renderDistance,renderDistance);
     for(var m=0;m<3;m++){
       var offsetX = random(-300,300);
       var offsetY = random(-300,300);
-      enemies.push(new Enemy(squadX+offsetX,squadY+offsetY,m));
+      enemies.push(new Enemy(squadX+offsetX,squadY+offsetY,enemies.length-1));
     }
+  }
+  for(var i=0;i<planetNumber;i++){
+    planets.push(new Planet(round(random(-renderDistance,windowWidth+renderDistance)),round(random(-renderDistance,windowHeight+renderDistance)),random(300,600),i));
   }
  
 }
@@ -1102,9 +1105,9 @@ function townScreen(){
     fill(255);
     strokeWeight(1);
     for(var a=0;a<planets[currentPlanet].quests.length;a++){
-      if(planets[currentPlanet].quests[a]==1){
+      if(planets[currentPlanet].quests[a].t==1){
         text("Bounty",windowWidth/2-55,windowHeight/2-32 +a*35);
-      }else if(planets[currentPlanet].quests[a]==2){
+      }else if(planets[currentPlanet].quests[a].t==2){
         text("Delivery",windowWidth/2-55,windowHeight/2-32 +a*35);
       }
     }
@@ -1211,10 +1214,10 @@ function townScreen(){
 
     stroke(0);
     fill(0);
-    if(currentQuest.t==1){
+    if(planets[currentPlanet].quests[questNumber].t==1){
       text("I need you to kill this space pirate.",windowWidth/2-160,windowHeight/2-80);
-    }else if(currentQuest.t==2){
-      text("I need you to deliver this message to " + planets[currentQuest.focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
+    }else if(planets[currentPlanet].quests[questNumber].t==2){
+      text("I need you to deliver this message to " + planets[planets[currentPlanet].quests[questNumber].focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
     }
     noStroke();
   }
@@ -1462,22 +1465,19 @@ function mousePressed(){
       } 
     }else if(menu==5){
       for(var a=0;a<planets[currentPlanet].quests.length;a++){
-        if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55+a*35,windowWidth/2-150+300,windowHeight/2-25+a*35)){
-          if(planets[currentPlanet].quests[a]==1){
-            menu=6;
-            currentQuest = new Quest(1,currentPlanet);
-            currentQuest.focus = round(random(0,enemies.length));
-            console.log(currentQuest);
-          }else if(planets[currentPlanet].quests[a]==2){
-            menu=6;
-            currentQuest = new Quest(2,currentPlanet);
-            currentQuest.focus = round(random(0,planets.length));
-            while(planets[currentQuest.focus].civilized==false){
-              currentQuest.focus = round(random(0,planets.length));
-            }
-          }
-
+        if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55+a*35,windowWidth/2-150+300,windowHeight/2-25+a*35)){//Quest Button
+          menu=6;
+          questNumber=a;
         }
+      }
+    }else if(menu==6){
+      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Accept Button
+        currentQuest = new Quest(planets[currentPlanet].quests[questNumber].t,currentPlanet);
+        currentQuest.focus = planets[currentPlanet].quests[questNumber].focus;
+        planets[currentPlanet].quests.splice(questNumber,1);
+        menu=2;
+      }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Decline Button
+        menu=5;
       }
     }
   }

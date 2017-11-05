@@ -61,36 +61,72 @@ function Enemy(x,y,n){
 	}
 
 	this.render = function(){
-		if(this.stage==1){
-			fill(255,0,0);
-		}else if(this.stage==2){
-			fill(255,165,0);
+		if(currentQuest.t==1&&currentQuest.focus==n){
+			if(this.stage==1){
+				fill(255,0,0);
+			}else if(this.stage==2){
+				fill(255,165,0);
+			}else{
+				fill(255,255,0);
+			}
+			push();
+			noStroke();
+			beginShape();
+			vertex(48.0,30);
+			vertex(48.0,-12.0);
+			vertex(40.0,-12.0);
+			vertex(40.0,11.0);
+			vertex(20,11.0);
+			vertex(20,-20.0);
+			vertex(8.0,-20.0);
+			vertex(8.0,-44.0);
+			vertex(-8.0,-44.0);
+			vertex(-8.0,-20.0);
+			vertex(-20,-20.0);
+			vertex(-20,11.0);
+			vertex(-40.0,11.0);
+			vertex(-40.0,-12.0);
+			vertex(-48.0,-12.0);
+			vertex(-48.0,30)
+			var cx = constrain(this.Xdistance,-windowWidth/2+10,windowWidth/2-10);
+			var cy = constrain(this.Ydistance,-windowHeight/2+10,windowHeight/2-10);
+			translate(windowWidth/2+cx,windowHeight/2+cy);
+			rotate(this.heading+1.56);
+			endShape();
+			pop();	
 		}else{
-			fill(255,255,0);
+			if(this.stage==1){
+				fill(255,0,0);
+			}else if(this.stage==2){
+				fill(255,165,0);
+			}else{
+				fill(255,255,0);
+			}
+			push();
+			noStroke();
+			beginShape();
+			vertex(48.0,30);
+			vertex(48.0,-12.0);
+			vertex(40.0,-12.0);
+			vertex(40.0,11.0);
+			vertex(20,11.0);
+			vertex(20,-20.0);
+			vertex(8.0,-20.0);
+			vertex(8.0,-44.0);
+			vertex(-8.0,-44.0);
+			vertex(-8.0,-20.0);
+			vertex(-20,-20.0);
+			vertex(-20,11.0);
+			vertex(-40.0,11.0);
+			vertex(-40.0,-12.0);
+			vertex(-48.0,-12.0);
+			vertex(-48.0,30)
+			translate(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance);
+			rotate(this.heading+1.56);
+			endShape();
+			pop();	
 		}
-		push();
-		noStroke();
-		beginShape();
-		vertex(48.0,30);
-		vertex(48.0,-12.0);
-		vertex(40.0,-12.0);
-		vertex(40.0,11.0);
-		vertex(20,11.0);
-		vertex(20,-20.0);
-		vertex(8.0,-20.0);
-		vertex(8.0,-44.0);
-		vertex(-8.0,-44.0);
-		vertex(-8.0,-20.0);
-		vertex(-20,-20.0);
-		vertex(-20,11.0);
-		vertex(-40.0,11.0);
-		vertex(-40.0,-12.0);
-		vertex(-48.0,-12.0);
-		vertex(-48.0,30)
-		translate(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance);
-		rotate(this.heading+1.56);
-		endShape();
-		pop();
+		
 	}
 }
 
