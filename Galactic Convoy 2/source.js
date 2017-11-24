@@ -48,8 +48,11 @@ var shipPosA;
 var shipPosB;
 var planetNumber = 110;
 var currentQuest;
-
-
+var start;
+var message;
+var messageDisplayed;
+var messageTime;
+var displayStart;
 
 
 
@@ -71,8 +74,9 @@ function setup(){
   shipPosA = createVector();
   shipPosB = createVector();
 
-  currentQuest = new Quest(0,0);
+  start = Date.now();
 
+  currentQuest = new Quest(0,0);
 
   for(var i=0;i<100;i++){
     backgroundStars.push(new Star(round(random(0,windowWidth)),round(random(0,windowHeight)),random(0.2,6)));
@@ -140,6 +144,16 @@ function draw(){
 
 
     background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
+
+    if(messageDisplayed==true){
+      if(Date.now()-displayStart<messageTime*1000){
+        fill(255);
+        stroke(255);
+        strokeWeight(1);
+        textSize(60);
+        text(message,windowWidth/2-message.length*15,windowHeight/2-100);
+      }
+    }
 
     for(var i=0;i<backgroundStars.length;i++){
       backgroundStars[i].update();
@@ -235,6 +249,7 @@ function draw(){
     }
   }else{
   background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
+
 
 
 
@@ -460,7 +475,15 @@ function draw(){
     fill(255);
     text(gold.toString(),360,windowHeight-20);
 
-  
+    if(messageDisplayed==true){
+      if(Date.now()-displayStart<messageTime*1000){
+        fill(255);
+        stroke(100);
+        strokeWeight(1);
+        textSize(60);
+        text(message,windowWidth/2-message.length*15,windowHeight/2-100);
+      }
+    }
 
   if(dead == false){
   ship.update();
@@ -591,7 +614,11 @@ function keyReleased(){
           ship.pos.y = windowHeight/2; 
           airFriction = 0.95;
           boostSpeed = 0.5;
-          
+          if(currentQuest.t==2&&currentQuest.focus==currentPlanet){
+            displayMessage("Package Delivered",2);
+            currentQuest = new Quest(0,0);
+            credits+=10;
+          }
         }
       }
     }
@@ -1515,5 +1542,10 @@ function Piece (x,y,type){
   }
 } 
 
-
+function displayMessage(m,t){
+  displayStart = Date.now();
+  messageDisplayed = true;
+  message = m;
+  messageTime = t;
+}
 

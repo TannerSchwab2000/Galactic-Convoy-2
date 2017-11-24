@@ -235,12 +235,19 @@ function Missle(n){
 		for(var i=0;i<enemies.length;i++){
 			if(abs(enemies[i].pos.x - this.pos.x) + abs(enemies[i].pos.y - this.pos.y) < 60){
 				if(enemies[i].stage==1){
+					if(i==currentQuest.focus&&currentQuest.t==1){
+						displayMessage("Target Eliminated",2);
+						currentQuest = new Quest(0,0);
+						credits+=10;
+					}else{
+						credits+=5;	
+					}
 					Explode(enemies[i].pos.x,enemies[i].pos.y);
 					enemies.splice(i,1);
 					score++;
-					credits+=5;
 					gameScore++;
 					kills++;	
+
 				}else{
 					score++;
 					this.pos.y=-100;

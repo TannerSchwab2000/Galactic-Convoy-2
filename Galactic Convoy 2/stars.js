@@ -72,6 +72,8 @@ function Planet(x,y,r,planetNumber){
 	this.trees = round(random(-1,2));
 	this.lake = round(random(0,2));
 	this.quests = [];
+	var lastBlink = start;
+	var blink = 1;
 
 	if(this.mayorHair==1){
 		this.mayorCrown=0;
@@ -279,23 +281,67 @@ function Planet(x,y,r,planetNumber){
 		}
 
 		var totalDistance = abs(this.Xdistance) + abs(this.Ydistance);
-		 
-		if(totalDistance < 10000&&totalDistance > 1400){
-			var cx = constrain(windowWidth/2+this.Xdistance,0,windowWidth); 
-        	var cy = constrain(windowHeight/2+this.Ydistance,0,windowHeight);
-        	fill(this.colorR,this.colorG,this.colorB);
-			stroke(this.colorR-50,this.colorG-50,this.colorB-50);
-			ellipse(cx,cy,r/4,r/4);
-		}else{
-			if(this.civilized==true){
-				stroke(0,255,0);
+
+		if(currentQuest.t==2&&currentQuest.focus==planetNumber){
+			if(Date.now()-lastBlink>1000){
+	        		lastBlink = Date.now();
+	        		if(blink==1){
+	        			blink = 2;
+	        		}else{
+	        			blink = 1;
+	        		}
+	        	}
+
+			if(totalDistance>1400){
+				var cx = constrain(windowWidth/2+this.Xdistance,0,windowWidth); 
+	        	var cy = constrain(windowHeight/2+this.Ydistance,0,windowHeight);
+	        	fill(this.colorR,this.colorG,this.colorB);
+	        	strokeWeight(5);
+
+	        	if(blink==1){
+	        		stroke(0,255,0);
+	        	}else{
+	        		stroke(255);
+	        	}
+				ellipse(cx,cy,r/4,r/4);	
+				strokeWeight(1);
+
 			}else{
-				stroke(this.colorR-50,this.colorG-50,this.colorB-50);
+				strokeWeight(5);
+				if(blink==1){
+	        		stroke(0,255,0);
+	        	}else{
+	        		stroke(255);
+	        	}
+				fill(this.colorR,this.colorG,this.colorB);
+				ellipse(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance,r/2,r/2);
+				strokeWeight(1);
+				writeText(this.planetName,windowWidth/2+this.Xdistance-75 -this.planetName.length*5,windowHeight/2+this.Ydistance+r/3);	
 			}
-			fill(this.colorR,this.colorG,this.colorB);
-			ellipse(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance,r/2,r/2);
-			writeText(this.planetName,windowWidth/2+this.Xdistance-75 -this.planetName.length*5,windowHeight/2+this.Ydistance+r/3);
+			
+
+			
+		}else{
+			 
+			if(totalDistance < 10000&&totalDistance > 1400){
+				var cx = constrain(windowWidth/2+this.Xdistance,0,windowWidth); 
+	        	var cy = constrain(windowHeight/2+this.Ydistance,0,windowHeight);
+	        	fill(this.colorR,this.colorG,this.colorB);
+				stroke(this.colorR-50,this.colorG-50,this.colorB-50);
+				ellipse(cx,cy,r/4,r/4);
+			}else{
+				if(this.civilized==true){
+					stroke(0,255,0);
+				}else{
+					stroke(this.colorR-50,this.colorG-50,this.colorB-50);
+				}
+				fill(this.colorR,this.colorG,this.colorB);
+				ellipse(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance,r/2,r/2);
+				writeText(this.planetName,windowWidth/2+this.Xdistance-75 -this.planetName.length*5,windowHeight/2+this.Ydistance+r/3);
+			}	
 		}
+
+		
 		
 
 	}
