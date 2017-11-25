@@ -182,13 +182,47 @@ function Planet(x,y,r,planetNumber){
 
 	var rand = round(random(1,3));
 	for(var a=0;a<rand;a++){
-		var rand2 = round(random(1,2));
+		if(planetNumber>5){
+			var rand2 = round(random(1,3));	
+		}else{
+			var rand2 = 0;	
+		}
+		
 		this.quests.push(new Quest(rand2,planetNumber));
 		if(rand2==1){
-			this.quests[a].focus = round(random(0,enemies.length));
-		}else if(rand2==2){
-			this.quests[a].focus = round(random(0,planets.length));
+			this.quests[a].focus = round(random(0,enemies.length-1));
 			var focus = this.quests[a].focus;
+			var distance = abs(this.pos.x-enemies[focus].pos.x)+abs(this.pos.x-enemies[focus].pos.y);
+			for(var b=0;b<100;b++){
+				if(distance>40000){
+					this.quests[a].focus = round(random(0,enemies.length-1));
+					var focus = this.quests[a].focus;	
+					var distance = round(abs(this.pos.x-enemies[focus].pos.x)+abs(this.pos.x-enemies[focus].pos.y));
+				}	
+			}
+		}else if(rand2==2){
+			this.quests[a].focus = round(random(0,planets.length-1));
+			var focus = this.quests[a].focus;
+			var distance = abs(this.pos.x-planets[focus].pos.x)+abs(this.pos.x-planets[focus].pos.y);
+			for(var b=0;b<100;b++){
+				if(distance>30000){
+					this.quests[a].focus = round(random(0,planets.length-1));
+					var focus = this.quests[a].focus;	
+					var distance = abs(this.pos.x-planets[focus].pos.x)+abs(this.pos.x-planets[focus].pos.y);
+				}	
+			}
+		}else if(rand2==3){
+			this.quests[a].focus = round(random(0,planets.length-1));
+			var focus = this.quests[a].focus;
+			var distance = abs(this.pos.x-planets[focus].pos.x)+abs(this.pos.x-planets[focus].pos.y);
+			for(var b=0;b<100;b++){
+				if(distance>30000){
+					this.quests[a].focus = round(random(0,planets.length-1));
+					var focus = this.quests[a].focus;	
+					var distance = abs(this.pos.x-planets[focus].pos.x)+abs(this.pos.x-planets[focus].pos.y);
+				}	
+			}
+			
 		}
 	}
 
@@ -249,7 +283,7 @@ function Planet(x,y,r,planetNumber){
 						}
 						if(travelDistance < 5000){
 							this.fuelCost = 1;
-							this.cargoShips.push(new cargoShip(this.pos.x,this.pos.y,planets[i],planetNumber));
+							this.cargoShips.push(new cargoShip(this.pos.x,this.pos.y,planets[i],planetNumber,false));
 						}else{
 							this.fuelCost = 2;
 						}
@@ -282,7 +316,7 @@ function Planet(x,y,r,planetNumber){
 
 		var totalDistance = abs(this.Xdistance) + abs(this.Ydistance);
 
-		if(currentQuest.t==2&&currentQuest.focus==planetNumber){
+		if((currentQuest.t==2||currentQuest.t==3)&&currentQuest.focus==planetNumber){
 			if(Date.now()-lastBlink>1000){
 	        		lastBlink = Date.now();
 	        		if(blink==1){

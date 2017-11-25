@@ -6,6 +6,20 @@ function Enemy(x,y,n){
 	this.Ydistance;
 	this.stage = 3;
 	this.spreadDirection = round(random(1,3));
+	this.enemyNumber = n;
+
+	var rand = round(random(1,5));
+	if(rand==1){
+		this.pirateName = "Bill";
+	}else if(rand==2){
+		this.pirateName = "Jim";
+	}else if(rand==3){
+		this.pirateName = "Tim";
+	}else if(rand==4){
+		this.pirateName = "Jack";
+	}else if(rand==5){
+		this.pirateName = "John";
+	}
 
 	this.update = function(){
 		this.vel.mult(0.95);

@@ -72,6 +72,7 @@ function Ship(){
 		if(onPlanet==true){
 			this.pos.x = constrain(this.pos.x,0,1400);
 			this.pos.y = constrain(this.pos.y,0,930);
+
 		}
 	}
 
@@ -235,7 +236,7 @@ function Missle(n){
 		for(var i=0;i<enemies.length;i++){
 			if(abs(enemies[i].pos.x - this.pos.x) + abs(enemies[i].pos.y - this.pos.y) < 60){
 				if(enemies[i].stage==1){
-					if(i==currentQuest.focus&&currentQuest.t==1){
+					if(enemies[i].enemyNumber==currentQuest.focus&&currentQuest.t==1){
 						displayMessage("Target Eliminated",2);
 						currentQuest = new Quest(0,0);
 						credits+=10;
@@ -307,7 +308,7 @@ function Missle(n){
 
 }
 
-function cargoShip(x,y,target,homeworld){
+function cargoShip(x,y,target,homeworld,questShip){
 	this.pos = createVector(x,y);
 	this.vel = createVector();
 	this.Xdistance = abs(ship.pos.x-this.pos.x);
@@ -337,7 +338,12 @@ function cargoShip(x,y,target,homeworld){
 			}
 		}else{
 		var force = p5.Vector.fromAngle(this.heading);
-     	force.mult(0.2);
+		if(questShip==true){
+			force.mult(0.3);	
+		}else{
+			force.mult(0.2);	
+		}
+     	
      	this.vel.add(force);	
 		}
 		
@@ -359,37 +365,75 @@ function cargoShip(x,y,target,homeworld){
 	}
 
 	this.render = function(){
-		push();
-		beginShape();
-		fill(0,255,0);
-		noStroke();
-		vertex(-7.5,-22.5);
-		vertex(7.5,-22.5);
-		vertex(7.5,-7.5);
-		vertex(22.5,-7.5);
-		vertex(22.5,-22.5);
-		vertex(37.5,-22.5);
-		vertex(37.5,22.5);
-		vertex(22.5,22.5);
-		vertex(22.5,7.5);
-		vertex(7.5,7.5);
-		vertex(7.5,37.7);
-		vertex(22.5,37.5);
-		vertex(22.5,67.5);
-		vertex(-22.5,67.5);
-		vertex(-22.5,37.5);
-		vertex(-7.5,37.5);
-		vertex(-5.7,7.5);
-		vertex(-22.5,7.5);
-		vertex(-22.5,22.5);
-		vertex(-37.5,22.5);
-		vertex(-37.5,-22.5);
-		vertex(-22.5,-22.5);
-		vertex(-22.5,-7.5);
-		vertex(-7.5,-7.5);
-		translate(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance);
-		rotate(this.heading-1.56);
-		endShape();
-		pop();
+		if(questShip==true){
+			push();
+			beginShape();
+			fill(0,255,0);
+			noStroke();
+			vertex(-7.5,-22.5);
+			vertex(7.5,-22.5);
+			vertex(7.5,-7.5);
+			vertex(22.5,-7.5);
+			vertex(22.5,-22.5);
+			vertex(37.5,-22.5);
+			vertex(37.5,22.5);
+			vertex(22.5,22.5);
+			vertex(22.5,7.5);
+			vertex(7.5,7.5);
+			vertex(7.5,37.7);
+			vertex(22.5,37.5);
+			vertex(22.5,67.5);
+			vertex(-22.5,67.5);
+			vertex(-22.5,37.5);
+			vertex(-7.5,37.5);
+			vertex(-5.7,7.5);
+			vertex(-22.5,7.5);
+			vertex(-22.5,22.5);
+			vertex(-37.5,22.5);
+			vertex(-37.5,-22.5);
+			vertex(-22.5,-22.5);
+			vertex(-22.5,-7.5);
+			vertex(-7.5,-7.5);
+			var cx = constrain(windowWidth/2+this.Xdistance,0,windowWidth); 
+	        var cy = constrain(windowHeight/2+this.Ydistance,0,windowHeight);
+			translate(cx,cy);
+			rotate(this.heading-1.56);
+			endShape();
+			pop();	
+		}else{
+			push();
+			beginShape();
+			fill(0,255,0);
+			noStroke();
+			vertex(-7.5,-22.5);
+			vertex(7.5,-22.5);
+			vertex(7.5,-7.5);
+			vertex(22.5,-7.5);
+			vertex(22.5,-22.5);
+			vertex(37.5,-22.5);
+			vertex(37.5,22.5);
+			vertex(22.5,22.5);
+			vertex(22.5,7.5);
+			vertex(7.5,7.5);
+			vertex(7.5,37.7);
+			vertex(22.5,37.5);
+			vertex(22.5,67.5);
+			vertex(-22.5,67.5);
+			vertex(-22.5,37.5);
+			vertex(-7.5,37.5);
+			vertex(-5.7,7.5);
+			vertex(-22.5,7.5);
+			vertex(-22.5,22.5);
+			vertex(-37.5,22.5);
+			vertex(-37.5,-22.5);
+			vertex(-22.5,-22.5);
+			vertex(-22.5,-7.5);
+			vertex(-7.5,-7.5);
+			translate(windowWidth/2+this.Xdistance,windowHeight/2+this.Ydistance);
+			rotate(this.heading-1.56);
+			endShape();
+			pop();	
+		}
+		
 	}
 }

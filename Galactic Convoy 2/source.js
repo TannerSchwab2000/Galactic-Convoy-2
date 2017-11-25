@@ -1136,6 +1136,8 @@ function townScreen(){
         text("Bounty",windowWidth/2-55,windowHeight/2-32 +a*35);
       }else if(planets[currentPlanet].quests[a].t==2){
         text("Delivery",windowWidth/2-55,windowHeight/2-32 +a*35);
+      }else if(planets[currentPlanet].quests[a].t==3){
+        text("Escort",windowWidth/2-55,windowHeight/2-32 +a*35);
       }
     }
 
@@ -1242,9 +1244,11 @@ function townScreen(){
     stroke(0);
     fill(0);
     if(planets[currentPlanet].quests[questNumber].t==1){
-      text("I need you to kill this space pirate.",windowWidth/2-160,windowHeight/2-80);
+      text("I need you to kill " + enemies[planets[currentPlanet].quests[questNumber].focus].pirateName + " the space pirate.",windowWidth/2-160,windowHeight/2-80);
     }else if(planets[currentPlanet].quests[questNumber].t==2){
-      text("I need you to deliver this message to " + planets[planets[currentPlanet].quests[questNumber].focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
+      text("I need you to deliver this package to " + planets[planets[currentPlanet].quests[questNumber].focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
+    }else if(planets[currentPlanet].quests[questNumber].t==3){
+      text("I need you to escort a ship to " + planets[planets[currentPlanet].quests[questNumber].focus].planetName + ".",windowWidth/2-250,windowHeight/2-80);
     }
     noStroke();
   }
@@ -1503,6 +1507,10 @@ function mousePressed(){
         currentQuest.focus = planets[currentPlanet].quests[questNumber].focus;
         planets[currentPlanet].quests.splice(questNumber,1);
         menu=2;
+        if(currentQuest.t==3){
+          console.log("Check");
+          planets[currentPlanet].cargoShips.push(new cargoShip(planets[currentPlanet].pos.x,planets[currentPlanet].pos.y,planets[currentQuest.focus],currentPlanet,true));
+        }
       }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Decline Button
         menu=5;
       }
