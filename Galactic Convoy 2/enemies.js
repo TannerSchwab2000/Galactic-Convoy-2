@@ -84,7 +84,7 @@ function Enemy(x,y,n){
 				fill(255,255,0);
 			}
 			push();
-			noStroke();
+            stroke(0,255,0);
 			beginShape();
 			vertex(48.0,30);
 			vertex(48.0,-12.0);

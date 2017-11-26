@@ -251,14 +251,30 @@ function draw(){
   background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
 
 
+  if (planets[currentPlanet].mountains == 1) {
+      fill(backgroundColor[0] - 40, backgroundColor[1] - 40, backgroundColor[2] - 40);
+      stroke(backgroundColor[0] - 60, backgroundColor[1] - 60, backgroundColor[2] - 60);
+      triangle(windowWidth / 2 - 500, windowHeight / 2 + 365, windowWidth / 2 - 300, windowHeight / 2 + 165, windowWidth / 2 - 100, windowHeight / 2 + 365);
+      triangle(windowWidth / 2 - 200, windowHeight / 2 + 365, windowWidth / 2, windowHeight / 2 + 100, windowWidth / 2 + 200, windowHeight / 2 + 365);
+      triangle(windowWidth / 2 + 100, windowHeight / 2 + 365, windowWidth / 2 + 300, windowHeight / 2 + 130, windowWidth / 2 + 500, windowHeight / 2 + 365);
+      noStroke();
+  } else if (planets[currentPlanet].mountains == 2) {
+      fill(backgroundColor[0] - 40, backgroundColor[1] - 40, backgroundColor[2] - 40);
+      stroke(backgroundColor[0] - 60, backgroundColor[1] - 60, backgroundColor[2] - 60);
+      ellipse(windowWidth / 2 + 500, windowHeight / 2 + 380, 420, 300);
+      ellipse(windowWidth / 2 - 500, windowHeight / 2 + 380, 420, 300);
+      ellipse(windowWidth / 2, windowHeight / 2 + 380, 350, 250);
+      ellipse(windowWidth / 2 - 200, windowHeight / 2 + 380, 400, 270);
+      ellipse(windowWidth / 2 + 300, windowHeight / 2 + 380, 350, 240);
+      noStroke();
+  }  
 
 
   fill(backgroundColor[0]-50,backgroundColor[1]-50,backgroundColor[2]-50);
   noStroke();
-  rect(0,windowHeight-100,windowWidth,100);
+  rect(0,windowHeight-100,windowWidth,100); //Ground
 
-
-
+ 
 
 
   if(planets[currentPlanet].trees == 1){

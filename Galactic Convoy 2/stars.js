@@ -70,7 +70,8 @@ function Planet(x,y,r,planetNumber){
 	this.goldValue;
 	this.parts = [];
 	this.trees = round(random(-1,2));
-	this.lake = round(random(0,2));
+    this.lake = round(random(0, 2));
+    this.mountains = round(random(-1,2));
 	this.quests = [];
 	var lastBlink = start;
 	var blink = 1;
