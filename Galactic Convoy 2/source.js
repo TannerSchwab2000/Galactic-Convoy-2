@@ -1507,9 +1507,11 @@ function mousePressed(){
         currentQuest.focus = planets[currentPlanet].quests[questNumber].focus;
         planets[currentPlanet].quests.splice(questNumber,1);
         menu=2;
-        if(currentQuest.t==3){
-          console.log("Check");
-          planets[currentPlanet].cargoShips.push(new cargoShip(planets[currentPlanet].pos.x,planets[currentPlanet].pos.y,planets[currentQuest.focus],currentPlanet,true));
+        if (currentQuest.t == 3) {
+            planets[currentPlanet].cargoShips.push(new cargoShip(planets[currentPlanet].pos.x, planets[currentPlanet].pos.y, planets[currentQuest.focus], currentPlanet, true, planets[currentPlanet].cargoShips.length - 1));
+            var middleX = (planets[currentPlanet].pos.x + planets[currentQuest.focus].pos.x) / 2;
+            var middleY = (planets[currentPlanet].pos.y + planets[currentQuest.focus].pos.y) / 2;
+            enemies.push(new Enemy(middleX, middleY, enemies.length-1));
         }
       }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Decline Button
         menu=5;

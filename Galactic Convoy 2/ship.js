@@ -308,7 +308,7 @@ function Missle(n){
 
 }
 
-function cargoShip(x,y,target,homeworld,questShip){
+function cargoShip(x,y,target,homeworld,questShip,shipNumber){
 	this.pos = createVector(x,y);
 	this.vel = createVector();
 	this.Xdistance = abs(ship.pos.x-this.pos.x);
@@ -325,21 +325,29 @@ function cargoShip(x,y,target,homeworld,questShip){
 
 		var targetDistance = abs(target.pos.x - this.pos.x)+abs(target.pos.y - this.pos.y);
 
-		if(targetDistance<target.r/3){
-			if(target == planets[homeworld]){
-				target = this.originalTarget;
-				this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
+        if (targetDistance < target.r / 3) {
+            if (questShip == true) {
+                planets[currentQuest.p].cargoShips.splice(shipNumber, 1);
+                displayMessage("Ship Escorted", 2);
+                credits += 10;
+                currentQuest = new Quest(0,0);
+            } else {
+                if(target == planets[homeworld]){
+				    target = this.originalTarget;
+				    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
 				
-			}else{
-				target = planets[homeworld];
-				this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
+			    }else{
+				    target = planets[homeworld];
+				    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
 				
 
-			}
+			    }
+            }
+			
 		}else{
 		var force = p5.Vector.fromAngle(this.heading);
 		if(questShip==true){
-			force.mult(0.3);	
+			force.mult(0.4);	
 		}else{
 			force.mult(0.2);	
 		}

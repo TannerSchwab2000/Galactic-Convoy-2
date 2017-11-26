@@ -182,10 +182,10 @@ function Planet(x,y,r,planetNumber){
 
 	var rand = round(random(1,3));
 	for(var a=0;a<rand;a++){
-		if(planetNumber>5){
-			var rand2 = round(random(1,3));	
+		if(planetNumber>10){
+			var rand2 = round(random(3,3));	
 		}else{
-			var rand2 = 0;	
+            var rand2 = 1;	
 		}
 		
 		this.quests.push(new Quest(rand2,planetNumber));
@@ -199,7 +199,7 @@ function Planet(x,y,r,planetNumber){
 					var focus = this.quests[a].focus;	
 					var distance = round(abs(this.pos.x-enemies[focus].pos.x)+abs(this.pos.x-enemies[focus].pos.y));
 				}	
-			}
+            }
 		}else if(rand2==2){
 			this.quests[a].focus = round(random(0,planets.length-1));
 			var focus = this.quests[a].focus;
@@ -222,7 +222,6 @@ function Planet(x,y,r,planetNumber){
 					var distance = abs(this.pos.x-planets[focus].pos.x)+abs(this.pos.x-planets[focus].pos.y);
 				}	
 			}
-			
 		}
 	}
 
