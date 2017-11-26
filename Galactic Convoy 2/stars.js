@@ -383,7 +383,7 @@ function Planet(x,y,r,planetNumber){
 }
 
 function Part(){
-	this.t = round(random(1,3));
+	this.t = round(random(1,4));
 
 }
 

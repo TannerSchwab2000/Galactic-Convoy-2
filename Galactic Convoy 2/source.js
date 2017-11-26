@@ -145,15 +145,7 @@ function draw(){
 
     background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
 
-    if(messageDisplayed==true){
-      if(Date.now()-displayStart<messageTime*1000){
-        fill(255);
-        stroke(255);
-        strokeWeight(1);
-        textSize(60);
-        text(message,windowWidth/2-message.length*15,windowHeight/2-100);
-      }
-    }
+    
 
     for(var i=0;i<backgroundStars.length;i++){
       backgroundStars[i].update();
@@ -182,6 +174,17 @@ function draw(){
     for(var i=0;i<enemies.length;i++){
       enemies[i].render();
       enemies[i].update();
+    }
+
+
+    if (messageDisplayed == true) {
+        if (Date.now() - displayStart < messageTime * 1000) {
+            fill(255);
+            stroke(255);
+            strokeWeight(1);
+            textSize(60);
+            text(message, windowWidth / 2 - message.length * 15, windowHeight / 2 - 100);
+        }
     }
 
 
@@ -226,7 +229,14 @@ function draw(){
     ellipse(360,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(gold.toString(),360,windowHeight-20);
+    text(gold.toString(), 360, windowHeight - 20);
+
+    if (ship.cargoSize == 1) {
+        text(iron + uranium + gold + "/" + "30", 400, windowHeight - 25);
+    } else if (ship.cargoSize == 2) {
+        text(iron + uranium + gold + "/" + "60", 400, windowHeight - 25);
+    }
+    
 
   
     var roundCredits = round(credits);
@@ -489,7 +499,13 @@ function draw(){
     ellipse(360,windowHeight-35,40,40);
     var textShade = 255;
     fill(255);
-    text(gold.toString(),360,windowHeight-20);
+    text(gold.toString(), 360, windowHeight - 20);
+
+    if (ship.cargoSize == 1) {
+        text(iron + uranium + gold + "/" + "30", 400, windowHeight - 25);
+    } else if (ship.cargoSize == 2) {
+        text(iron + uranium + gold + "/" + "60", 400, windowHeight - 25);
+    }
 
     if(messageDisplayed==true){
       if(Date.now()-displayStart<messageTime*1000){
@@ -829,9 +845,10 @@ function townScreen(){
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(90);
-    rect(windowWidth/2-140,windowHeight/2-375,80,80);
-    rect(windowWidth/2-40,windowHeight/2-375,80,80);
-    rect(windowWidth/2+60,windowHeight/2-375,80,80);
+    rect(windowWidth/2-240 + 50,windowHeight/2-375,80,80);
+    rect(windowWidth/2-140 + 50,windowHeight/2-375,80,80);
+    rect(windowWidth / 2 + 10, windowHeight / 2 - 375, 80, 80);
+    rect(windowWidth / 2 + 110, windowHeight / 2 - 375, 80, 80);
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
     rect(windowWidth/2-80,windowHeight/2-90,160,50);
@@ -839,31 +856,41 @@ function townScreen(){
     fill(255);
     if(ship.laser==1){
       textSize(16);
-      text("Basic Laser",windowWidth/2-150,windowHeight/2-275); 
+      text("Basic Laser",windowWidth/2-200,windowHeight/2-275); 
       textSize(23);
     }if(ship.laser==2){
       textSize(15);
-      text("Double Laser",windowWidth/2-150,windowHeight/2-275); 
+      text("Double Laser",windowWidth/2-200,windowHeight/2-275); 
       textSize(23);
     }
     if(ship.engine==1){
       textSize(16);
-      text("Basic Engine",windowWidth/2-50,windowHeight/2-275);
+      text("Basic Engine",windowWidth/2-100,windowHeight/2-275);
       textSize(23);
     }else if(ship.engine==2){
       textSize(14);
-      text("Powerful Engine",windowWidth/2-50,windowHeight/2-275);
+      text("Powerful Engine",windowWidth/2-100,windowHeight/2-275);
       textSize(23);
     }
     if(ship.shieldMax==255){
       textSize(16);
-      text("Energy Shield",windowWidth/2+58,windowHeight/2-275);
+      text("Energy Shield",windowWidth/2-42 + 50,windowHeight/2-275);
       textSize(23);
     }else{
       textSize(16);
-      text("No Shield",windowWidth/2+63,windowHeight/2-275);
+      text("No Shield",windowWidth/2-37 + 50,windowHeight/2-275);
       textSize(23);
     }
+    if (ship.cargoSize == 1) {
+      textSize(16);
+      text("No Extra", windowWidth / 2 +115, windowHeight / 2 - 275);
+      textSize(23);
+    }else if (ship.cargoSize == 2) {
+        textSize(16);
+        text("Extra Cargo", windowWidth / 2 + 105, windowHeight / 2 - 275);
+        textSize(23);
+    }
+
     text("Back",windowWidth/2-30,windowHeight/2);
     text("Buy Parts",windowWidth/2-47,windowHeight/2-55);
 
@@ -871,39 +898,51 @@ function townScreen(){
       stroke(0,255,0);
       strokeWeight(7);
       noFill();
-      ellipse(windowWidth/2+100,windowHeight/2-335,60,60);
+      ellipse(windowWidth/2+50,windowHeight/2-335,60,60);
       strokeWeight(1);
     }
+
+    if (ship.cargoSize == 2) {
+        fill(140);
+        stroke(120);
+        strokeWeight(2);
+        rect(windowWidth / 2 + 72.5 + 50, windowHeight / 2 - 362.5, 55, 55);
+        line(windowWidth / 2 + 75 + 50, windowHeight / 2 - 360, windowWidth / 2 + 70 + 105, windowHeight / 2 - 365 + 55);
+        line(windowWidth / 2 + 75 + 50, windowHeight / 2 - 365 + 55, windowWidth / 2 + 70 + 105, windowHeight / 2 - 360);
+        strokeWeight(1);
+        noStroke();
+    }  
+    
     if(ship.laser==1){
       fill(130);
       noStroke();
-      rect(windowWidth/2-115,windowHeight/2-365,30,10);
+      rect(windowWidth/2-215 + 50,windowHeight/2-365,30,10);
       fill(100,100,255);
-      rect(windowWidth/2-110,windowHeight/2-355,20,45);
+      rect(windowWidth/2-210 + 50,windowHeight/2-355,20,45);
       fill(190,190,255);
-      rect(windowWidth/2-105,windowHeight/2-355,10,45);
+      rect(windowWidth/2-205 + 50,windowHeight/2-355,10,45);
       fill(130);
-      rect(windowWidth/2-115,windowHeight/2-310,30,10);
+      rect(windowWidth/2-215 + 50,windowHeight/2-310,30,10);
 
     }else if(ship.laser==2){
       fill(130);
       noStroke();
-      rect(windowWidth/2-130,windowHeight/2-365,30,10);
+      rect(windowWidth/2-230 + 50,windowHeight/2-365,30,10);
       fill(100,100,255);
-      rect(windowWidth/2-125,windowHeight/2-355,20,45);
+      rect(windowWidth/2-225 + 50,windowHeight/2-355,20,45);
       fill(190,190,255);
-      rect(windowWidth/2-120,windowHeight/2-355,10,45);
+      rect(windowWidth/2-220 + 50,windowHeight/2-355,10,45);
       fill(130);
-      rect(windowWidth/2-130,windowHeight/2-310,30,10);
+      rect(windowWidth/2-230 + 50,windowHeight/2-310,30,10);
 
       fill(130);
-      rect(windowWidth/2-100,windowHeight/2-365,30,10);
+      rect(windowWidth/2-200 + 50,windowHeight/2-365,30,10);
       fill(100,100,255);
-      rect(windowWidth/2-95,windowHeight/2-355,20,45);
+      rect(windowWidth/2-195 + 50,windowHeight/2-355,20,45);
       fill(190,190,255);
-      rect(windowWidth/2-90,windowHeight/2-355,10,45);
+      rect(windowWidth/2-190 + 50,windowHeight/2-355,10,45);
       fill(130);
-      rect(windowWidth/2-100,windowHeight/2-310,30,10);
+      rect(windowWidth/2-200 + 50,windowHeight/2-310,30,10);
 
     }
     if(ship.engine==1){
@@ -920,7 +959,7 @@ function townScreen(){
       vertex(-15,-40);
       vertex(-25,-30);
       vertex(-20,-20);
-      translate(windowWidth/2+4,windowHeight/2-315);
+      translate(windowWidth/2-46,windowHeight/2-315);
       endShape();
       pop();
       push();
@@ -936,7 +975,7 @@ function townScreen(){
       vertex(-15,-40);
       vertex(-25,-30);
       vertex(-20,-20);
-      translate(windowWidth/2,windowHeight/2-315);
+      translate(windowWidth/2-50,windowHeight/2-315);
       endShape();
       pop();
     }else if(ship.engine==2){
@@ -953,7 +992,7 @@ function townScreen(){
       vertex(-20,-45);
       vertex(-30,-35);
       vertex(-25,-25);
-      translate(windowWidth/2+6,windowHeight/2-315);
+      translate(windowWidth/2-44,windowHeight/2-315);
       endShape();
       pop();
       push();
@@ -969,7 +1008,7 @@ function townScreen(){
       vertex(-20,-45);
       vertex(-30,-35);
       vertex(-25,-25);
-      translate(windowWidth/2,windowHeight/2-315);
+      translate(windowWidth/2-50,windowHeight/2-315);
       endShape();
       pop();
     }
@@ -1059,6 +1098,28 @@ function townScreen(){
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
+      } 
+      if (planets[currentPlanet].parts[a].t == 4) {
+          fill(120);
+          rect(windowWidth / 2 - 110, windowHeight / 2 - 380 + 60 * a, 220, 50);
+          fill(115);
+          rect(windowWidth / 2 - 105, windowHeight / 2 - 375 + 60 * a, 40, 40);
+          fill(135);
+          rect(windowWidth / 2 + 50, windowHeight / 2 - 370 + 60 * a, 50, 30);
+          fill(140);
+          stroke(120);
+          strokeWeight(2);
+          rect(windowWidth / 2 - 100, windowHeight / 2 - 370 + 60 * a, 30, 30);
+          line(windowWidth / 2 - 98, windowHeight / 2 - 368 + 60 * a, windowWidth / 2 - 102 + 30, windowHeight / 2 - 372 + 30 + 60 * a);
+          line(windowWidth / 2 - 98, windowHeight / 2 - 372 + 30 + 60 * a, windowWidth / 2 - 102 + 30, windowHeight / 2 - 368 + 60 * a);
+          strokeWeight(1);
+          fill(255);
+          textSize(11);
+          text("Extra Cargo - 30", windowWidth / 2 - 60, windowHeight / 2 - 348 + 60 * a);
+          textSize(16);
+          text("Buy", windowWidth / 2 + 60, windowHeight / 2 - 348 + 60 * a);
+          textSize(23);
+          noStroke();
       } 
     }
     fill(125);
@@ -1355,19 +1416,39 @@ function mousePressed(){
 
 
       }
-      if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-210,windowWidth/2-55,windowHeight/2-170)){//Buy iron
+      if (mouseIsContainedIn(windowWidth / 2 - 255, windowHeight / 2 - 210, windowWidth / 2 - 55, windowHeight / 2 - 170)) {//Buy iron
         if(credits>=planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin){
-          if(planets[currentPlanet].iron>=10){
-            if(document.getElementById("button").paused==true){
-              document.getElementById("button").play();  
-            }else if(document.getElementById("button2").paused==true){
-              document.getElementById("button2").play(); 
-            }else{
-              document.getElementById("button3").play(); 
-            }
-            credits -= (planets[currentPlanet].ironValue+planets[currentPlanet].profitMargin);
-            iron+=10;
-            planets[currentPlanet].iron-=10;  
+          if (planets[currentPlanet].iron >= 10) {
+              var weight = iron + uranium + gold;
+              if (ship.cargoSize == 1) {
+                  if (weight < 21) {
+                    if(document.getElementById("button").paused==true){
+                        document.getElementById("button").play();  
+                    }else if(document.getElementById("button2").paused==true){
+                        document.getElementById("button2").play(); 
+                    }else{
+                        document.getElementById("button3").play(); 
+                    }
+                    credits -= (planets[currentPlanet].ironValue+planets[currentPlanet].profitMargin);
+                    iron+=10;
+                    planets[currentPlanet].iron-=10;  
+                  }  
+              }else if (ship.cargoSize == 2) {
+                  if (weight < 51) {
+                      if (document.getElementById("button").paused == true) {
+                          document.getElementById("button").play();
+                      } else if (document.getElementById("button2").paused == true) {
+                          document.getElementById("button2").play();
+                      } else {
+                          document.getElementById("button3").play();
+                      }
+                      credits -= (planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin);
+                      iron += 10;
+                      planets[currentPlanet].iron -= 10;
+                  }
+              }
+
+              
           }
           
         }
@@ -1391,16 +1472,34 @@ function mousePressed(){
       if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy uranium
         if(credits>=planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin){
           if(planets[currentPlanet].uranium>=10){
-            if(document.getElementById("button").paused==true){
-              document.getElementById("button").play();  
-            }else if(document.getElementById("button2").paused==true){
-              document.getElementById("button2").play(); 
-            }else{
-              document.getElementById("button3").play(); 
-            }
-            credits -= (planets[currentPlanet].uraniumValue+planets[currentPlanet].profitMargin);
-            uranium+=10;
-            planets[currentPlanet].uranium-=10;  
+              var weight = iron + uranium + gold;
+              if (ship.cargoSize == 1) {
+                  if (weight < 21) {
+                      if (document.getElementById("button").paused == true) {
+                          document.getElementById("button").play();
+                      } else if (document.getElementById("button2").paused == true) {
+                          document.getElementById("button2").play();
+                      } else {
+                          document.getElementById("button3").play();
+                      }
+                      credits -= (planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin);
+                      uranium += 10;
+                      planets[currentPlanet].uranium -= 10;
+                  }
+              } else if (ship.cargoSize == 2) {
+                  if (weight < 51) {
+                      if (document.getElementById("button").paused == true) {
+                          document.getElementById("button").play();
+                      } else if (document.getElementById("button2").paused == true) {
+                          document.getElementById("button2").play();
+                      } else {
+                          document.getElementById("button3").play();
+                      }
+                      credits -= (planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin);
+                      uranium += 10;
+                      planets[currentPlanet].uranium -= 10;
+                  }
+              } 
           }
           
         }
@@ -1424,16 +1523,34 @@ function mousePressed(){
       if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy gold
         if(credits>=planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin){
           if(planets[currentPlanet].gold>=10){
-            if(document.getElementById("button").paused==true){
-              document.getElementById("button").play();  
-            }else if(document.getElementById("button2").paused==true){
-              document.getElementById("button2").play(); 
-            }else{
-              document.getElementById("button3").play(); 
-            }
-            credits -= (planets[currentPlanet].goldValue+planets[currentPlanet].profitMargin);
-            gold+=10;
-            planets[currentPlanet].gold-=10;  
+              var weight = iron + uranium + gold;
+              if (ship.cargoSize == 1) {
+                  if (weight < 21) {
+                      if (document.getElementById("button").paused == true) {
+                          document.getElementById("button").play();
+                      } else if (document.getElementById("button2").paused == true) {
+                          document.getElementById("button2").play();
+                      } else {
+                          document.getElementById("button3").play();
+                      }
+                      credits -= (planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin);
+                      gold += 10;
+                      planets[currentPlanet].gold -= 10;
+                  }
+              } else if (ship.cargoSize == 2) {
+                  if (weight < 51) {
+                      if (document.getElementById("button").paused == true) {
+                          document.getElementById("button").play();
+                      } else if (document.getElementById("button2").paused == true) {
+                          document.getElementById("button2").play();
+                      } else {
+                          document.getElementById("button3").play();
+                      }
+                      credits -= (planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin);
+                      gold += 10;
+                      planets[currentPlanet].gold -= 10;
+                  }
+              }  
           }
           
         }
@@ -1537,6 +1654,12 @@ function mousePressed(){
               planets[currentPlanet].parts.splice(a,1);
               ship.laser=2;
             }
+          }else if (planets[currentPlanet].parts[a].t == 4) {
+              if (credits >= 30) {
+                  credits -= 30;
+                  planets[currentPlanet].parts.splice(a, 1);
+                  ship.cargoSize = 2;
+              }
           }
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  

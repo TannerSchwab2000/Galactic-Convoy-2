@@ -10,7 +10,8 @@ function Ship(){
 	this.warping = false;
 	this.braking = false;
 	this.laser = 1;
-	this.engine = 1;
+    this.engine = 1;
+    this.cargoSize = 1;
 
 
 	this.update = function(){
@@ -51,15 +52,31 @@ function Ship(){
 		var pieceDistance;
 		for(var i=0;i<pieces.length;i++){
 			pieceDistance = abs(this.pos.x - pieces[i].pos.x)+abs(this.pos.y - pieces[i].pos.y);
-			if(pieceDistance<ship.r){
-
-				if(pieces[i].resourceType == "iron"){
-					iron++;
-				}else if(pieces[i].resourceType == "uranium"){
-					uranium++;
-				}else if(pieces[i].resourceType == "gold"){
-					gold++;
-				}
+            if (pieceDistance < ship.r) {
+                if (this.cargoSize == 1) {
+                    var weight = iron + uranium + gold;
+                    if (weight < 30) {
+                        if(pieces[i].resourceType == "iron"){
+					        iron++;
+				        }else if(pieces[i].resourceType == "uranium"){
+					        uranium++;
+				        }else if(pieces[i].resourceType == "gold"){
+					        gold++;
+				        }
+                    }
+                }else if (this.cargoSize == 2) {
+                    var weight = iron + uranium + gold;
+                    if (weight < 60) {
+                        if (pieces[i].resourceType == "iron") {
+                            iron++;
+                        } else if (pieces[i].resourceType == "uranium") {
+                            uranium++;
+                        } else if (pieces[i].resourceType == "gold") {
+                            gold++;
+                        }
+                    }
+                }
+				
 
 			pieces.splice(i,1);
 			}
