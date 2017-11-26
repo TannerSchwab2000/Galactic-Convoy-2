@@ -47,7 +47,7 @@ function Planet(x,y,r,planetNumber){
 	this.mayorColorR = random(0,200);
 	this.mayorColorG = random(0,200);
 	this.mayorColorB = random(0,200);
-	this.mayorEyes = round(random(1,2));
+	this.mayorEyes = round(random(1,3));
 	this.mayorHair = round(random(0,4));
 	this.mayorNose = round(random(0,1));
 	this.mayorCrown = round(random(0,1));
@@ -181,7 +181,7 @@ function Planet(x,y,r,planetNumber){
 		this.welcomePhrase = "Welcome to " + this.planetName;
 	}
 
-	var rand = round(random(1,3));
+	var rand = round(random(1,2));
 	for(var a=0;a<rand;a++){
 		if(planetNumber>10){
 			var rand2 = round(random(1,3));	
@@ -238,11 +238,11 @@ function Planet(x,y,r,planetNumber){
 		if(rand == 1){
 			this.ironSpawn = true;
 		}
-		rand = round(random(1,2));
+		rand = round(random(1,3));
 		if(rand == 1){
 			this.uraniumSpawn = true;
 		}
-		rand = round(random(1,2));
+		rand = round(random(1,4));
 		if(rand == 1){
 			this.goldSpawn = true;
 		}
@@ -251,19 +251,19 @@ function Planet(x,y,r,planetNumber){
 		if(this.ironSpawn == true){
 			ironNumber = round(random(3,5));
 			for(var i=0;i<ironNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"iron"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-80,windowHeight-10),"iron"));
 			}
 		}
 		if(this.uraniumSpawn == true){
 			var uraniumNumber = round(random(2,4));
 			for(var i=0;i<uraniumNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"uranium"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-80,windowHeight-10),"uranium"));
 			}
 		}
 		if(this.goldSpawn == true){
 			var goldNumber = round(random(1,3));
 			for(var i=0;i<goldNumber;i++){
-				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-90,windowHeight-10),"gold"));
+				this.resources.push(new Resource(random(0,windowWidth),random(windowHeight-80,windowHeight-10),"gold"));
 			}
 		}
 

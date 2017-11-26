@@ -240,7 +240,8 @@ function Missle(n){
                 var distance = abs(this.pos.x - planets[a].cargoShips[b].pos.x) + abs(this.pos.y - planets[a].cargoShips[b].pos.y)
                 if (distance < 60) {
                     if (planets[a].cargoShips[b].questShip == true) {
-                        displayMessage("Cargo Ship Destroyed",2);
+                        displayMessage("Cargo Ship Destroyed", 2);
+                        document.getElementById("win").play();  
                         currentQuest = new Quest(0, 0);
                     }
                     planets[a].cargoShips.splice(b, 1);
@@ -253,9 +254,10 @@ function Missle(n){
 			if(abs(enemies[i].pos.x - this.pos.x) + abs(enemies[i].pos.y - this.pos.y) < 60){
 				if(enemies[i].stage==1){
 					if(enemies[i].enemyNumber==currentQuest.focus&&currentQuest.t==1){
-						displayMessage("Target Eliminated",2);
+                        displayMessage("Target Eliminated", 2);
+                        document.getElementById("win").play();  
 						currentQuest = new Quest(0,0);
-						credits+=10;
+						credits+=25;
 					}else{
 						credits+=5;	
 					}
@@ -346,7 +348,8 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
             if (questShip == true) {
                 planets[currentQuest.p].cargoShips.splice(shipNumber, 1);
                 displayMessage("Ship Escorted", 2);
-                credits += 10;
+                document.getElementById("win").play();  
+                credits += 30;
                 currentQuest = new Quest(0,0);
             } else {
                 if(target == planets[homeworld]){
