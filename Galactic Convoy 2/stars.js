@@ -183,7 +183,7 @@ function Planet(x,y,r,planetNumber){
 	var rand = round(random(1,3));
 	for(var a=0;a<rand;a++){
 		if(planetNumber>10){
-			var rand2 = round(random(3,3));	
+			var rand2 = round(random(1,3));	
 		}else{
             var rand2 = 1;	
 		}

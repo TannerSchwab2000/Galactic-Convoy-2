@@ -192,14 +192,19 @@ function enemyMissle(x,y,h,v){
 			
 		}
 
-		for(var i=0;i<friendlies.length;i++){
-			if(abs(friendlies[i].pos.x - this.pos.x) + abs(friendlies[i].pos.y - this.pos.y) < 50){
-				Explode(friendlies[i].pos.x,friendlies[i].pos.y);
-				friendlies.splice(i,1);
-				score-=10;
-				gameScore-=10;
-			}
-		}
+        for (var a = 0; a < planets.length; a++) {
+            for (var b = 0; b < planets[a].cargoShips.length; b++) {
+                var distance = abs(this.pos.x - planets[a].cargoShips[b].pos.x) + abs(this.pos.y - planets[a].cargoShips[b].pos.y)
+                if (distance < 60) {
+                    if (planets[a].cargoShips[b].questShip == true) {
+                        displayMessage("Cargo Ship Destroyed", 2);
+                        currentQuest = new Quest(0, 0);
+                    }
+                    planets[a].cargoShips.splice(b, 1);
+                    Explode(0, 0);
+                }
+            }
+        }
 	}
 
 	this.render = function(){

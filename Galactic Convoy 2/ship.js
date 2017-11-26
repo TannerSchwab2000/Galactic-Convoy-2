@@ -232,7 +232,23 @@ function Missle(n){
 		}
 		
 
-		this.pos.add(this.vel);
+        this.pos.add(this.vel);
+
+
+        for (var a = 0; a < planets.length; a++) {
+            for (var b = 0; b < planets[a].cargoShips.length; b++) {
+                var distance = abs(this.pos.x - planets[a].cargoShips[b].pos.x) + abs(this.pos.y - planets[a].cargoShips[b].pos.y)
+                if (distance < 60) {
+                    if (planets[a].cargoShips[b].questShip == true) {
+                        displayMessage("Cargo Ship Destroyed",2);
+                        currentQuest = new Quest(0, 0);
+                    }
+                    planets[a].cargoShips.splice(b, 1);
+                    Explode(0,0);
+                }
+            }
+        }
+
 		for(var i=0;i<enemies.length;i++){
 			if(abs(enemies[i].pos.x - this.pos.x) + abs(enemies[i].pos.y - this.pos.y) < 60){
 				if(enemies[i].stage==1){
@@ -317,7 +333,8 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
 	this.iron = 0;
 	this.uranium = 0;
 	this.gold = 0;
-	this.originalTarget = target;
+    this.originalTarget = target;
+    this.questShip = questShip;
 
 	this.update = function(){
 		this.pos.add(this.vel);

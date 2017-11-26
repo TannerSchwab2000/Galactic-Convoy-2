@@ -1505,13 +1505,26 @@ function mousePressed(){
       if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Accept Button
         currentQuest = new Quest(planets[currentPlanet].quests[questNumber].t,currentPlanet);
         currentQuest.focus = planets[currentPlanet].quests[questNumber].focus;
-        planets[currentPlanet].quests.splice(questNumber,1);
+        planets[currentPlanet].quests.splice(questNumber, 1);
+        for (var a = 0; a < planets.length; a++) {
+            for (var b = 0; b < planets[a].cargoShips.length; b++) {
+                if (planets[a].cargoShips[b].questShip == true) {
+                    planets[a].cargoShips.splice(b,1);
+                }
+            }
+        }
         menu=2;
         if (currentQuest.t == 3) {
             planets[currentPlanet].cargoShips.push(new cargoShip(planets[currentPlanet].pos.x, planets[currentPlanet].pos.y, planets[currentQuest.focus], currentPlanet, true, planets[currentPlanet].cargoShips.length - 1));
             var middleX = (planets[currentPlanet].pos.x + planets[currentQuest.focus].pos.x) / 2;
             var middleY = (planets[currentPlanet].pos.y + planets[currentQuest.focus].pos.y) / 2;
-            enemies.push(new Enemy(middleX, middleY, enemies.length-1));
+            var rand = round(random(2, 4));
+            for (var a = 0; a < rand; a++) {
+                var xOffset = round(random(-100, 100));
+                var yOffset = round(random(-100, 100));
+                enemies.push(new Enemy(middleX + xOffset, middleY + yOffset, enemies.length - 1));
+            }
+            
         }
       }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Decline Button
         menu=5;
