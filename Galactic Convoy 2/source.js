@@ -175,6 +175,10 @@ function draw(){
       enemies[i].render();
       enemies[i].update();
     }
+    for (var i = 0; i < pieces.length; i++) {
+        pieces[i].render();
+        pieces[i].update();
+    }
 
 
     if (messageDisplayed == true) {
@@ -633,6 +637,7 @@ function keyReleased(){
       backgroundColor.push(0,0,0);
       airFriction = 0.97;
       boostSpeed = 1.5;
+      pieces.splice(0,pieces.length);
     }else{
       for(var i=0;i<planets.length;i++){
         if(abs(planets[i].Xdistance)+abs(planets[i].Ydistance) < planets[i].r/2){
@@ -1738,12 +1743,26 @@ function Piece (x,y,type){
   this.vel = p5.Vector.random2D();
   this.resourceType = type;
 
-  this.vel.y = constrain(0,100);
 
 
   this.update = function(){
     this.vel.mult(0.99);
     this.pos.add(this.vel);
+
+    if (ship.pos.x > this.pos.x) {
+        this.Xdistance = abs(ship.pos.x - this.pos.x);
+        this.Xdistance = this.Xdistance * -1;
+    } else {
+        this.Xdistance = abs(ship.pos.x - this.pos.x);
+    }
+    if (ship.pos.y > this.pos.y) {
+        this.Ydistance = abs(ship.pos.y - this.pos.y);
+        this.Ydistance = this.Ydistance * -1;
+    } else if (ship.pos.y == this.pos.y) {
+        this.Ydistance = 0;
+    } else {
+        this.Ydistance = abs(ship.pos.y - this.pos.y);
+    }
   }
 
   this.render = function(){
@@ -1753,8 +1772,13 @@ function Piece (x,y,type){
       fill(0,255,0);
     }else if(type=="gold"){
       fill(255,215,0);
-    }
-    ellipse(this.pos.x,this.pos.y,15,15);
+      }
+      if (onPlanet == true) {
+        ellipse(this.pos.x,this.pos.y,15,15);
+      } else {
+        ellipse(windowWidth / 2 + this.Xdistance, windowHeight / 2 + this.Ydistance, 15,15);
+      }
+    
   }
 } 
 

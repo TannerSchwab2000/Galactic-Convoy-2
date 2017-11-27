@@ -60,10 +60,10 @@ function Planet(x,y,r,planetNumber){
 	this.uraniumSpawn = false;
 	this.goldSpawn = false;
 	this.resources = [];
-	this.iron = round(random(0,500));
-	this.uranium = round(random(0,500));
-	this.gold = round(random(0,500));
-	this.credits = round(random(10,1000));
+	this.iron = round(random(120,500));
+	this.uranium = round(random(120,500));
+	this.gold = round(random(120,500));
+	this.credits = round(random(0,1000));
 	this.profitMargin = round(random(1,4));
 	this.ironValue;
 	this.uraniumValue;
@@ -72,9 +72,11 @@ function Planet(x,y,r,planetNumber){
 	this.trees = round(random(-1,2));
     this.lake = round(random(0, 2));
     this.mountains = round(random(-1,2));
-	this.quests = [];
+    this.quests = [];
+    this.planetNumber = planetNumber;
 	var lastBlink = start;
-	var blink = 1;
+    var blink = 1;
+    
 
 	if(this.mayorHair==1){
 		this.mayorCrown=0;
@@ -281,9 +283,10 @@ function Planet(x,y,r,planetNumber){
 						if(planets[i].planetName != this.planetName){
 							var travelDistance = d;
 						}
-						if(travelDistance < 5000){
+						if(travelDistance < 20000){//10000
 							this.fuelCost = 1;
-							this.cargoShips.push(new cargoShip(this.pos.x,this.pos.y,planets[i],planetNumber,false));
+
+                            this.cargoShips.push(new cargoShip(this.pos.x, this.pos.y, planets[i], planetNumber, false));
 						}else{
 							this.fuelCost = 2;
 						}

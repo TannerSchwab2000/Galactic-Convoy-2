@@ -261,6 +261,19 @@ function Missle(n){
                         document.getElementById("win").play();  
                         currentQuest = new Quest(0, 0);
                     }
+                    var type;
+                    if (planets[a].cargoShips[b].iron > 0) {
+                        var type = "iron";
+                    } else if (planets[a].cargoShips[b].uranium > 0) {
+                        var type = "uranium";
+                    } else if (planets[a].cargoShips[b].gold > 0) {
+                        var type = "gold";
+                    }
+                    console.log(type);
+                    for (var c = 0; c < 60; c++) {
+                        pieces.push(new Piece(planets[a].cargoShips[b].pos.x, planets[a].cargoShips[b].pos.y,type));
+                    }
+                    
                     planets[a].cargoShips.splice(b, 1);
                     Explode(0,0);
                 }
@@ -349,11 +362,31 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
 	this.Xdistance = abs(ship.pos.x-this.pos.x);
 	this.Ydistance = abs(ship.pos.y-this.pos.y);
 	this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
-	this.iron = 0;
-	this.uranium = 0;
-	this.gold = 0;
+    this.iron = 0;
+    this.uranium = 0;
+    this.gold = 0;
     this.originalTarget = target;
     this.questShip = questShip;
+
+    var rand = round(random(1, 3));
+    if (rand == 1) {
+        this.iron = 60;
+        if (planets[homeworld].iron > 59) {
+            planets[homeworld].iron -= 60;
+        }    
+    } else if (rand == 2) {
+        this.uranium = 60;
+        if (planets[homeworld].uranium > 59) {
+            planets[homeworld].uranium -= 60;
+        }    
+
+    } if (rand == 3) {
+        this.gold = 60;
+        if (planets[homeworld].gold > 59) {
+            planets[homeworld].gold -= 60;
+        }    
+    }
+
 
 	this.update = function(){
 		this.pos.add(this.vel);
@@ -369,14 +402,65 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
                 credits += 30;
                 currentQuest = new Quest(0,0);
             } else {
-                if(target == planets[homeworld]){
-				    target = this.originalTarget;
-				    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
-				
+                if (target == planets[homeworld]) {
+                    planets[homeworld].iron += this.iron;
+                    planets[homeworld].uranium += this.uranium;
+                    planets[homeworld].gold += this.gold;
+                    this.iron = 0;
+                    this.uranium = 0;
+                    this.gold = 0;
+
+                    var rand = round(random(1, 3));
+                    if (rand == 1) {
+                        if (planets[homeworld].iron >= 60) {
+                            planets[homeworld].iron -= 60;
+                            this.iron = 60;
+                        }
+                    }else if (rand == 2) {
+                        if (planets[homeworld].uranium >= 60) {
+                            planets[homeworld].uranium -= 60;
+                            this.uranium = 60;
+                        }
+                    }else if (rand == 3) {
+                        if (planets[homeworld].gold >= 60) {
+                            planets[homeworld].gold -= 60;
+                            this.gold = 60;
+                        }
+                    }
+
+                    target = this.originalTarget;
+                    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
+
+
 			    }else{
-				    target = planets[homeworld];
-				    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
-				
+                    target.iron += this.iron;
+                    target.uranium += this.uranium;
+                    target.gold += this.gold;
+                    this.iron = 0;
+                    this.uranium = 0;
+                    this.gold = 0;
+
+               
+
+                    var rand = round(random(1, 3));
+                    if (rand == 1) {
+                        if (target.iron >= 60) {
+                            target.iron -= 60;
+                            this.iron = 60;
+                        }
+                    }else if (rand == 2) {
+                        if (target.uranium >= 60) {
+                            target.uranium -= 60;
+                            this.uranium = 60;
+                        }
+                    }else if (rand == 3) {
+                        if (target.gold >= 60) {
+                            target.gold -= 60;
+                            this.gold = 60;
+                        }
+                    }
+                    target = planets[homeworld];
+                    this.heading = Math.atan2(target.pos.y - this.pos.y, target.pos.x - this.pos.x);
 
 			    }
             }
@@ -386,7 +470,7 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
 		if(questShip==true){
 			force.mult(0.4);	
 		}else{
-			force.mult(0.2);	
+			force.mult(0.6);//0.2	
 		}
      	
      	this.vel.add(force);	
