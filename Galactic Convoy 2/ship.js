@@ -270,7 +270,7 @@ function Missle(n){
                         var type = "gold";
                     }
                     console.log(type);
-                    for (var c = 0; c < 60; c++) {
+                    for (var c = 0; c < 10; c++) {
                         pieces.push(new Piece(planets[a].cargoShips[b].pos.x, planets[a].cargoShips[b].pos.y,type));
                     }
                     
@@ -467,12 +467,9 @@ function cargoShip(x,y,target,homeworld,questShip,shipNumber){
 			
 		}else{
 		var force = p5.Vector.fromAngle(this.heading);
-		if(questShip==true){
-			force.mult(0.4);	
-		}else{
-			force.mult(0.6);//0.2	
-		}
-     	
+		
+		force.mult(0.4);	
+		
      	this.vel.add(force);	
 		}
 		

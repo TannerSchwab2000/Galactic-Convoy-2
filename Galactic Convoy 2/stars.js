@@ -283,7 +283,7 @@ function Planet(x,y,r,planetNumber){
 						if(planets[i].planetName != this.planetName){
 							var travelDistance = d;
 						}
-						if(travelDistance < 20000){//10000
+						if(travelDistance < 10000){
 							this.fuelCost = 1;
 
                             this.cargoShips.push(new cargoShip(this.pos.x, this.pos.y, planets[i], planetNumber, false));

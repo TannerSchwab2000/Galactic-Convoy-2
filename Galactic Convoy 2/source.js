@@ -194,7 +194,7 @@ function draw(){
 
     stroke(0,255,0);
     fill(0,255,0);
-    var cx = constrain(marker.x - ship.pos.x+ windowWidth/2,0,windowWidth); 
+    var cx = constrain(marker.x - ship.pos.x + windowWidth/2,0,windowWidth); 
     var cy = constrain(marker.y - ship.pos.y + windowHeight/2,0,windowHeight); 
     ellipse(cx,cy,50,50);
     noStroke();
