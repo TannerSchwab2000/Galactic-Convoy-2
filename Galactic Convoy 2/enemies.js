@@ -144,6 +144,133 @@ function Enemy(x,y,n){
 	}
 }
 
+function Guard(x, y, n, h) {
+    this.pos = createVector(x, y);
+    this.vel = createVector();
+    this.heading;
+    this.Xdistance;
+    this.Ydistance;
+    this.stage = 3;
+    this.spreadDirection = round(random(1, 3));
+    this.enemyNumber = n;
+    this.homePlanet = h;
+
+    this.update = function () {
+        this.vel.mult(0.95);
+        this.pos.add(this.vel);
+
+
+        if (ship.pos.x > this.pos.x) {
+            this.Xdistance = abs(ship.pos.x - this.pos.x);
+            this.Xdistance = this.Xdistance * -1;
+        } else {
+            this.Xdistance = abs(ship.pos.x - this.pos.x);
+        }
+        if (ship.pos.y > this.pos.y) {
+            this.Ydistance = abs(ship.pos.y - this.pos.y);
+            this.Ydistance = this.Ydistance * -1;
+        } else if (ship.pos.y == this.pos.y) {
+            this.Ydistance = 0;
+        } else {
+            this.Ydistance = abs(ship.pos.y - this.pos.y);
+        }
+        var a = abs(this.pos.x - planets[this.homePlanet].pos.x);
+        var b = abs(this.pos.y - planets[this.homePlanet].pos.y);
+        var fullDistance = abs(this.Ydistance) + abs(this.Xdistance);
+        var planetDistance = a + b;
+
+        if (fullDistance < 1400 && fullDistance > 500 && planetDistance < 1000) {
+            this.heading = Math.atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
+            var force = p5.Vector.fromAngle(this.heading);
+            force.mult(5);
+            this.vel.add(force);
+        } else if (planetDistance > 100 && fullDistance > 1000) {
+            this.heading = Math.atan2(planets[this.homePlanet].pos.y - this.pos.y, planets[this.homePlanet].pos.x - this.pos.x);
+            var force = p5.Vector.fromAngle(this.heading);
+            force.mult(5);
+            this.vel.add(force);
+        }
+
+        if (fullDistance < 900) {
+            this.heading = Math.atan2(ship.pos.y - this.pos.y, ship.pos.x - this.pos.x);
+            rand = round(random(1, 25));
+            if (rand == 1) {
+                enemyMissles.push(new enemyMissle(this.pos.x, this.pos.y, this.heading, this.vel));
+            }
+        }
+
+    }
+
+    this.render = function () {
+        if (currentQuest.t == 1 && currentQuest.focus == n) {
+            if (this.stage == 1) {
+                fill(255, 0, 0);
+            } else if (this.stage == 2) {
+                fill(255, 165, 0);
+            } else {
+                fill(255, 255, 0);
+            }
+            push();
+            stroke(0, 255, 0);
+            beginShape();
+            vertex(48.0, 30);
+            vertex(48.0, -12.0);
+            vertex(40.0, -12.0);
+            vertex(40.0, 11.0);
+            vertex(20, 11.0);
+            vertex(20, -20.0);
+            vertex(8.0, -20.0);
+            vertex(8.0, -44.0);
+            vertex(-8.0, -44.0);
+            vertex(-8.0, -20.0);
+            vertex(-20, -20.0);
+            vertex(-20, 11.0);
+            vertex(-40.0, 11.0);
+            vertex(-40.0, -12.0);
+            vertex(-48.0, -12.0);
+            vertex(-48.0, 30)
+            var cx = constrain(this.Xdistance, -windowWidth / 2 + 10, windowWidth / 2 - 10);
+            var cy = constrain(this.Ydistance, -windowHeight / 2 + 10, windowHeight / 2 - 10);
+            translate(windowWidth / 2 + cx, windowHeight / 2 + cy);
+            rotate(this.heading + 1.56);
+            endShape();
+            pop();
+        } else {
+            if (this.stage == 1) {
+                fill(255, 0, 0);
+            } else if (this.stage == 2) {
+                fill(255, 165, 0);
+            } else {
+                fill(255, 255, 0);
+            }
+            push();
+            noStroke();
+            beginShape();
+            vertex(48.0, 30);
+            vertex(48.0, -12.0);
+            vertex(40.0, -12.0);
+            vertex(40.0, 11.0);
+            vertex(20, 11.0);
+            vertex(20, -20.0);
+            vertex(8.0, -20.0);
+            vertex(8.0, -44.0);
+            vertex(-8.0, -44.0);
+            vertex(-8.0, -20.0);
+            vertex(-20, -20.0);
+            vertex(-20, 11.0);
+            vertex(-40.0, 11.0);
+            vertex(-40.0, -12.0);
+            vertex(-48.0, -12.0);
+            vertex(-48.0, 30)
+            translate(windowWidth / 2 + this.Xdistance, windowHeight / 2 + this.Ydistance);
+            rotate(this.heading + 1.56);
+            endShape();
+            pop();
+        }
+
+    }
+}
+
 function enemyMissle(x,y,h,v){
 	this.pos = createVector(x,y);
 	this.vel = createVector();

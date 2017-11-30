@@ -275,7 +275,28 @@ function Missle(n){
                     }
                     
                     planets[a].cargoShips.splice(b, 1);
+                    planets[a].relation -= 10;
                     Explode(0,0);
+                }
+            } for (var b = 0; b < planets[a].guards.length; b++) {
+                var distance = abs(this.pos.x - planets[a].guards[b].pos.x) + abs(this.pos.y - planets[a].guards[b].pos.y)
+                if (distance < 60) {
+                    if (planets[a].guards[b].stage == 1) {
+                        planets[a].guards.splice(b, 1);
+                        planets[a].relation -= 10;
+                        Explode(0, 0);
+                    } else {
+                        this.pos.x = -90000;
+                        planets[a].guards[b].stage -= 1;
+                        if (document.getElementById("shield2").paused == true) {
+                            document.getElementById("shield2").play();
+                        } else if (document.getElementById("shield2A").paused == true) {
+                            document.getElementById("shield2A").play();
+                        } else {
+                            document.getElementById("shield2B").play();
+                        }
+                    }
+                    
                 }
             }
         }
@@ -302,12 +323,12 @@ function Missle(n){
 					this.pos.y=-100;
 					enemies[i].stage--;
 					if(document.getElementById("shield2").paused==true){
-		    				document.getElementById("shield2").play();	
-		    			}else if(document.getElementById("shield2A").paused==true){
-		    				document.getElementById("shield2A").play();	
-		    			}else{
-		    				document.getElementById("shield2B").play();	
-		    			}
+		    			document.getElementById("shield2").play();	
+		    		}else if(document.getElementById("shield2A").paused==true){
+		    			document.getElementById("shield2A").play();	
+		    		}else{
+		    			document.getElementById("shield2B").play();	
+		    		}
 				}
 
 			}

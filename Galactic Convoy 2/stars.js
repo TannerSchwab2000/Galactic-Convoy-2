@@ -54,7 +54,8 @@ function Planet(x,y,r,planetNumber){
 	this.mayorFacialHair = round(random(0,3));
 	this.r = r;
 	this.civilized = false;
-	this.cargoShips = [];
+    this.cargoShips = [];
+    this.guards = [];
 	this.fuelCost;
 	this.ironSpawn = false;
 	this.uraniumSpawn = false;
@@ -74,6 +75,7 @@ function Planet(x,y,r,planetNumber){
     this.mountains = round(random(-1,2));
     this.quests = [];
     this.planetNumber = planetNumber;
+    this.relation = 0;
 	var lastBlink = start;
     var blink = 1;
     
@@ -271,7 +273,7 @@ function Planet(x,y,r,planetNumber){
 
 	}
 
-	this.update = function(){
+    this.update = function () {
 		
 		this.pos.add(this.vel);
 
@@ -378,7 +380,9 @@ function Planet(x,y,r,planetNumber){
 			}	
 		}
 
-		
+        if (totalDistance < 2000 && this.relation < -10 && this.guards.length == 0) {
+            this.guards.push(new Guard(this.pos.x, this.pos.y, enemies.length - 1, this.planetNumber));
+        }
 		
 
 	}

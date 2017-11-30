@@ -154,6 +154,10 @@ function draw(){
     for(var i=0;i<planets.length;i++){
       planets[i].render();
       planets[i].update();
+      for (var a = 0; a < planets[i].guards.length;a++){
+          planets[i].guards[a].render();
+          planets[i].guards[a].update();
+      }
     }
     for(var i=0;i<stars.length;i++){
       stars[i].update();
@@ -179,6 +183,7 @@ function draw(){
         pieces[i].render();
         pieces[i].update();
     }
+
 
 
     if (messageDisplayed == true) {
@@ -466,7 +471,14 @@ function draw(){
       pieces[i].render();
       pieces[i].update();
   }
+  
   var roundCredits = round(credits);
+
+  writeText(planets[currentPlanet].planetName, 10, 10);
+  if (planets[currentPlanet].civilized == true) {
+    writeText("relation:" + planets[currentPlanet].relation, 10, 40);
+  }
+  
   writeText("credits:" + roundCredits.toString(),10,840);
   fill(50,50,50);
   rect(5,windowHeight-65,210,30);
@@ -838,13 +850,21 @@ function townScreen(){
     noStroke();
     fill(255);
     strokeWeight(1);
-    text("Dock",windowWidth/2-55,windowHeight/2-32);
-    text("Quests",windowWidth/2-55,windowHeight/2+3);
+    if (planets[currentPlanet].relation > -10) {
+        text("Dock",windowWidth/2-55,windowHeight/2-32);
+        text("Quests",windowWidth/2-55,windowHeight/2+3);
+    }
+    
     text("Goodbye",windowWidth/2-55,windowHeight/2+38);
 
     stroke(0);
     fill(0);
-    text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+    if (planets[currentPlanet].relation < -9) {
+        text("You're not welcome here.", windowWidth / 2 - 130, windowHeight / 2 - 80);
+    } else {
+        text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+    }
+    
     noStroke();
   }else if(menu==3){
     fill(100);
@@ -1587,8 +1607,8 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-      }
-      if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-55,windowWidth/2+150,windowHeight/2-25)){//Dock Button
+        }
+        if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 55, windowWidth / 2 + 150, windowHeight / 2 - 25) && planets[currentPlanet].relation > -10) {//Dock Button
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
         menu=3;
@@ -1599,7 +1619,7 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-      }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Quests Button
+        } else if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 20, windowWidth / 2 + 150, windowHeight / 2 + 10) && planets[currentPlanet].relation > -10){//Quests Button
             menu = 5;
             document.getElementById("button").play();  
         }
