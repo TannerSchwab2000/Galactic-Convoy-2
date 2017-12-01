@@ -72,10 +72,12 @@ function Planet(x,y,r,planetNumber){
 	this.parts = [];
 	this.trees = round(random(-1,2));
     this.lake = round(random(0, 2));
-    this.mountains = round(random(-1,2));
+    this.mountains = round(random(-1, 2));
+    this.clouds = round(random(-1, 1));
     this.quests = [];
     this.planetNumber = planetNumber;
     this.relation = 0;
+    this.guardKillTime = Date.now();
 	var lastBlink = start;
     var blink = 1;
     
@@ -381,7 +383,10 @@ function Planet(x,y,r,planetNumber){
 		}
 
         if (totalDistance < 2000 && this.relation < -10 && this.guards.length == 0) {
-            this.guards.push(new Guard(this.pos.x, this.pos.y, enemies.length - 1, this.planetNumber));
+            var timeSinceDeath = round(Date.now() - this.guardKillTime);
+            if (timeSinceDeath > 3000) {
+                this.guards.push(new Guard(this.pos.x, this.pos.y, enemies.length - 1, this.planetNumber));
+            } 
         }
 		
 

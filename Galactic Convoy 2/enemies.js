@@ -202,46 +202,12 @@ function Guard(x, y, n, h) {
     }
 
     this.render = function () {
-        if (currentQuest.t == 1 && currentQuest.focus == n) {
             if (this.stage == 1) {
-                fill(255, 0, 0);
+                fill(planets[this.homePlanet].colorR - 40, planets[this.homePlanet].colorG - 40, planets[this.homePlanet].colorB - 40);
             } else if (this.stage == 2) {
-                fill(255, 165, 0);
+                fill(planets[this.homePlanet].colorR+10, planets[this.homePlanet].colorG+10, planets[this.homePlanet].colorB+10);
             } else {
-                fill(255, 255, 0);
-            }
-            push();
-            stroke(0, 255, 0);
-            beginShape();
-            vertex(48.0, 30);
-            vertex(48.0, -12.0);
-            vertex(40.0, -12.0);
-            vertex(40.0, 11.0);
-            vertex(20, 11.0);
-            vertex(20, -20.0);
-            vertex(8.0, -20.0);
-            vertex(8.0, -44.0);
-            vertex(-8.0, -44.0);
-            vertex(-8.0, -20.0);
-            vertex(-20, -20.0);
-            vertex(-20, 11.0);
-            vertex(-40.0, 11.0);
-            vertex(-40.0, -12.0);
-            vertex(-48.0, -12.0);
-            vertex(-48.0, 30)
-            var cx = constrain(this.Xdistance, -windowWidth / 2 + 10, windowWidth / 2 - 10);
-            var cy = constrain(this.Ydistance, -windowHeight / 2 + 10, windowHeight / 2 - 10);
-            translate(windowWidth / 2 + cx, windowHeight / 2 + cy);
-            rotate(this.heading + 1.56);
-            endShape();
-            pop();
-        } else {
-            if (this.stage == 1) {
-                fill(255, 0, 0);
-            } else if (this.stage == 2) {
-                fill(255, 165, 0);
-            } else {
-                fill(255, 255, 0);
+                fill(planets[this.homePlanet].colorR + 60, planets[this.homePlanet].colorG + 60, planets[this.homePlanet].colorB + 60);
             }
             push();
             noStroke();
@@ -266,8 +232,6 @@ function Guard(x, y, n, h) {
             rotate(this.heading + 1.56);
             endShape();
             pop();
-        }
-
     }
 }
 

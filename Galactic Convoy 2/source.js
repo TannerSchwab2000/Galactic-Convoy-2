@@ -269,6 +269,21 @@ function draw(){
   }else{
   background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
 
+  if (planets[currentPlanet].clouds == 1) {
+      fill(255);
+      ellipse(windowWidth / 2 - 130, windowHeight - 720, 110, 90);
+      ellipse(windowWidth / 2 - 50, windowHeight - 720, 110, 90);
+      ellipse(windowWidth / 2 - 100, windowHeight - 760, 110, 90);
+
+      ellipse(windowWidth / 2  + 370, windowHeight - 820, 110, 90);
+      ellipse(windowWidth / 2  + 450, windowHeight - 820, 110, 90);
+      ellipse(windowWidth / 2 + 400, windowHeight - 860, 110, 90);
+
+      ellipse(windowWidth / 2 - 530, windowHeight - 820, 110, 90);
+      ellipse(windowWidth / 2 - 450, windowHeight - 820, 110, 90);
+      ellipse(windowWidth / 2 - 500, windowHeight - 860, 110, 90);
+  }
+
 
   if (planets[currentPlanet].mountains == 1) {
       fill(backgroundColor[0] - 40, backgroundColor[1] - 40, backgroundColor[2] - 40);

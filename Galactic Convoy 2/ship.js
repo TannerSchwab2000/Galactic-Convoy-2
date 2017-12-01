@@ -285,6 +285,7 @@ function Missle(n){
                         planets[a].guards.splice(b, 1);
                         planets[a].relation -= 10;
                         Explode(0, 0);
+                        planets[a].guardKillTime = Date.now();
                     } else {
                         this.pos.x = -90000;
                         planets[a].guards[b].stage -= 1;
