@@ -273,18 +273,17 @@ function Missle(n){
                     for (var c = 0; c < 10; c++) {
                         pieces.push(new Piece(planets[a].cargoShips[b].pos.x, planets[a].cargoShips[b].pos.y,type));
                     }
-                    
+                    Explode(planets[a].cargoShips[b].pos.x, planets[a].cargoShips[b].pos.y);
                     planets[a].cargoShips.splice(b, 1);
                     planets[a].relation -= 10;
-                    Explode(0,0);
                 }
             } for (var b = 0; b < planets[a].guards.length; b++) {
                 var distance = abs(this.pos.x - planets[a].guards[b].pos.x) + abs(this.pos.y - planets[a].guards[b].pos.y)
                 if (distance < 60) {
                     if (planets[a].guards[b].stage == 1) {
+                        Explode(planets[a].guards[b].pos.x, planets[a].guards[b].pos.y);
                         planets[a].guards.splice(b, 1);
                         planets[a].relation -= 10;
-                        Explode(0, 0);
                         planets[a].guardKillTime = Date.now();
                     } else {
                         this.pos.x = -90000;
@@ -308,6 +307,7 @@ function Missle(n){
 					if(enemies[i].enemyNumber==currentQuest.focus&&currentQuest.t==1){
                         displayMessage("Target Eliminated", 2);
                         document.getElementById("win").play();  
+                        planets[currentQuest.p].relation += 5;
 						currentQuest = new Quest(0,0);
 						credits+=25;
 					}else{

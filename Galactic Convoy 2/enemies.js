@@ -38,7 +38,9 @@ function Enemy(x,y,n){
 					}
 				}	
 			}
-		}
+        }
+
+        
 
 		if(ship.pos.x > this.pos.x){
 			this.Xdistance = abs(ship.pos.x-this.pos.x);
@@ -70,7 +72,31 @@ function Enemy(x,y,n){
 			if(rand == 1){
 				enemyMissles.push(new enemyMissle(this.pos.x,this.pos.y,this.heading,this.vel));
 			}
-		}
+        }
+
+        if (fullDistance > 2000) {
+            for (var a = 0; a < planets.length; a++) {
+                for (var b = 0; b < planets[a].cargoShips.length; b++) {
+                    var d = abs(this.pos.x - planets[a].cargoShips[b].pos.x) + abs(this.pos.y - planets[a].cargoShips[b].pos.y);
+                    if (d < 1000 && d > 600) {
+                        this.heading = Math.atan2(planets[a].cargoShips[b].pos.y - this.pos.y, planets[a].cargoShips[b].pos.x - this.pos.x);
+                        var force = p5.Vector.fromAngle(this.heading);
+                        force.mult(5);
+                        this.vel.add(force);
+                    }
+
+                    if (d < 900) {
+                        this.heading = Math.atan2(planets[a].cargoShips[b].pos.y - this.pos.y, planets[a].cargoShips[b].pos.x - this.pos.x);
+                        rand = round(random(1, 25));
+                        if (rand == 1) {
+                            enemyMissles.push(new enemyMissle(this.pos.x, this.pos.y, this.heading, this.vel));
+                        }
+                    }
+
+                }
+            }
+        }
+        
 
 	}
 

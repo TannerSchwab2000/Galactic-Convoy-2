@@ -241,9 +241,17 @@ function draw(){
     text(gold.toString(), 360, windowHeight - 20);
 
     if (ship.cargoSize == 1) {
-        text(iron + uranium + gold + "/" + "30", 400, windowHeight - 25);
+        text(iron + uranium + gold + "/30", 400, windowHeight - 35);
     } else if (ship.cargoSize == 2) {
-        text(iron + uranium + gold + "/" + "60", 400, windowHeight - 25);
+        text(iron + uranium + gold + "/60", 400, windowHeight - 35);
+    }
+    if (iron + uranium + gold > 0) {
+        fill(125);
+        rect(398, windowHeight - 30, 48, 25);
+        fill(255);
+        textSize(16);
+        text("Empty", 399, windowHeight - 12);
+        textSize(24);
     }
     
 
@@ -279,9 +287,9 @@ function draw(){
       ellipse(windowWidth / 2  + 450, windowHeight - 820, 110, 90);
       ellipse(windowWidth / 2 + 400, windowHeight - 860, 110, 90);
 
-      ellipse(windowWidth / 2 - 530, windowHeight - 820, 110, 90);
-      ellipse(windowWidth / 2 - 450, windowHeight - 820, 110, 90);
-      ellipse(windowWidth / 2 - 500, windowHeight - 860, 110, 90);
+      ellipse(windowWidth / 2 - 530, windowHeight - 740, 110, 90);
+      ellipse(windowWidth / 2 - 450, windowHeight - 740, 110, 90);
+      ellipse(windowWidth / 2 - 500, windowHeight - 780, 110, 90);
   }
 
 
@@ -533,10 +541,19 @@ function draw(){
     text(gold.toString(), 360, windowHeight - 20);
 
     if (ship.cargoSize == 1) {
-        text(iron + uranium + gold + "/" + "30", 400, windowHeight - 25);
+        text(iron + uranium + gold + "/30", 400, windowHeight - 35);
     } else if (ship.cargoSize == 2) {
-        text(iron + uranium + gold + "/" + "60", 400, windowHeight - 25);
+        text(iron + uranium + gold + "/60", 400, windowHeight - 35);
     }
+    if (iron + uranium + gold > 0) {
+        fill(125);
+        rect(398, windowHeight - 30, 48, 25);
+        fill(255);
+        textSize(16);
+        text("Empty", 399, windowHeight - 12);
+        textSize(24);
+    }
+    
 
     if(messageDisplayed==true){
       if(Date.now()-displayStart<messageTime*1000){
@@ -680,7 +697,8 @@ function keyReleased(){
           boostSpeed = 0.5;
           if(currentQuest.t==2&&currentQuest.focus==currentPlanet){
             displayMessage("Package Delivered", 2);
-            document.getElementById("win").play();  
+            document.getElementById("win").play();
+            planets[currentQuest.p].relation += 5;
             currentQuest = new Quest(0,0);
             credits+=10;
           }
@@ -691,14 +709,18 @@ function keyReleased(){
 }
 }
 
-function Explode(x,y){
-  if(document.getElementById("explosion").paused==true){
-    document.getElementById("explosion").play();  
-  }else if(document.getElementById("explosion2").paused==true){
-    document.getElementById("explosion2").play();
+function Explode(x, y) {
+  var d = abs(x - ship.pos.x) + abs(y - ship.pos.y)
+  if (d < 3000){
+    if(document.getElementById("explosion").paused==true){
+        document.getElementById("explosion").play();  
+      }else if(document.getElementById("explosion2").paused==true){
+        document.getElementById("explosion2").play();
+      }
+      fill(255);
+      background(255);
   }
-  fill(255);
-  background(255);
+  
 }
 
 function townScreen(){
@@ -719,21 +741,15 @@ function townScreen(){
     rect(windowWidth/2-125,windowHeight/2-340,250,40);//Refuel Button
     fill(textShade);
     textSize(30);
-    text("Refuel" ,windowWidth/2-50,windowHeight/2-310);
+    text("Refuel", windowWidth / 2 - 50, windowHeight / 2 - 310);
     fill(125);
-    textSize(35);
-    fill(255);
-    text("Iron x10" ,windowWidth/2-260,windowHeight/2-220);
-    fill(125);
-    rect(windowWidth/2-125,windowHeight/2-290,250,40);//Refuel Button
+    rect(windowWidth / 2 - 125, windowHeight / 2 - 290, 250, 40);//Refuel Button
     fill(textShade);
     textSize(30);
-    text("Talk to Mayor" ,windowWidth/2-87,windowHeight/2-260);
+    text("Talk to Mayor", windowWidth / 2 - 87, windowHeight / 2 - 260);
+
+
     
-    textSize(30);
-    text("Uranium x10" ,windowWidth/2+55,windowHeight/2-220);
-    text("Gold x10" ,windowWidth/2-260,windowHeight/2-80);
-    fill(125);
 
 
     var ironValue = round(5-planets[currentPlanet].iron/100);
@@ -743,28 +759,41 @@ function townScreen(){
     var goldValue = round(10-planets[currentPlanet].gold/50);
     planets[currentPlanet].goldValue = goldValue;
 
-    rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy iron
-    rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell iron
-    rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy uranium
-    rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell uranium
-    rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy gold
-    rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell gold
-    fill(255);
-    textSize(11);
-    text(planets[currentPlanet].iron+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-220));
-    text(planets[currentPlanet].uranium+" in stock",(windowWidth/2+75) + 150,(windowHeight/2-220));
-    text(planets[currentPlanet].gold+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
+    if (planets[currentPlanet].relation > -10) {
+        fill(125);
+        rect(windowWidth/2-255,windowHeight/2-210,200,40);//Buy iron
+        rect(windowWidth/2-255,windowHeight/2-165,200,40);//Sell iron
+        rect(windowWidth/2+60,windowHeight/2-210,200,40);//Buy uranium
+        rect(windowWidth/2+60,windowHeight/2-165,200,40);//Sell uranium
+        rect(windowWidth/2-255,windowHeight/2-70,200,40);//Buy gold
+        rect(windowWidth/2-255,windowHeight/2-25,200,40);//Sell gold
+        fill(255);
+        textSize(11);
+        text(planets[currentPlanet].iron+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-220));
+        text(planets[currentPlanet].uranium+" in stock",(windowWidth/2+75) + 150,(windowHeight/2-220));
+        text(planets[currentPlanet].gold+" in stock",(windowWidth/2-240) + 150,(windowHeight/2-80));
 
-    textSize(26);
-    fill(255);
-    text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
-    text("sell - "+ironValue, windowWidth/2-235,windowHeight/2-136);
-    text("buy - "+(uraniumValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
-    text("sell - "+uraniumValue, windowWidth/2+85,windowHeight/2-136);
-    text("buy - "+(goldValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
-    text("sell - "+goldValue, windowWidth/2-235,windowHeight/2+4);
-    fill(125);
-    textSize(30);  
+        textSize(26);
+        fill(255);
+        text("buy - "+(ironValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-181);
+        text("sell - "+ironValue, windowWidth/2-235,windowHeight/2-136);
+        text("buy - "+(uraniumValue+planets[currentPlanet].profitMargin), windowWidth/2+85,windowHeight/2-181);
+        text("sell - "+uraniumValue, windowWidth/2+85,windowHeight/2-136);
+        text("buy - "+(goldValue+planets[currentPlanet].profitMargin), windowWidth/2-235,windowHeight/2-45);
+        text("sell - "+goldValue, windowWidth/2-235,windowHeight/2+4);
+        fill(125);
+        textSize(30); 
+
+        fill(125);
+        textSize(35);
+        fill(255);
+        text("Iron x10", windowWidth / 2 - 260, windowHeight / 2 - 220);
+        textSize(30);
+        text("Uranium x10", windowWidth / 2 + 55, windowHeight / 2 - 220);
+        text("Gold x10", windowWidth / 2 - 260, windowHeight / 2 - 80);
+        fill(125);
+    }
+     
   }else if(menu==2){
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
@@ -865,7 +894,7 @@ function townScreen(){
     noStroke();
     fill(255);
     strokeWeight(1);
-    if (planets[currentPlanet].relation > -10) {
+    if (planets[currentPlanet].relation > -20) {
         text("Dock",windowWidth/2-55,windowHeight/2-32);
         text("Quests",windowWidth/2-55,windowHeight/2+3);
     }
@@ -1282,7 +1311,11 @@ function townScreen(){
 
     stroke(0);
     fill(0);
-    text(planets[currentPlanet].welcomePhrase,windowWidth/2-130,windowHeight/2-80);
+    if (planets[currentPlanet].relation < -9) {
+        text("You're not welcome here.", windowWidth / 2 - 130, windowHeight / 2 - 80);
+    } else {
+        text(planets[currentPlanet].welcomePhrase, windowWidth / 2 - 130, windowHeight / 2 - 80);
+    }
     noStroke();
   }else if(menu==6){
     fill(100);
@@ -1420,7 +1453,14 @@ function mouseIsContainedIn(x1,y1,x2,y2){
 }
 
 function mousePressed(){
-  console.log(mouseX,mouseY);
+    console.log(mouseX, mouseY);
+
+    if (mouseIsContainedIn(398, windowHeight - 30, 398 + 48, windowHeight - 30 + 25)) {
+        iron = 0;
+        uranium = 0;
+        gold = 0;
+    }
+
   if(onPlanet == true && planets[currentPlanet].civilized == true){
     if(menu==1){
       if(credits > 0){
@@ -1457,8 +1497,8 @@ function mousePressed(){
 
       }
       if (mouseIsContainedIn(windowWidth / 2 - 255, windowHeight / 2 - 210, windowWidth / 2 - 55, windowHeight / 2 - 170)) {//Buy iron
-        if(credits>=planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin){
-          if (planets[currentPlanet].iron >= 10) {
+          if (credits >= planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin) {
+              if (planets[currentPlanet].iron >= 10 && planets[currentPlanet].relation > -10) {
               var weight = iron + uranium + gold;
               if (ship.cargoSize == 1) {
                   if (weight < 21) {
@@ -1471,7 +1511,8 @@ function mousePressed(){
                     }
                     credits -= (planets[currentPlanet].ironValue+planets[currentPlanet].profitMargin);
                     iron+=10;
-                    planets[currentPlanet].iron-=10;  
+                    planets[currentPlanet].iron -= 10;
+                    planets[currentPlanet].relation++;
                   }  
               }else if (ship.cargoSize == 2) {
                   if (weight < 51) {
@@ -1485,6 +1526,7 @@ function mousePressed(){
                       credits -= (planets[currentPlanet].ironValue + planets[currentPlanet].profitMargin);
                       iron += 10;
                       planets[currentPlanet].iron -= 10;
+                      planets[currentPlanet].relation++;
                   }
               }
 
@@ -1495,7 +1537,7 @@ function mousePressed(){
       }
 
       if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-165,windowWidth/2-55,windowHeight/2-125)){//Sell iron
-        if(iron>=10){
+          if (iron >= 10 && planets[currentPlanet].relation > -10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -1505,13 +1547,14 @@ function mousePressed(){
           }
           credits+=planets[currentPlanet].ironValue;
           iron-=10;
-          planets[currentPlanet].iron+=10;  
+          planets[currentPlanet].iron += 10;  
+          planets[currentPlanet].relation++;
         }
       }
      
       if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-210,windowWidth/2+260,windowHeight/2-170)){//Buy uranium
         if(credits>=planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin){
-          if(planets[currentPlanet].uranium>=10){
+            if (planets[currentPlanet].uranium >= 10 && planets[currentPlanet].relation > -10){
               var weight = iron + uranium + gold;
               if (ship.cargoSize == 1) {
                   if (weight < 21) {
@@ -1525,6 +1568,7 @@ function mousePressed(){
                       credits -= (planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin);
                       uranium += 10;
                       planets[currentPlanet].uranium -= 10;
+                      planets[currentPlanet].relation++;
                   }
               } else if (ship.cargoSize == 2) {
                   if (weight < 51) {
@@ -1538,6 +1582,7 @@ function mousePressed(){
                       credits -= (planets[currentPlanet].uraniumValue + planets[currentPlanet].profitMargin);
                       uranium += 10;
                       planets[currentPlanet].uranium -= 10;
+                      planets[currentPlanet].relation++;
                   }
               } 
           }
@@ -1546,7 +1591,7 @@ function mousePressed(){
       }
 
       if(mouseIsContainedIn(windowWidth/2+60,windowHeight/2-165,windowWidth/2+260,windowHeight/2-125)){//Sell uranium
-        if(uranium>=10){
+          if (uranium >= 10 && planets[currentPlanet].relation > -10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -1556,13 +1601,14 @@ function mousePressed(){
           }
           credits+=planets[currentPlanet].uraniumValue;
           uranium-=10;
-          planets[currentPlanet].uranium+=10;  
+          planets[currentPlanet].uranium += 10;  
+          planets[currentPlanet].relation++;
         }
       }
 
       if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-70,windowWidth/2-55,windowHeight/2-30)){//Buy gold
         if(credits>=planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin){
-          if(planets[currentPlanet].gold>=10){
+            if (planets[currentPlanet].gold >= 10 && planets[currentPlanet].relation > -10){
               var weight = iron + uranium + gold;
               if (ship.cargoSize == 1) {
                   if (weight < 21) {
@@ -1576,6 +1622,7 @@ function mousePressed(){
                       credits -= (planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin);
                       gold += 10;
                       planets[currentPlanet].gold -= 10;
+                      planets[currentPlanet].relation++;
                   }
               } else if (ship.cargoSize == 2) {
                   if (weight < 51) {
@@ -1589,6 +1636,7 @@ function mousePressed(){
                       credits -= (planets[currentPlanet].goldValue + planets[currentPlanet].profitMargin);
                       gold += 10;
                       planets[currentPlanet].gold -= 10;
+                      planets[currentPlanet].relation++;
                   }
               }  
           }
@@ -1597,7 +1645,7 @@ function mousePressed(){
       }
 
       if(mouseIsContainedIn(windowWidth/2-255,windowHeight/2-25,windowWidth/2-55,windowHeight/2+15)){//Sell gold
-        if(gold>=10){
+          if (gold >= 10 && planets[currentPlanet].relation > -10){
           if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -1607,7 +1655,8 @@ function mousePressed(){
           }
           credits+=planets[currentPlanet].goldValue;
           gold-=10;
-          planets[currentPlanet].gold+=10;  
+          planets[currentPlanet].gold += 10;  
+          planets[currentPlanet].relation++;
         }
       }
 
@@ -1623,7 +1672,7 @@ function mousePressed(){
             document.getElementById("button3").play(); 
           }
         }
-        if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 55, windowWidth / 2 + 150, windowHeight / 2 - 25) && planets[currentPlanet].relation > -10) {//Dock Button
+        if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 55, windowWidth / 2 + 150, windowHeight / 2 - 25) && planets[currentPlanet].relation > -20) {//Dock Button
         ship.pos = createVector(windowWidth/2,windowHeight/2-190);
         ship.vel = createVector(0,0);
         menu=3;
@@ -1634,7 +1683,7 @@ function mousePressed(){
           }else{
             document.getElementById("button3").play(); 
           }
-        } else if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 20, windowWidth / 2 + 150, windowHeight / 2 + 10) && planets[currentPlanet].relation > -10){//Quests Button
+        } else if (mouseIsContainedIn(windowWidth / 2 - 150, windowHeight / 2 - 20, windowWidth / 2 + 150, windowHeight / 2 + 10) && planets[currentPlanet].relation > -20){//Quests Button
             menu = 5;
             document.getElementById("button").play();  
         }
@@ -1651,7 +1700,7 @@ function mousePressed(){
       }
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-90,windowWidth/2+80,windowHeight/2-30)){//Buy Parts Button
         menu=4;
-        ship.pos = createVector(windowWidth/2-200,windowHeight/2-190);
+        ship.pos = createVector(windowWidth / 2, windowHeight / 2 + 150);
         if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
           }else if(document.getElementById("button2").paused==true){
@@ -1663,7 +1712,7 @@ function mousePressed(){
     }else if(menu==4){
       if(mouseIsContainedIn(windowWidth/2-80,windowHeight/2-30,windowWidth/2+80,windowHeight/2+20)){//Back Button
         menu=3;
-        ship.pos = createVector(windowWidth/2,windowHeight/2-190);
+        ship.pos = createVector(windowWidth / 2, windowHeight / 2 + 150);
         ship.vel = createVector(0,0);
         if(document.getElementById("button").paused==true){
             document.getElementById("button").play();  
