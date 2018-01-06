@@ -12,6 +12,7 @@ function Ship(){
 	this.laser = 1;
     this.engine = 1;
     this.cargoSize = 1;
+    this.justLeft = false;
 
 
 	this.update = function(){
@@ -62,7 +63,8 @@ function Ship(){
 					        uranium++;
 				        }else if(pieces[i].resourceType == "gold"){
 					        gold++;
-				        }
+                        }
+                        pieces.splice(i, 1);
                     }
                 }else if (this.cargoSize == 2) {
                     var weight = iron + uranium + gold;
@@ -74,11 +76,9 @@ function Ship(){
                         } else if (pieces[i].resourceType == "gold") {
                             gold++;
                         }
+                        pieces.splice(i, 1);
                     }
                 }
-				
-
-			pieces.splice(i,1);
 			}
 		}
 

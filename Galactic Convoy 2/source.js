@@ -53,6 +53,7 @@ var message;
 var messageDisplayed;
 var messageTime;
 var displayStart;
+var takeOffTime;
 
 
 
@@ -196,6 +197,12 @@ function draw(){
         }
     }
 
+    if (Date.now() - takeOffTime < 3000) {
+        ship.justLeft = true;
+    } else {
+        ship.justLeft = false;
+    }
+
 
     stroke(0,255,0);
     fill(0,255,0);
@@ -210,6 +217,28 @@ function draw(){
     writeText(round(shipSpeed*0.0208).toString() + " megameters per second",10,60);
     if((ship.pos.x>renderDistance||ship.pos.x<renderDistance*-1)||(ship.pos.y>renderDistance||ship.pos.y<renderDistance*-1)){
       writeText("out of bounds",10,110);
+    }
+
+    for (var i = 0; i < planets.length; i++) {
+        if (abs(planets[i].Xdistance) + abs(planets[i].Ydistance) < planets[i].r / 2 && ship.justLeft == false) {
+            currentPlanet = i;
+            onPlanet = true;
+            backgroundColor.splice(0, backgroundColor.length);
+            backgroundColor.push(planets[i].colorR + 50, planets[i].colorG + 50, planets[i].colorB + 50)
+            Xcoord = ship.pos.x;
+            Ycoord = ship.pos.y;
+            ship.pos.x = windowWidth / 2;
+            ship.pos.y = windowHeight / 2;
+            airFriction = 0.95;
+            boostSpeed = 0.5;
+            if (currentQuest.t == 2 && currentQuest.focus == currentPlanet) {
+                displayMessage("Package Delivered", 2);
+                document.getElementById("win").play();
+                planets[currentQuest.p].relation += 5;
+                currentQuest = new Quest(0, 0);
+                credits += 10;
+            }
+        }
     }
 
 
@@ -240,6 +269,7 @@ function draw(){
     fill(255);
     text(gold.toString(), 360, windowHeight - 20);
 
+    text("Cargo", 391, windowHeight - 58);
     if (ship.cargoSize == 1) {
         text(iron + uranium + gold + "/30", 400, windowHeight - 35);
     } else if (ship.cargoSize == 2) {
@@ -275,7 +305,22 @@ function draw(){
       ship.render();
     }
   }else{
-  background(backgroundColor[0],backgroundColor[1],backgroundColor[2]);
+      background(backgroundColor[0], backgroundColor[1], backgroundColor[2]);
+
+      if (ship.pos.y == 0) {
+          menu = 1;
+          onPlanet = false;
+          textShade = 255;
+          ship.pos.x = Xcoord;
+          ship.pos.y = Ycoord;
+          backgroundColor.splice(0, backgroundColor.length);
+          backgroundColor.push(0, 0, 0);
+          airFriction = 0.97;
+          boostSpeed = 1.5;
+          pieces.splice(0, pieces.length);
+          takeOffTime = Date.now();
+      }
+      
 
   if (planets[currentPlanet].clouds == 1) {
       fill(255);
@@ -540,6 +585,7 @@ function draw(){
     fill(255);
     text(gold.toString(), 360, windowHeight - 20);
 
+    text("Cargo", 391, windowHeight - 58);
     if (ship.cargoSize == 1) {
         text(iron + uranium + gold + "/30", 400, windowHeight - 35);
     } else if (ship.cargoSize == 2) {
@@ -670,41 +716,6 @@ function keyReleased(){
       boostDirection = 2;
     }
 
-  }else if(keyCode==32){
-    if(onPlanet == true){
-      menu=1;
-      onPlanet = false;
-      textShade = 255;
-      ship.pos.x = Xcoord;
-      ship.pos.y = Ycoord;
-      backgroundColor.splice(0,backgroundColor.length);
-      backgroundColor.push(0,0,0);
-      airFriction = 0.97;
-      boostSpeed = 1.5;
-      pieces.splice(0,pieces.length);
-    }else{
-      for(var i=0;i<planets.length;i++){
-        if(abs(planets[i].Xdistance)+abs(planets[i].Ydistance) < planets[i].r/2){
-          currentPlanet = i;
-          onPlanet = true;  
-          backgroundColor.splice(0,backgroundColor.length);
-          backgroundColor.push(planets[i].colorR+50,planets[i].colorG+50,planets[i].colorB+50)
-          Xcoord = ship.pos.x;
-          Ycoord = ship.pos.y;
-          ship.pos.x = windowWidth/2;
-          ship.pos.y = windowHeight/2; 
-          airFriction = 0.95;
-          boostSpeed = 0.5;
-          if(currentQuest.t==2&&currentQuest.focus==currentPlanet){
-            displayMessage("Package Delivered", 2);
-            document.getElementById("win").play();
-            planets[currentQuest.p].relation += 5;
-            currentQuest = new Quest(0,0);
-            credits+=10;
-          }
-        }
-      }
-    }
   }
 }
 }
@@ -910,7 +921,8 @@ function townScreen(){
     }
     
     noStroke();
-  }else if(menu==3){
+  } else if (menu == 3) {
+    ship.pos = createVector(windowWidth / 2, windowHeight / 2 - 190);
     fill(100);
     rect(windowWidth/2-300,windowHeight/2-400,600,450);
     fill(90);
@@ -1796,7 +1808,7 @@ function mousePressed(){
             }
         }
         menu=2;
-        if (currentQuest.t == 3) {
+        if (currentQuest.t == 3) { 
             planets[currentPlanet].cargoShips.push(new cargoShip(planets[currentPlanet].pos.x, planets[currentPlanet].pos.y, planets[currentQuest.focus], currentPlanet, true, planets[currentPlanet].cargoShips.length - 1));
             var middleX = (planets[currentPlanet].pos.x + planets[currentQuest.focus].pos.x) / 2;
             var middleY = (planets[currentPlanet].pos.y + planets[currentQuest.focus].pos.y) / 2;
@@ -1806,10 +1818,25 @@ function mousePressed(){
                 var yOffset = round(random(-100, 100));
                 enemies.push(new Enemy(middleX + xOffset, middleY + yOffset, enemies.length - 1));
             }
-            
+           
+        }
+
+        if (document.getElementById("button").paused == true) {
+            document.getElementById("button").play();
+        } else if (document.getElementById("button2").paused == true) {
+            document.getElementById("button2").play();
+        } else {
+            document.getElementById("button3").play();
         }
       }else if(mouseIsContainedIn(windowWidth/2-150,windowHeight/2-20,windowWidth/2+150,windowHeight/2+10)){//Decline Button
-        menu=5;
+          menu = 5;
+          if (document.getElementById("button").paused == true) {
+              document.getElementById("button").play();
+          } else if (document.getElementById("button2").paused == true) {
+              document.getElementById("button2").play();
+          } else {
+              document.getElementById("button3").play();
+          }
       }
     }
   }
@@ -1872,4 +1899,5 @@ function displayMessage(m,t){
   message = m;
   messageTime = t;
 }
+
 

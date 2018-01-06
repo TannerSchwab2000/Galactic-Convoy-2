@@ -317,8 +317,8 @@ function enemyMissle(x,y,h,v){
                         displayMessage("Cargo Ship Destroyed", 2);
                         currentQuest = new Quest(0, 0);
                     }
+                    Explode(planets[a].cargoShips[b].pos.x, planets[a].cargoShips[b].pos.y);
                     planets[a].cargoShips.splice(b, 1);
-                    Explode(0, 0);
                 }
             }
         }
