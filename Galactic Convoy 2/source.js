@@ -5,7 +5,7 @@ var missles;
 var enemyMissles;
 var dead = false;
 var enemySpeed = 1;
-var credits = 100;
+var credits = 10;
 var gameScore = 0;
 var kills = 0;
 var escorts = 0;
