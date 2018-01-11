@@ -7,7 +7,6 @@ function Ship(){
 	this.shieldMax = 0;
 	this.r = 60
 	this.heading = 0;
-	this.warping = false;
 	this.braking = false;
 	this.laser = 1;
     this.engine = 1;
@@ -33,19 +32,15 @@ function Ship(){
 				}
      			force.mult(boostSpeed);
      			this.vel.add(force);
-     			fuel-=0.03;
+     			if(this.engine==1||this.engine==2){
+     				fuel-=0.03;
+     			}else{
+     				fuel-=0.015;
+     			}
      		}
 		}
 		if(this.braking == true){
 			this.vel.mult(0.93);
-		}
-		if(this.warping == true){
-			if(fuel > 0){
-			var force = p5.Vector.fromAngle(this.heading);
-     		force.mult(warpSpeed);
-     		this.vel.add(force);
-     		fuel-=0.1;
-     		}
 		}
 		if(this.turning == true){
 			this.heading += this.turnDirection;
@@ -232,6 +227,41 @@ function Missle(n){
 			this.pos.add(adjustment.mult(40));
 		}
 		
+	}else if(ship.laser==3){
+		if(n==1){
+			this.pos = createVector(ship.pos.x ,ship.pos.y);
+			this.vel = createVector(ship.vel.x,ship.vel.y);
+			this.heading = ship.heading;
+			this.boosting = true;
+			this.Xdistance = abs(ship.pos.x-this.pos.x);
+			this.Ydistance = abs(ship.pos.y-this.pos.y);
+			var adjustment = p5.Vector.fromAngle(this.heading-HALF_PI);
+			this.pos.add(adjustment.mult(10));
+			var adjustment = p5.Vector.fromAngle(this.heading);
+			this.pos.add(adjustment.mult(40));	
+			this.heading-=0.1;
+		}else if(n==2){
+			this.pos = createVector(ship.pos.x ,ship.pos.y);
+			this.vel = createVector(ship.vel.x,ship.vel.y);
+			this.heading = ship.heading;
+			this.boosting = true;
+			this.Xdistance = abs(ship.pos.x-this.pos.x);
+			this.Ydistance = abs(ship.pos.y-this.pos.y);
+			var adjustment = p5.Vector.fromAngle(this.heading);
+			this.pos.add(adjustment.mult(40));
+		}else{
+			this.pos = createVector(ship.pos.x ,ship.pos.y);
+			this.vel = createVector(ship.vel.x,ship.vel.y);
+			this.heading = ship.heading;
+			this.boosting = true;
+			this.Xdistance = abs(ship.pos.x-this.pos.x);
+			this.Ydistance = abs(ship.pos.y-this.pos.y);
+			var adjustment = p5.Vector.fromAngle(this.heading+HALF_PI);
+			this.pos.add(adjustment.mult(10));
+			var adjustment = p5.Vector.fromAngle(this.heading);
+			this.pos.add(adjustment.mult(40));
+			this.heading+=0.1;
+		}
 	}
 	var force = p5.Vector.fromAngle(this.heading);
 	force.mult(30);

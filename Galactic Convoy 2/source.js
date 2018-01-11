@@ -5,7 +5,7 @@ var missles;
 var enemyMissles;
 var dead = false;
 var enemySpeed = 1;
-var credits = 10;
+var credits = 100;
 var gameScore = 0;
 var kills = 0;
 var escorts = 0;
@@ -54,6 +54,8 @@ var messageDisplayed;
 var messageTime;
 var displayStart;
 var takeOffTime;
+var lastFire = Date.now();
+var reloadTime = 0.25;
 
 
 
@@ -131,7 +133,7 @@ function draw(){
 
   if(onPlanet == false){
 
-    if(ship.engine==1){
+    if(ship.engine==1||ship.engine==3){
       boostSpeed = 1.1;  
     }else{
       boostSpeed = 1.5;  
@@ -197,7 +199,7 @@ function draw(){
         }
     }
 
-    if (Date.now() - takeOffTime < 3000) {
+    if (Date.now() - takeOffTime < 2000) {
         ship.justLeft = true;
     } else {
         ship.justLeft = false;
@@ -223,6 +225,7 @@ function draw(){
         if (abs(planets[i].Xdistance) + abs(planets[i].Ydistance) < planets[i].r / 2 && ship.justLeft == false) {
             currentPlanet = i;
             onPlanet = true;
+            ship.vel.mult(0.4);
             backgroundColor.splice(0, backgroundColor.length);
             backgroundColor.push(planets[i].colorR + 50, planets[i].colorG + 50, planets[i].colorB + 50)
             Xcoord = ship.pos.x;
@@ -283,6 +286,27 @@ function draw(){
         text("Empty", 399, windowHeight - 12);
         textSize(24);
     }
+
+    if(ship.laser==1){
+      fill(255)
+      text("Basic Laser",windowWidth-175,windowHeight-50); 
+    }else if(ship.laser==2){
+      fill(255)
+      text("Double Laser",windowWidth-180,windowHeight-50); 
+    }else if(ship.laser==3){
+      fill(255)
+      text("Shotgun Laser",windowWidth-187,windowHeight-50); 
+    }
+
+    var timeSinceFire = Date.now() - lastFire;
+      if(timeSinceFire>=reloadTime*1000){
+        fill(0,255,0);
+        text("Ready to Fire",windowWidth-180,windowHeight-20); 
+      }else{
+        fill(255,0,0);
+        text("Reloading",windowWidth-165,windowHeight-20); 
+      }
+    
     
 
   
@@ -653,24 +677,35 @@ function keyPressed(){
   }else if(keyCode==83){
     ship.braking = true;
   }else if(keyCode==186){
-    if(ship.laser==1){
-      missles.push(new Missle());
-    }else if(ship.laser==2){
-      missles.push(new Missle(1)); 
-      missles.push(new Missle(2)); 
+    var timeSinceFire = Date.now() - lastFire;
+    if(timeSinceFire>=reloadTime*1000){
+      if(ship.laser==1){
+        lastFire = Date.now();
+        missles.push(new Missle());
+      }else if(ship.laser==2){
+        lastFire = Date.now();
+        missles.push(new Missle(1)); 
+        missles.push(new Missle(2)); 
+      }else if(ship.laser==3){
+        lastFire = Date.now();
+        missles.push(new Missle(1)); 
+        missles.push(new Missle(2)); 
+        missles.push(new Missle(3)); 
+      }
+      
+      if(document.getElementById("laser").paused==true){
+        document.getElementById("laser").play();
+      }else if(document.getElementById("laser2").paused==true){
+        document.getElementById("laser2").play();
+      }else if(document.getElementById("laser3").paused==true){
+        document.getElementById("laser3").play();
+      }else if(document.getElementById("laser4").paused==true){
+        document.getElementById("laser4").play();
+      }else if(document.getElementById("laser5").paused==true){
+        document.getElementById("laser5").play();
+      }  
     }
     
-    if(document.getElementById("laser").paused==true){
-      document.getElementById("laser").play();
-    }else if(document.getElementById("laser2").paused==true){
-      document.getElementById("laser2").play();
-    }else if(document.getElementById("laser3").paused==true){
-      document.getElementById("laser3").play();
-    }else if(document.getElementById("laser4").paused==true){
-      document.getElementById("laser4").play();
-    }else if(document.getElementById("laser5").paused==true){
-      document.getElementById("laser5").play();
-    }
   }else if(keyCode==77){
     marker.x = ship.pos.x;
     marker.y = ship.pos.y;
@@ -939,9 +974,13 @@ function townScreen(){
       textSize(16);
       text("Basic Laser",windowWidth/2-200,windowHeight/2-275); 
       textSize(23);
-    }if(ship.laser==2){
+    }else if(ship.laser==2){
       textSize(15);
       text("Double Laser",windowWidth/2-200,windowHeight/2-275); 
+      textSize(23);
+    }else if(ship.laser==3){
+      textSize(15);
+      text("Shotgun Laser",windowWidth/2-200,windowHeight/2-275); 
       textSize(23);
     }
     if(ship.engine==1){
@@ -951,6 +990,10 @@ function townScreen(){
     }else if(ship.engine==2){
       textSize(14);
       text("Powerful Engine",windowWidth/2-100,windowHeight/2-275);
+      textSize(23);
+    }else if(ship.engine==3){
+      textSize(12);
+      text("Fuel Efficent Engine",windowWidth/2-100,windowHeight/2-275);
       textSize(23);
     }
     if(ship.shieldMax==255){
@@ -1025,6 +1068,17 @@ function townScreen(){
       fill(130);
       rect(windowWidth/2-200 + 50,windowHeight/2-310,30,10);
 
+    }else if(ship.laser==3){
+      fill(130);
+      noStroke();
+      rect(windowWidth/2-215 + 50,windowHeight/2-365,30,10);
+      fill(100,100,255);
+      rect(windowWidth/2-210 + 50,windowHeight/2-355,20,45);
+      fill(190,190,255);
+      rect(windowWidth/2-205 + 50,windowHeight/2-355,10,45);
+      fill(130);
+      rect(windowWidth/2-215 + 50,windowHeight/2-310,30,10);
+
     }
     if(ship.engine==1){
       push();
@@ -1092,6 +1146,39 @@ function townScreen(){
       translate(windowWidth/2-50,windowHeight/2-315);
       endShape();
       pop();
+    }if(ship.engine==3){
+      push();
+      beginShape();
+      fill(110);
+      noStroke();
+      vertex(-20,0);
+      vertex(20,0);
+      vertex(20,-20);
+      vertex(25,-30);
+      vertex(15,-40);
+      vertex(0,-30);
+      vertex(-15,-40);
+      vertex(-25,-30);
+      vertex(-20,-20);
+      translate(windowWidth/2-46,windowHeight/2-315);
+      endShape();
+      pop();
+      push();
+      beginShape();
+      fill(120);
+      noStroke();
+      vertex(-20,0);
+      vertex(20,0);
+      vertex(20,-20);
+      vertex(25,-30);
+      vertex(15,-40);
+      vertex(0,-30);
+      vertex(-15,-40);
+      vertex(-25,-30);
+      vertex(-20,-20);
+      translate(windowWidth/2-50,windowHeight/2-315);
+      endShape();
+      pop();
     }
   noStroke();
   }else if(menu==4){
@@ -1119,8 +1206,7 @@ function townScreen(){
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
-      }  
-      if(planets[currentPlanet].parts[a].t==2){
+      }else if(planets[currentPlanet].parts[a].t==2){
         fill(120);
         rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
         fill(115);
@@ -1150,8 +1236,7 @@ function townScreen(){
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
-      }  
-      if(planets[currentPlanet].parts[a].t==3){
+      }else if(planets[currentPlanet].parts[a].t==3){
         fill(120);
         rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
         fill(115);
@@ -1179,8 +1264,7 @@ function townScreen(){
         textSize(16);
         text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
         textSize(23);
-      } 
-      if (planets[currentPlanet].parts[a].t == 4) {
+      }else if(planets[currentPlanet].parts[a].t == 4) {
           fill(120);
           rect(windowWidth / 2 - 110, windowHeight / 2 - 380 + 60 * a, 220, 50);
           fill(115);
@@ -1201,7 +1285,61 @@ function townScreen(){
           text("Buy", windowWidth / 2 + 60, windowHeight / 2 - 348 + 60 * a);
           textSize(23);
           noStroke();
-      } 
+      }else if (planets[currentPlanet].parts[a].t == 5) {
+          fill(120);
+        rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
+        fill(115);
+        rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        fill(135);
+        rect(windowWidth/2+50,windowHeight/2-370+60*a,50,30);
+        push();
+        beginShape();
+        fill(140);
+        noStroke();
+        vertex(-14,0);
+        vertex(14,0);
+        vertex(14,-14);
+        vertex(19,-24);
+        vertex(9,-34);
+        vertex(0,-24);
+        vertex(-9,-34);
+        vertex(-19,-24);
+        vertex(-14,-14);
+        translate(windowWidth/2-85,windowHeight/2-337+60*a);
+        endShape();
+        pop();
+        noStroke();  
+        fill(255);
+        textSize(9);
+        text("Fuel Efficent Engine - 70",windowWidth/2-60,windowHeight/2-348+60*a);
+        textSize(16);
+        text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
+        textSize(23);
+      }else if (planets[currentPlanet].parts[a].t == 6){
+        fill(120);
+        rect(windowWidth/2-110,windowHeight/2-380+60*a,220,50);
+        fill(115);
+        rect(windowWidth/2-105,windowHeight/2-375+60*a,40,40);
+        fill(135);
+        rect(windowWidth/2+50,windowHeight/2-370+60*a,50,30);
+
+        noStroke();
+        fill(100,100,255);
+        rect(windowWidth/2-90,windowHeight/2-372+60*a,12,30);
+        fill(190,190,255);
+        rect(windowWidth/2-87,windowHeight/2-367+60*a,7,25);
+        fill(130);
+        rect(windowWidth/2-91,windowHeight/2-372+60*a,14,8);
+        fill(130);
+        rect(windowWidth/2-91,windowHeight/2-347+60*a,14,8);
+        noStroke();  
+        fill(255);
+        textSize(11);
+        text("Shotgun Laser - 50",windowWidth/2-60,windowHeight/2-348+60*a);
+        textSize(16);
+        text("Buy",windowWidth/2+60,windowHeight/2-348+60*a);
+        textSize(23);
+      }
     }
     fill(125);
     rect(windowWidth/2-80,windowHeight/2-30,160,50);
@@ -1754,12 +1892,26 @@ function mousePressed(){
               credits-=50;
               planets[currentPlanet].parts.splice(a,1);
               ship.laser=2;
+              reloadTime = 0.5;
             }
           }else if (planets[currentPlanet].parts[a].t == 4) {
               if (credits >= 30) {
                   credits -= 30;
                   planets[currentPlanet].parts.splice(a, 1);
                   ship.cargoSize = 2;
+              }
+          }else if (planets[currentPlanet].parts[a].t == 5) {
+              if (credits >= 70) {
+                  credits -= 70;
+                  planets[currentPlanet].parts.splice(a, 1);
+                  ship.engine=3;
+              }
+          }else if (planets[currentPlanet].parts[a].t == 6) {
+              if (credits >= 50) {
+                  credits -= 50;
+                  planets[currentPlanet].parts.splice(a, 1);
+                  ship.laser=3;
+                  reloadTime = 0.5;
               }
           }
           if(document.getElementById("button").paused==true){
